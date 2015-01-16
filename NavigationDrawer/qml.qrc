@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>NavigationDrawer.qml</file>
+        <file>content/Bluebubble.svg</file>
+    </qresource>
+</RCC>

@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="en" ng-app="app">
+<head>
+  <meta charset="utf-8">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <title>Test</title>
+</head>
+
+<script>
+
+    function calculate(val1, val2) {
+      result = eval(parseFloat(document.calc.val1.value)+parseFloat(document.calc.val2.value))
+      this.parent.calc(result);
+    }
+</script>
+
+</head>
+  <body>
+  <center>
+
+
+    <FORM name="calc">
+      <input name="val1" type="text" value="3" size="4">+
+      <input name="val2" type="text" value="4" size="4">
+      <input type="button" value="  +  " onclick="calculate(val1, val2)">
+    </FORM>
+
+    <object type="text/qtexample" data="100,28" width="300" height="300"></object>
+    </center>
+
+    HELLO
+</body>
+</html>

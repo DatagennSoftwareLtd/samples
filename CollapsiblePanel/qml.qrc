@@ -1,0 +1,7 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>CollapsiblePanel.qml</file>
+        <file>images/arrowdown.png</file>
+    </qresource>
+</RCC>
