@@ -10,6 +10,9 @@
 #include <QQmlApplicationEngine>
 #include <QtQml/QQmlContext>
 
+#include <QtWebSockets/QWebSocketServer>
+#include <QtWebChannel>
+
 //#include <QWebView>
 //#include <QWebFrame>
 
@@ -38,6 +41,24 @@ int main(int argc, char *argv[])
        //QStringLiteral( "host.local/index.html") : parser.positionalArguments().first();
          QStringLiteral( "10.0.2.2/index2.html") : parser.positionalArguments().first();
 
+    QWebSocketServer server(QStringLiteral("QWebChannel Standalone Example Server"),
+                                QWebSocketServer::NonSecureMode);
+        if (!server.listen(QHostAddress::LocalHost, 12345)) {
+            qFatal("Failed to open web socket server.");
+            return 1;
+        }
+
+    // wrap WebSocket clients in QWebChannelAbstractTransport objects
+    WebSocketClientWrapper clientWrapper(&server);
+
+    // setup the channel
+    QWebChannel channel;
+    QObject::connect(&clientWrapper, &WebSocketClientWrapper::clientConnected,
+                     &channel, &QWebChannel::connectTo);
+
+    Bridge myBridge;
+    channel.registerObject("myBridge", &myBridge);
+
     QQmlApplicationEngine engine;
     QQmlContext *context = engine.rootContext();
     context->setContextProperty(QStringLiteral("utils"), new Utils(&engine));
@@ -55,6 +76,8 @@ int main(int argc, char *argv[])
     context->setContextProperty(QStringLiteral("initialWidth"), geometry.width());
     context->setContextProperty(QStringLiteral("initialHeight"), geometry.height());
 
+    context->setContextProperty(QStringLiteral("channel"), &channel);
+    context->setContextProperty(QStringLiteral("myBridge"), &myBridge);
     //const Bridge bridge;
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));

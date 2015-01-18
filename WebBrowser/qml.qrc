@@ -4,5 +4,6 @@
         <file>www/index.html</file>
         <file>images/left-32.png</file>
         <file>images/right-32.png</file>
+        <file>qwebchannel.js</file>
     </qresource>
 </RCC>
