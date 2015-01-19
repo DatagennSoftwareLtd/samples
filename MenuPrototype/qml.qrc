@@ -1,0 +1,11 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>MainForm.ui.qml</file>
+        <file>CollapsiblePanel.qml</file>
+        <file>NavigationDrawer.qml</file>
+        <file>images/arrowdown.png</file>
+        <file>MenuItems.qml</file>
+        <file>BurnerTelMenu.qml</file>
+    </qresource>
+</RCC>
