@@ -2,6 +2,7 @@
 #include <QQmlApplicationEngine>
 #include <QtQml/QQmlContext>
 
+#include "menuitem.h"
 #include "mainmenumodel.h"
 
 int main(int argc, char *argv[])

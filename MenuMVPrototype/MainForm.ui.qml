@@ -10,9 +10,4 @@ Rectangle {
         id: mouseArea
         anchors.fill: parent
     }
-
-    Text {
-        anchors.centerIn: parent
-        text: "Hello World"
-    }
 }

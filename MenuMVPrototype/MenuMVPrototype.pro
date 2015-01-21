@@ -3,7 +3,8 @@ TEMPLATE = app
 QT += qml quick
 
 SOURCES += main.cpp \
-    mainmenumodel.cpp
+    mainmenumodel.cpp \
+    menuitem.cpp
 
 RESOURCES += qml.qrc
 
@@ -14,4 +15,5 @@ QML_IMPORT_PATH =
 include(deployment.pri)
 
 HEADERS += \
-    mainmenumodel.h
+    mainmenumodel.h \
+    menuitem.h
