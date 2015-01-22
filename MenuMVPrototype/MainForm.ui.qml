@@ -9,5 +9,15 @@ Rectangle {
     MouseArea {
         id: mouseArea
         anchors.fill: parent
+
+        TextEdit {
+            id: textEdit1
+            x: 57
+            y: 41
+            width: 80
+            height: 20
+            text: qsTr("Text Edit")
+            font.pixelSize: 12
+        }
     }
 }

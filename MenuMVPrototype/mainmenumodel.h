@@ -12,6 +12,8 @@ class MainMenuModel : public QObject
 
     Q_PROPERTY(QQmlListProperty<MenuItem> list READ list CONSTANT)
 
+
+
 public:
     explicit MainMenuModel(QObject *parent = 0);
     ~MainMenuModel();

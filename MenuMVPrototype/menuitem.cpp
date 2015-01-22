@@ -4,6 +4,7 @@ MenuItem::MenuItem(QObject *parent)
   : QObject(parent)
   , _name("")
   , _value("")
+  , _type(ItButton)
 {
 
 }
@@ -27,5 +28,13 @@ void MenuItem::setValue(const QString &v)
         return;
     _value = v;
     emit valueChanged(v);
+}
+
+void MenuItem::setType(const int &t)
+{
+    if(_type == t)
+        return;
+    _type = (ItemType)t;
+    emit typeChanged(t);
 }
 

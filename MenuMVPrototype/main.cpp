@@ -11,7 +11,9 @@ int main(int argc, char *argv[])
 
     QQmlApplicationEngine engine;
 
-    qmlRegisterType<MenuItem>();
+    qmlRegisterType<MenuItem>("ItemType", 1, 0, "ItemType");
+    //qmlRegisterType<MenuItem>();
+
     QQmlContext *context = engine.rootContext();
     context->setContextProperty(QStringLiteral("mainMenuModel"), new MainMenuModel);
 

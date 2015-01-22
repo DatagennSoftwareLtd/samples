@@ -2,5 +2,7 @@
     <qresource prefix="/">
         <file>main.qml</file>
         <file>MainForm.ui.qml</file>
+        <file>CheckerDelegate.qml</file>
+        <file>EditDelegate.qml</file>
     </qresource>
 </RCC>
