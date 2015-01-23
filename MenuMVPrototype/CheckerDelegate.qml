@@ -1,12 +1,17 @@
 import QtQuick 2.0
+import QtQuick.Controls 1.2
+
+import ItemType 1.0
 
 Component {
     id: myCheckerDelegate
-    //property string delegateName: "CheckerDelegate"
+
+    //property int height: 30
+    //property int width: 150
 
     Rectangle {
         height: 30
-        width: view1.width
+        width: 150//parent.width //200
 
         Text {
             text: name
@@ -31,12 +36,12 @@ Component {
 
                 console.log("Checker");
 
-                if(type === ItemType.ItChecker)
+                if(model.type === ItemType.ItChecker)
                 {
-                    if(value === "On")
-                        value = "Off"
+                    if(model.value === "On")
+                        model.value = "Off"
                     else
-                        value = "On"
+                        model.value = "On"
                 }
                 else
                     ;//console.log("Not Checker");

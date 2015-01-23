@@ -43,6 +43,7 @@ ApplicationWindow {
                 anchors.fill: parent
                 onClicked: {
 
+                    console.log(model.type === ItemType.ItChecker);
                     if(model.type === ItemType.ItChecker)
                     {
                         console.log("Checker");
@@ -61,55 +62,39 @@ ApplicationWindow {
 
     ListView {
         id: view1
-        property bool isItem: false
 
         anchors { top: parent.top; left: parent.left; bottom: parent.bottom }
         width: parent.width / 2
         spacing: 5
 
-        //delegate : model.type !== ItemType.ItChecker ? myEditDelegate : myCheckerDelegate
-        //delegate : myEditDelegate
+        delegate : Item {
+            height: 30
+            width: parent.width
 
-        delegate : Component {
-            id: delegateComponent
             Loader {
-                id: delegateLoader
-                property string name: model.name
-                property string value: model.value
-                property int type: model.type
-
-                onLoaded: {
-                    console.log(model.type);
-                    console.log(ItemType.ItChecker);
-                    //sourceComponent = myEditDelegate;//myCheckerDelegate;
-                }
-               //source : (model.type === ItemType.ItChecker) ? "http://localhost/CheckerDelegate.qml" : "http://localhost/EditDelegate.qml"
-               sourceComponent: (model.type === ItemType.ItChecker) ? myCheckerDelegate : myEditDelegate
+                id: myLoader
+                sourceComponent: (type === ItemType.ItChecker ) ? my1 : my2
 
             }
-            /*
-            Connections {
-                target: delegateLoader.item
-                onMessage: {
-                    console.log(msg)
-                }
 
+            CheckerDelegate {
+                //width: parent.width
+                id: my1
             }
-            */
-
+            EditDelegate {
+                //width: parent.width
+                id: my2
+            }
         }
 
         model: mainMenuModel.list
 
-        Component /* Item*/{
+        Component {
             id: myCheckerDelegate
-            //property string delegateName: "CheckerDelegate"
-            //signal message(string msg)
 
             Rectangle {
                 height: 30
                 width: view1.width
-
                 Text {
                     text: name
                     anchors.left: parent.left
@@ -131,7 +116,7 @@ ApplicationWindow {
                     anchors.fill: parent
                     onClicked: {
 
-                        console.log("Checker");
+                        console.log("Checker:");
 
                         if(type === ItemType.ItChecker)
                         {
@@ -139,8 +124,6 @@ ApplicationWindow {
                                 value = "Off"
                             else
                                 value = "On";
-
-                            //myCheckerDelegate.message(value);
                         }
                         else
                             ;//console.log("Not Checker");
@@ -175,7 +158,7 @@ ApplicationWindow {
                     font.bold: true
                     font.pixelSize: 14
                     onEditingFinished: {
-                        //model.value = text
+                        value = text
                         console.log(text);
                     }
                 }
@@ -193,12 +176,4 @@ ApplicationWindow {
         model: mainMenuModel.list
     }
 
-    TextInput {
-        text: "value777777777777777777"
-        anchors.right: parent.right
-        anchors.rightMargin: 10
-        anchors.verticalCenter: parent.verticalCenter
-        font.bold: true
-        font.pixelSize: 14
-    }
 }

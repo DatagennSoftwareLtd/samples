@@ -17,3 +17,7 @@ include(deployment.pri)
 HEADERS += \
     mainmenumodel.h \
     menuitem.h
+
+DISTFILES += \
+    CheckerDelegate.qml \
+    EditDelegate.qml

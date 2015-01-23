@@ -1,14 +1,17 @@
 import QtQuick 2.4
 import QtQuick.Controls 1.2
+
 import ItemType 1.0
 
 Component {
     id: myEditDelegate
-    //property string delegateName: "EditDelegate"
+
+    //property int height: 30
+    //property int width: 150
 
     Rectangle {
         height: 30
-        width: view1.width
+        width: 150//parent.width //200
 
         Text {
             id: t1

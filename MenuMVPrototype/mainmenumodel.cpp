@@ -11,8 +11,8 @@ MainMenuModel::MainMenuModel(QObject *parent) : QObject(parent)
 
     _list.append(new MenuItem());
     _list.last()->setName(QStringLiteral("Missed Calls"));
-    _list.last()->setValue(QStringLiteral("On"));
-    _list.last()->setType(MenuItem::ItButton);
+    _list.last()->setValue(QStringLiteral("1234"));
+    _list.last()->setType(MenuItem::ItEdit);
 
     _list.append(new MenuItem());
     _list.last()->setName(QStringLiteral("Voicemail"));
