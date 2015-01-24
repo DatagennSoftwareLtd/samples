@@ -4,5 +4,9 @@
         <file>MainForm.ui.qml</file>
         <file>CheckerDelegate.qml</file>
         <file>EditDelegate.qml</file>
+        <file>ButtonDelegate.qml</file>
+        <file>images/button.png</file>
+        <file>images/buttonpressed.png</file>
+        <file>ButtonCustom.qml</file>
     </qresource>
 </RCC>

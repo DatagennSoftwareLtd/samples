@@ -20,4 +20,7 @@ HEADERS += \
 
 DISTFILES += \
     CheckerDelegate.qml \
-    EditDelegate.qml
+    EditDelegate.qml \
+    ButtonDelegate.qml \
+    ButtonCustom.qml
+

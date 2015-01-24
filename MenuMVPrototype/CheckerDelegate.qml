@@ -3,48 +3,55 @@ import QtQuick.Controls 1.2
 
 import ItemType 1.0
 
-Component {
-    id: myCheckerDelegate
+Item {
+    property Component mycomponent: myCheckerDelegate
+    property int mywidth: parent.width
+    id: myitem
 
-    //property int height: 30
-    //property int width: 150
+    Component {
+        id: myCheckerDelegate
 
-    Rectangle {
-        height: 30
-        width: 150//parent.width //200
+        Rectangle {
+            height: 30
+            width: mywidth//150//parent.width //200
 
-        Text {
-            text: name
-            anchors.left: parent.left
-            anchors.leftMargin: 10
-            anchors.verticalCenter: parent.verticalCenter
-            font.bold: true
-            font.pixelSize: 14
-        }
-        Text {
-            text: value
-            anchors.right: parent.right
-            anchors.rightMargin: 10
-            anchors.verticalCenter: parent.verticalCenter
-            font.bold: true
-            font.pixelSize: 14
-        }
+            property int parentwidth: parent.width
 
-        MouseArea {
-            anchors.fill: parent
-            onClicked: {
+            Text {
+                text: name
+                anchors.left: parent.left
+                anchors.leftMargin: 10
+                anchors.verticalCenter: parent.verticalCenter
+                font.bold: true
+                font.pixelSize: 14
+            }
+            Text {
+                text: value
+                anchors.right: parent.right
+                anchors.rightMargin: 10
+                anchors.verticalCenter: parent.verticalCenter
+                font.bold: true
+                font.pixelSize: 14
+            }
 
-                console.log("Checker");
+            MouseArea {
+                anchors.fill: parent
+                onClicked: {
 
-                if(model.type === ItemType.ItChecker)
-                {
-                    if(model.value === "On")
-                        model.value = "Off"
+                    console.log("Checker");
+                    console.log(parentwidth);
+                    console.log(myitem.mywidth);
+
+                    if(model.type === ItemType.ItChecker)
+                    {
+                        if(model.value === "On")
+                            model.value = "Off"
+                        else
+                            model.value = "On"
+                    }
                     else
-                        model.value = "On"
+                        ;//console.log("Not Checker");
                 }
-                else
-                    ;//console.log("Not Checker");
             }
         }
     }

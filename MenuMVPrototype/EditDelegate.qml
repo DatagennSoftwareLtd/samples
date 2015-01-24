@@ -3,38 +3,43 @@ import QtQuick.Controls 1.2
 
 import ItemType 1.0
 
-Component {
-    id: myEditDelegate
+Item {
+    property Component mycomponent: myEditDelegate
+    property int mywidth: parent.width
+    id: myitem
 
-    //property int height: 30
-    //property int width: 150
+    Component {
+        id: myEditDelegate
 
-    Rectangle {
-        height: 30
-        width: 150//parent.width //200
+        //property int height: 30
+        //property int width: 150
 
-        Text {
-            id: t1
-            text: name
-            anchors.left: parent.left
-            anchors.leftMargin: 10
-            anchors.verticalCenter: parent.verticalCenter
-            font.bold: true
-            font.pixelSize: 14
-        }
+        Rectangle {
+            height: 30
+            width: myitem.mywidth //200
 
-        TextInput {
-            text: value
-            anchors.right: parent.right
-            anchors.rightMargin: 10
-            anchors.verticalCenter: parent.verticalCenter
-            font.bold: true
-            font.pixelSize: 14
-            onEditingFinished: {
-                model.value = text
-                console.log(text);
+            Text {
+                id: t1
+                text: name
+                anchors.left: parent.left
+                anchors.leftMargin: 10
+                anchors.verticalCenter: parent.verticalCenter
+                font.bold: true
+                font.pixelSize: 14
+            }
+
+            TextInput {
+                text: value
+                anchors.right: parent.right
+                anchors.rightMargin: 10
+                anchors.verticalCenter: parent.verticalCenter
+                font.bold: true
+                font.pixelSize: 14
+                onEditingFinished: {
+                    model.value = text
+                    console.log(text);
+                }
             }
         }
     }
 }
-
