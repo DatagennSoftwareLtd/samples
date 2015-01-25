@@ -22,5 +22,7 @@ DISTFILES += \
     CheckerDelegate.qml \
     EditDelegate.qml \
     ButtonDelegate.qml \
-    ButtonCustom.qml
+    ButtonCustom.qml \
+    CollapsiblePanel.qml \
+    NavigationDrawer.qml
 

@@ -15,6 +15,140 @@ ApplicationWindow {
 
     }
 
+    NavigationDrawer {
+        id: drawer
+
+        opacity: 0.5
+        //anchors.top: toolBar.bottom
+        anchors.top: parent.top
+        anchors.bottom: parent.bottom
+
+        gradient: Gradient {
+            GradientStop { position: 0.0; color: "#707070" }
+            GradientStop { position: 1.0; color: "#000000" }
+        }
+
+        // Do Not Disturb
+        /*
+        Rectangle{
+            id: dNDButtonRect
+            width: parent.width
+            height: 40
+            gradient: Gradient {
+                GradientStop { position: 0.0; color: "#707070" }//"#1141a7" }
+                GradientStop { position: 1.0; color: "#000000" }//"#0f1273"}
+            }
+
+            Text{
+                text: "Do Not Disturb"
+                id: dNDtitleTxt
+                anchors.left: parent.left
+                anchors.leftMargin: 20
+                anchors.verticalCenter: parent.verticalCenter
+                font.bold: true
+                font.pixelSize: 18
+                color:  "#c1c3c8"
+            }
+
+            Text{
+                text: "off"
+                id: dNDstatusTxt
+                anchors.right: parent.right
+                anchors.rightMargin: 10
+                anchors.verticalCenter: parent.verticalCenter
+                font.bold: true
+                font.pixelSize: 18
+                color:  "#c1c3c8"
+            }
+
+            MouseArea{
+                width: parent.width
+                height:  parent.height
+                onClicked: {
+                    if (dNDstatusTxt.text == "on")
+                    {
+                        dNDstatusTxt.text = "off"
+                    }
+                    else
+                    {
+                        dNDstatusTxt.text = "on"
+                    }
+                }
+            }
+        }
+*/
+        //------------------------------------
+        //PIN Lock
+        //------------------------------------
+        ListModel {
+                id: d_t_PinLockModel
+                ListElement {
+                    settingNumber: 1
+                    settingName: "PIN"
+                    settingValue: "1234"
+                }
+                ListElement {
+                    settingNumber: 2
+                    settingName: "Status"
+                    settingValue: "On"
+
+                }
+                //setData(int row, const QString & field_name, QVariant new_value)
+        }
+        CollapsiblePanel {
+               id: panelPinLock
+               width: parent.width
+               height: parent.height
+               //anchors.top: dNDButtonRect.bottom
+               titleText: "Menu node"//"PIN Lock"
+               customModel: mainMenuModel.list
+               customDelegate:  Item {
+                   height: 30
+                   width: parent.width
+
+                   Loader {
+                       id: myLoader
+
+                       states: [
+                           State {
+                                   name: "checker"; when: type === ItemType.ItChecker
+                                   PropertyChanges { target: myLoader; sourceComponent: my1.mycomponent }
+                           },
+                           State {
+                                   name: "edit"; when: type === ItemType.ItEdit
+                                   PropertyChanges { target: myLoader; sourceComponent: my2.mycomponent }
+                           },
+                           State {
+                                   name: "button"; when: type === ItemType.ItButton
+                                   PropertyChanges { target: myLoader; sourceComponent: my3.mycomponent }
+                           }
+                       ]
+                   }
+
+                   CheckerDelegate {
+                       width: parent.width
+                       id: my1
+                   }
+                   EditDelegate {
+                       width: parent.width
+                       id: my2
+                   }
+
+                   ButtonDelegate {
+                       width: parent.width
+                       id: my3
+                   }
+               }
+
+               onItemselected:{
+                   console.log(index);
+               }
+        }
+
+
+    }
+}
+/*
     Component {
         id: myDelegate
 
@@ -158,3 +292,4 @@ ApplicationWindow {
     }
 
 }
+*/

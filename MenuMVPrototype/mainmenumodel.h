@@ -28,6 +28,12 @@ public slots:
 
 private:
     QList<MenuItem*> _list;
+
+    QList<MenuItem*> _pinLockSubmenu;
+    QList<MenuItem*> _blockedContactsSubmenu;
+    QList<MenuItem*> _notificationSubmenu;
+    QList<MenuItem*> _myAccountSubmenu;
+    QList<MenuItem*> _inviteFriendsSubmenu;
 };
 
 #endif // MAINMENUMODEL_H

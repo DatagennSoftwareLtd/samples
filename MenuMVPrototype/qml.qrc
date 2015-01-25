@@ -8,5 +8,11 @@
         <file>images/button.png</file>
         <file>images/buttonpressed.png</file>
         <file>ButtonCustom.qml</file>
+        <file>CollapsiblePanel.qml</file>
+        <file>NavigationDrawer.qml</file>
+        <file>images/arrowdown.png</file>
+        <file>images/invite.svg</file>
+        <file>images/vibrate.svg</file>
+        <file>images/userDef.png</file>
     </qresource>
 </RCC>
