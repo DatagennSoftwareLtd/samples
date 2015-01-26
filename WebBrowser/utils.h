@@ -21,19 +21,20 @@ public:
 class Bridge : public QObject {
     Q_OBJECT
 
-    Q_PROPERTY(int someProperty READ getSomeProperty WRITE setSomeProperty NOTIFY somePropertyChanged)
+    Q_PROPERTY(int someProperty READ someProperty WRITE setSomeProperty NOTIFY somePropertyChanged)
 public:
 
-    int getSomeProperty()const
+    int someProperty()const
     {
-        return someProperty;
+        return _someProperty;
     }
     void setSomeProperty(const int &i)
     {
-        someProperty = i;
+        _someProperty = i;
+         emit somePropertyChanged(i);
     }
 
-    Bridge(QObject* parent = 0) : QObject(parent), sum(0), someProperty(10) { }
+    Bridge(QObject* parent = 0) : QObject(parent), sum(0), _someProperty(0) { }
     Q_INVOKABLE QString fromHTML2QML()
     {
         return QString::number(sum);
@@ -46,11 +47,11 @@ protected slots:
     }
 
 signals:
-    void somePropertyChanged();
+    void somePropertyChanged(int);
 
 protected:
     int sum;
-    int someProperty;
+    int _someProperty;
 };
 
 #include <QtWebChannel/QWebChannelAbstractTransport>

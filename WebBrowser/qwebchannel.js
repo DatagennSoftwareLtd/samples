@@ -82,6 +82,9 @@ var QWebChannel = function(transport, initCallback)
             case QWebChannelMessageTypes.propertyUpdate:
                 channel.handlePropertyUpdate(data);
                 break;
+            case QWebChannelMessageTypes.init:
+                channel.handleInit(data);
+                break;
             default:
                 console.error("invalid message received:", message.data);
                 break;
@@ -146,20 +149,30 @@ var QWebChannel = function(transport, initCallback)
         channel.exec({type: QWebChannelMessageTypes.idle});
     }
 
-    this.debug = function(message)
+    // prevent multiple initialization which might happen with multiple webchannel clients.
+    this.initialized = false;
+    this.handleInit = function(message)
     {
-        channel.send({type: QWebChannelMessageTypes.debug, data: message});
-    };
-
-    channel.exec({type: QWebChannelMessageTypes.init}, function(data) {
-        for (var objectName in data) {
-            var object = new QObject(objectName, data[objectName], channel);
+        if (channel.initialized) {
+            return;
+        }
+        channel.initialized = true;
+        for (var objectName in message.data) {
+            var data = message.data[objectName];
+            var object = new QObject(objectName, data, channel);
         }
         if (initCallback) {
             initCallback(channel);
         }
         channel.exec({type: QWebChannelMessageTypes.idle});
-    });
+    }
+
+    this.debug = function(message)
+    {
+        channel.send({type: QWebChannelMessageTypes.debug, data: message});
+    };
+
+    channel.exec({type: QWebChannelMessageTypes.init});
 };
 
 function QObject(name, data, webChannel)

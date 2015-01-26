@@ -19,70 +19,6 @@ ApplicationWindow {
     height: 480
     visible: true
 
-/*
-    WebSocketServer {
-            id: server
-            listen: true
-            onClientConnected: {
-
-                //webChannel.connectTo(webSocket);
-                myButton.text = qsTr("Client");
-
-                new WebChannel.QWebChannel(webSocket, function(ch) {
-                     root.channel = ch;
-
-                     //connect to the changed signal of the userList property
-                     ch.objects.chatserver.userListChanged.connect(function(args) {
-                         userlist.text = '';
-                         ch.objects.chatserver.userList.forEach(function(user) {
-                             userlist.text += user + '\n';
-                         });
-                     });
-                     //connect to the newMessage signal
-                     ch.objects.chatserver.newMessage.connect(function(time, user, message) {
-                         chat.text = chat.text + "[" + time + "] " + user + ": " +  message + '\n';
-                     });
-                     //connect to the keep alive signal
-                     ch.objects.chatserver.keepAlive.connect(function(args) {
-                         if (loginName.text !== '')
-                             //and call the keep alive response method as an answer
-                             ch.objects.chatserver.keepAliveResponse(loginName.text)
-                    });
-                });
-
-            }
-            onErrorStringChanged: {
-                ;
-            }
-        }
-
-        WebSocket {
-            id: socket
-            url: server.url
-            onStatusChanged: {
-                if (socket.status == WebSocket.Error) {
-                    ;
-                } else if (socket.status == WebSocket.Closed) {
-                    ;
-                }
-            }
-        }
-*/
-    /*
-        QtObject {
-            id : myBridge
-            WebChannel.id: "myBridge"
-            property int sum: 0
-        }
-*/
-        /*
-        WebChannel {
-            id: webChannel
-            registeredObjects:  [ myBridge ]
-            //transports: [ socket ]
-        }
-        */
-
     toolBar: ToolBar {
         id: navigationBar
         RowLayout {
@@ -90,10 +26,7 @@ ApplicationWindow {
 
             ToolButton {
                 id: myButton
-                text: myBridge.someProperty //qsTr("Result") bridge.fromHTML2QML//
-                //onClicked: webView.goBack()
-                //enabled: webView.canGoBack
-
+                text: myBridge.someProperty
             }
 
             ToolButton {
