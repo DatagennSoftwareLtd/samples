@@ -10,7 +10,8 @@ class SipController : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(QString login READ login WRITE setLogin NOTIFY loginChanged)
+    Q_PROPERTY(QString serverUrl READ serverUrl WRITE setServerUrl NOTIFY serverUrlChanged)
+    Q_PROPERTY(QString user READ user WRITE setUser NOTIFY userChanged)
     Q_PROPERTY(QString password READ password WRITE setPassword NOTIFY passwordChanged)
 
 
@@ -18,31 +19,36 @@ public:
     explicit SipController(QObject *parent = 0);
     ~SipController();
 
-    QString login() const { return _login; }
-    void setLogin(const QString&);
+    QString serverUrl() const { return _serverUrl; }
+    void setServerUrl(const QString&);
+
+    QString user() const { return _user; }
+    void setUser(const QString&);
 
     QString password() const { return _password; }
     void setPassword(const QString&p);
 
 signals:
-    void loginChanged(const QString);
+    void serverUrlChanged(const QString);
+    void userChanged(const QString);
     void passwordChanged(const QString);
 
 public slots:
 
-    void create();
-    void init();
-    void destroy();
+    Q_INVOKABLE void create();
+    Q_INVOKABLE void init();
+    Q_INVOKABLE void destroy();
 
-    void addTransport();
-    void start();
-    void createSIPAccount();
+    Q_INVOKABLE void addTransport();
+    Q_INVOKABLE void start();
+    Q_INVOKABLE void createSIPAccount();
 
-    void makeCall();
+    Q_INVOKABLE void makeCall();
 
 private:
 
-    QString _login;
+    QString _serverUrl;
+    QString _user;
     QString _password;
 
     // pjsua

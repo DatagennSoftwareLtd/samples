@@ -52,7 +52,8 @@ static void on_call_media_state(pjsua_call_id call_id)
 
 SipController::SipController(QObject *parent)
     : QObject(parent)
-    , _login("")
+    , _serverUrl("")
+    , _user("")
     , _password("")
 {
 
@@ -63,12 +64,20 @@ SipController::~SipController()
 
 }
 
-void SipController::setLogin(const QString& l)
+void SipController::setServerUrl(const QString& url)
 {
-    if(_login == l)
+    if(_serverUrl == url)
         return;
-    _login = l;
-    emit loginChanged(l);
+    _serverUrl = url;
+    emit serverUrlChanged(url);
+}
+
+void SipController::setUser(const QString& l)
+{
+    if(_user == l)
+        return;
+    _user = l;
+    emit userChanged(l);
 }
 
 void SipController::setPassword(const QString& p)
@@ -146,7 +155,7 @@ void SipController::createSIPAccount()
 
 void SipController::makeCall()
 {
-    pj_str_t uri = pj_str("pete@sip.whisperr.com");
+    pj_str_t uri = pj_str("sip:pete@sip.whisperr.com");
     status = pjsua_call_make_call(acc_id, &uri, 0, NULL, NULL, NULL);
     if (status != PJ_SUCCESS)
         ;// error

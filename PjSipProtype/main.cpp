@@ -5,11 +5,14 @@
 
 int main(int argc, char *argv[])
 {
+
     SipController sipua;
 
-    sipua.setLogin("device1");
+    sipua.setServerUrl("sip.whisperr.com");
+    sipua.setUser("device1");
     sipua.setPassword("device1");
 
+    /*
     //* Create pjsua first!
     sipua.create();
 
@@ -27,7 +30,7 @@ int main(int argc, char *argv[])
 
     //* If URL is specified, make call to the URL.
     sipua.makeCall();
-
+*/
 
     //if (option[0] == 'h')
     //   pjsua_call_hangup_all();
@@ -39,6 +42,11 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
+
+    QQmlContext *context = engine.rootContext();
+    context->setContextProperty(QStringLiteral("sipua"), &sipua);
+
+
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 
     return app.exec();
