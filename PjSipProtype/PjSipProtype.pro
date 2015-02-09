@@ -52,8 +52,10 @@ LIBS += \
     -lwinmm \
     -lole32 \
     -lws2_32 \
-    -lwsock32
-
+    -lwsock32 \
+    -lmsvcrt
+    #/NODEFAULTLIB:msvcrt \
+    #/NODEFAULTLIB:libcmt
 }
 
 debug{

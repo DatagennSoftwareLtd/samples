@@ -11,6 +11,8 @@ int main(int argc, char *argv[])
     sipua.setServerUrl("sip.whisperr.com");
     sipua.setUser("device1");
     sipua.setPassword("device1");
+    sipua.setBuddy("pete@sip.whisperr.com");
+    sipua._contr = &sipua;
 
     /*
     //* Create pjsua first!

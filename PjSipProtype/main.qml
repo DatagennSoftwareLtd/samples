@@ -2,19 +2,19 @@ import QtQuick 2.4
 import QtQuick.Window 2.2
 import QtQuick.Controls 1.3
 
-Window {
+ApplicationWindow {
     visible: true
     width: 300
-    height: 200
+    height: 250
     minimumWidth: 300
-    minimumHeight: 200
+    minimumHeight: 250
     color: "#FAFAFA"
 
     Rectangle{
         id: serverRect
         width: parent.width
         height: 40
-        color: parent.color
+        //color: parent.color
 
         Text {
             id: srvText
@@ -55,7 +55,7 @@ Window {
         width: parent.width
         height: 40
         anchors.top: serverRect.bottom
-        color: parent.color
+        //color: parent.color
 
         Text {
             id: logText
@@ -96,7 +96,7 @@ Window {
         width: parent.width
         height: 40
         anchors.top: userRect.bottom
-        color: parent.color
+        //color: parent.color
 
         Text {
             id: pswText
@@ -158,12 +158,14 @@ Window {
             }
             TextInput {
                 id: buddyInput
+                text: sipua.buddy
                 color: "#151515"; selectionColor: "green"
                 font.pixelSize:14; font.bold: true
                 width: parent.width-16
                 anchors.centerIn: parent
                 focus: true
                 onEditingFinished: {
+                    sipua.buddy = text;
                     console.log(text);
                 }
             }
@@ -173,17 +175,18 @@ Window {
     Rectangle{
         id: buttonsRect
         width: parent.width
-        height: 40
+        height: 50
         anchors.top: buddyRect.bottom
+        //anchors.margins: 5
 
         Button {
             id: registrationButton
             text: "registration"
-            height: buttonsRect.height
-            width: parent.width/2 - 10
+            height: buttonsRect.height - 10
+            width: parent.width/4 - 10
             anchors.left: buttonsRect.left
             anchors.margins: 5
-            anchors.topMargin: 5
+            anchors.verticalCenter: parent.verticalCenter
 
             onClicked: {
                 sipua.create();
@@ -191,21 +194,62 @@ Window {
                 sipua.addTransport();
                 sipua.start();
                 sipua.createSIPAccount();
+                //statusText.text = "registered";
+            }
+        }
+
+        Button {
+            id: acceptButton
+            text: "accept"
+            height: buttonsRect.height - 10
+            width: parent.width/4 - 10
+            anchors.left: registrationButton.right
+            anchors.margins: 5
+            anchors.verticalCenter: parent.verticalCenter
+
+            onClicked : {
+                sipua.acceptCall();
+                //statusText.text = "accepted";
+            }
+        }
+
+        Button {
+            id: rejectButton
+            text: "reject"
+            height: buttonsRect.height - 10
+            width: parent.width/4 - 10
+            anchors.left: acceptButton.right
+            anchors.margins: 5
+            anchors.verticalCenter: parent.verticalCenter
+
+            onClicked : {
+                sipua.rejectCall();
+                //statusText.text = "rejected";
             }
         }
 
         Button {
             id: callButton
             text: "make call"
-            height: buttonsRect.height
-            width: parent.width/2 - 10
+            height: buttonsRect.height - 10
+            width: parent.width/4 - 10
             anchors.right: buttonsRect.right
             anchors.margins: 5
-            anchors.topMargin: 5
+            anchors.verticalCenter: parent.verticalCenter
 
             onClicked : {
                 sipua.makeCall();
+                //statusText.text = "calling";
             }
         }
     }
+
+    statusBar: StatusBar {
+
+                Label {
+                    id: statusText
+                    text: sipua.statusMessage
+                }
+
+        }
 }
