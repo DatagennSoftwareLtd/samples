@@ -1,6 +1,8 @@
 import QtQuick 2.4
 import QtQuick.Window 2.2
 import QtQuick.Controls 1.3
+import QtQuick.Layouts 1.1
+import QtWebView 1.0
 
 ApplicationWindow {
     visible: true
@@ -10,6 +12,60 @@ ApplicationWindow {
     minimumHeight: 250
     color: "#FAFAFA"
 
+    toolBar: ToolBar {
+        id: navigationBar
+        RowLayout {
+            anchors.fill: parent
+
+            ToolButton {
+                id: myButton
+                text: myBridge.someProperty
+            }
+
+            ToolButton {
+                id: backButton
+                text: qsTr("Back")
+                iconSource: "qrc:/images/left-32.png"
+                onClicked: webView.goBack()
+                enabled: webView.canGoBack
+            }
+
+            ToolButton {
+                id: forwardButton
+                text: qsTr("Forward")
+                iconSource: "qrc:/images/right-32.png"
+                onClicked: webView.goForward()
+                enabled: webView.canGoForward
+            }
+
+            TextField {
+                Layout.fillWidth: true
+                id: urlField
+                inputMethodHints: Qt.ImhUrlCharactersOnly | Qt.ImhPreferLowercase
+                text: webView.url
+                onEditingFinished: {
+                    webView.url = utils.fromUserInput(urlField.text);
+                }
+            }
+
+            ToolButton {
+                id: goButton
+                text: qsTr("Go")
+                onClicked: {
+                    webView.url = utils.fromUserInput(urlField.text)
+                }
+            }
+        }
+    }
+
+    WebView {
+       objectName: "Browser"
+       id: webView
+       anchors.fill: parent
+       url: initialUrl
+    }
+
+/*
     Rectangle{
         id: serverRect
         width: parent.width
@@ -243,13 +299,21 @@ ApplicationWindow {
             }
         }
     }
-
+*/
     statusBar: StatusBar {
-
-                Label {
-                    id: statusText
-                    text: sipua.statusMessage
-                }
-
+        id: statusBar
+        RowLayout {
+            anchors.fill: parent
+            Label {
+                anchors.right: parent.right
+                text: webView.loadProgress == 100 ? qsTr("Done") : qsTr("Loading: ") + webView.loadProgress + "%"
+            }
+            Label {
+                anchors.left: parent.left
+                id: statusText
+                text: sipua.statusMessage
+                //text: myBridge.someProperty
+            }
         }
+    }
 }

@@ -6,10 +6,20 @@ DEFINES += PJ_IS_LITTLE_ENDIAN=1
 
 TEMPLATE = app
 
-QT += qml quick
+QT += qml quick \
+    websockets \
+    webchannel \
+
+qtHaveModule(webengine) {
+        QT +=   webengine \
+                webchannel
+        DEFINES += QT_WEBVIEW_WEBENGINE_BACKEND
+}
+
 
 SOURCES += main.cpp \
-    sipcontroller.cpp
+    sipcontroller.cpp \
+    utils.cpp
 
 RESOURCES += qml.qrc
 
@@ -65,7 +75,8 @@ QML_IMPORT_PATH =
 include(deployment.pri)
 
 HEADERS += \
-    sipcontroller.h
+    sipcontroller.h \
+    utils.h
 
 DISTFILES += \
     android/gradle/wrapper/gradle-wrapper.jar \

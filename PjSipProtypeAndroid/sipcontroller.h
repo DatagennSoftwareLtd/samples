@@ -59,6 +59,8 @@ public slots:
     Q_INVOKABLE void acceptCall();
     Q_INVOKABLE void rejectCall();
 
+    Q_INVOKABLE void registered();
+
 protected:
     static void on_incoming_call(pjsua_acc_id acc_id, pjsua_call_id call_id,
                      pjsip_rx_data *rdata);

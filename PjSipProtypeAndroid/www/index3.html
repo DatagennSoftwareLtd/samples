@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en" ng-app="app">
+<head>
+  <meta charset="utf-8">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <title>Test</title>
+</head>
+
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="http://www.jeasyui.com/easyui/jquery.easyui.min.js"></script> 
+<script type="text/javascript" src="qwebchannel.js"></script>
+
+<script>
+        window.loggedin = false;
+
+        window.onload = function() {
+
+//	    var baseUrl = (/[?&]webChannelBaseUrl=([A-Za-z0-9\-:/\.]+)./exec(location.search)[1]);
+            var baseUrl = "ws://localHost:12345";
+            
+	    var socket = new WebSocket(baseUrl); 
+           
+            socket.onclose = function()
+            {
+                console.error("web channel closed");
+            };
+            socket.onerror = function(error)
+            {
+                console.error("web channel error: " + error);
+            };
+            socket.onopen = function()
+            {
+		console.error("socket.onopen")
+                window.channel = new QWebChannel(socket, function(channel) {
+                    // To make the object known globally, assign it to the window object, i.e.:
+                    window.mySipUa = channel.objects.mySipUa;
+                });
+            }
+        }
+    </script> 
+
+<script>
+    function registrationUser(var1) {
+        mySipUa.serverUrl = document.siptest.serverSip.value;
+        mySipUa.user = document.siptest.user.value;
+        mySipUa.password = document.siptest.password.value;
+        mySipUa.buddy = document.siptest.buddy.value;
+        mySipUa.registered();
+    }
+
+    function acceptCall(var1) {
+        mySipUa.acceptCall();
+
+    }
+
+    function rejectCall(var1) {
+        mySipUa.rejectCall();
+
+    }
+
+    function makeCall(var1) {
+        mySipUa.buddy = document.siptest.buddy.value;
+        mySipUa.makeCall();
+
+    }
+</script>
+</head>
+
+  <body>
+  <center>
+    <FORM name="siptest">
+      server: <input name="serverSip" type="text" value="sip.whisperr.com" size="25"><Br>
+      user: <input name="user" type="text" value="device1" size="25"><Br>
+      password: <input name="password" type="text" value="device1" size="25"><Br>
+      buddy: <input name="buddy" type="text" value="pete@sip.whisperr.com" size="25"><Br>
+
+      <input type="button" value="Reg" onclick="registrationUser(serverSip)"><Br>
+      <input type="button" value="Accept" onclick="acceptCall(serverSip)"><Br>
+      <input type="button" value="Reject" onclick="rejectCall(serverSip)"><Br>
+      <input type="button" value="Call" onclick="makeCall(serverSip)">
+    </FORM>
+
+    <object type="text/qtexample" data="100,28" width="300" height="300"></object>
+  </center>
+
+</body>
+</html>

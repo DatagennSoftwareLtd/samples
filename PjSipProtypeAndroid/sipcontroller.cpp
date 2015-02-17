@@ -137,7 +137,7 @@ void SipController::create()
 {
     status = pjsua_create();
     if (status != PJ_SUCCESS)
-        ; // error!
+        setStatusMessage("error");
 }
 
 void SipController::init()
@@ -152,7 +152,7 @@ void SipController::init()
 
     status = pjsua_init(&cfg, &log_cfg, NULL);
     if (status != PJ_SUCCESS)
-        ;//error
+        setStatusMessage("error");
 }
 
 void SipController::destroy()
@@ -168,14 +168,14 @@ void SipController::addTransport()
     cfg.port = 5060;
     status = pjsua_transport_create(PJSIP_TRANSPORT_UDP, &cfg, NULL);
     if (status != PJ_SUCCESS)
-        ; //error
+        setStatusMessage("error");
 }
 
 void SipController::start()
 {
     status = pjsua_start();
     if (status != PJ_SUCCESS)
-        ; //error
+        setStatusMessage("error");
 }
 
 void SipController::createSIPAccount()
@@ -257,4 +257,14 @@ void SipController::rejectCall()
 {
     pjsua_call_hangup(current_call_id, 0, NULL, NULL);
     setStatusMessage("rejected");
+}
+
+void SipController::registered()
+{
+    create();
+    init();
+    addTransport();
+    start();
+    createSIPAccount();
+    setStatusMessage("registered");
 }

@@ -3,5 +3,9 @@
         <file>main.qml</file>
         <file>images/lineedit.png</file>
         <file>images/lineedit.sci</file>
+        <file>images/left-32.png</file>
+        <file>images/right-32.png</file>
+        <file>www/index3.html</file>
+        <file>www/qwebchannel.js</file>
     </qresource>
 </RCC>
