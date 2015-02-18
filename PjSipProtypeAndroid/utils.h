@@ -19,48 +19,6 @@ public:
     }
 };
 
-class Bridge : public QObject {
-    Q_OBJECT
-
-    Q_PROPERTY(int someProperty READ someProperty WRITE setSomeProperty NOTIFY somePropertyChanged)
-public:
-
-    int someProperty()const
-    {
-        return _someProperty;
-    }
-    void setSomeProperty(const int &i)
-    {
-        _someProperty = i;
-         emit somePropertyChanged(i);
-    }
-
-    Bridge(QObject* parent = 0) : QObject(parent), sum(0), _someProperty(0) { }
-    Q_INVOKABLE QString fromHTML2QML()
-    {
-        return QString::number(sum);
-    }
-
-    Q_INVOKABLE void f1()
-    {
-        return;
-    }
-
-
-    Q_INVOKABLE QString f2()
-    {
-        return "test";
-    }
-
-signals:
-    void somePropertyChanged(int);
-
-protected:
-    int sum;
-    int _someProperty;
-};
-
-
 class QWebSocket;
 class WebSocketTransport : public QWebChannelAbstractTransport
 {

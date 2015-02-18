@@ -20,13 +20,13 @@ int main(int argc, char *argv[])
         QtWebEngine::initialize();
     #endif // QT_WEBVIEW_WEBENGINE_BACKEND
 
-    SipController sipua;
+    SipController* sipua = new SipController();
 
-    sipua.setServerUrl("sip.whisperr.com");
-    sipua.setUser("device1");
-    sipua.setPassword("device1");
-    sipua.setBuddy("pete@sip.whisperr.com");
-    //sipua._contr = &sipua;
+    sipua->setServerUrl("sip.whisperr.com");
+    sipua->setUser("device1");
+    sipua->setPassword("device1");
+    sipua->setBuddy("pete@sip.whisperr.com");
+    sipua->_contr = sipua;
 
     //if (option[0] == 'h')
     //   pjsua_call_hangup_all();
@@ -51,26 +51,21 @@ int main(int argc, char *argv[])
     QObject::connect(&clientWrapper, &WebSocketClientWrapper::clientConnected,
         &channel, &QWebChannel::connectTo);
 
-    channel.registerObject("mySipUa", &sipua);
-
-    Bridge myBridge;
-    channel.registerObject("myBridge", &myBridge);
-
+    channel.registerObject("mySipUa", sipua);
 
     const QString initialUrl =
         //QStringLiteral( "http://sip.whisperr.com:8061/Welcome%20Screen/WelcomeScreen.html");
-        //QStringLiteral( "10.0.2.2/index3.html");
+        QStringLiteral( "10.0.2.2/index3.html");
         //QStringLiteral( "10.0.2.2/index2.html");
-        QStringLiteral( "http://sip.whisperr.com:8061/index3.html");
+        //QStringLiteral( "http://sip.whisperr.com:8061/index3.html");
 
     QQmlApplicationEngine engine;
 
     QQmlContext *context = engine.rootContext();
     //context->setContextProperty(QStringLiteral("channel"), &channel);
-    context->setContextProperty(QStringLiteral("sipua"), &sipua);
+    context->setContextProperty(QStringLiteral("sipua"), sipua);
     context->setContextProperty(QStringLiteral("utils"), new Utils(&engine));
     context->setContextProperty(QStringLiteral("initialUrl"), Utils::fromUserInput(initialUrl));
-    //context->setContextProperty(QStringLiteral("myBridge"), &myBridge);
 
     engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
 

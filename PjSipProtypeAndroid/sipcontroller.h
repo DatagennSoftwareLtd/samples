@@ -46,20 +46,20 @@ signals:
 
 public slots:
 
-    Q_INVOKABLE void create();
-    Q_INVOKABLE void init();
-    Q_INVOKABLE void destroy();
+    Q_INVOKABLE int create();
+    Q_INVOKABLE int init();
+    Q_INVOKABLE int destroy();
 
-    Q_INVOKABLE void addTransport();
-    Q_INVOKABLE void start();
-    Q_INVOKABLE void createSIPAccount();
+    Q_INVOKABLE int addTransport();
+    Q_INVOKABLE int start();
+    Q_INVOKABLE int createSIPAccount();
 
-    Q_INVOKABLE void makeCall();
+    Q_INVOKABLE int makeCall();
 
-    Q_INVOKABLE void acceptCall();
-    Q_INVOKABLE void rejectCall();
+    Q_INVOKABLE int acceptCall();
+    Q_INVOKABLE int rejectCall();
 
-    Q_INVOKABLE void registered();
+    Q_INVOKABLE int registered();
 
 protected:
     static void on_incoming_call(pjsua_acc_id acc_id, pjsua_call_id call_id,
@@ -73,6 +73,11 @@ public:
     static SipController* _contr;
 
 private:
+
+    enum {
+        SC_OK = 0,
+        SC_ERROR,
+    };
 
     QString _serverUrl;
     QString _user;

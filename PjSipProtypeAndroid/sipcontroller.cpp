@@ -21,8 +21,8 @@ void SipController::on_incoming_call(pjsua_acc_id acc_id, pjsua_call_id call_id,
     qDebug() << ci.remote_contact.ptr;
     qDebug() << ci.remote_info.ptr;
 
-    if(_contr)
-        setStatusMessage2(_contr, ci.remote_info.ptr);
+    //if(_contr)
+    //    setStatusMessage2(_contr, ci.remote_info.ptr);
 
     /*
     PJ_LOG(3,(THIS_FILE, "Incoming call from %.*s!!",
@@ -133,14 +133,18 @@ void SipController::setStatusMessage2(SipController* sipContr, const QString& m)
     sipContr->setStatusMessage(m);
 }
 
-void SipController::create()
+int SipController::create()
 {
     status = pjsua_create();
     if (status != PJ_SUCCESS)
-        setStatusMessage("error");
+    {
+        setStatusMessage("error create");
+        return SC_ERROR;
+    }
+    return SC_OK;
 }
 
-void SipController::init()
+int SipController::init()
 {
     pjsua_config_default(&cfg);
     cfg.cb.on_incoming_call = &SipController::on_incoming_call;
@@ -152,15 +156,20 @@ void SipController::init()
 
     status = pjsua_init(&cfg, &log_cfg, NULL);
     if (status != PJ_SUCCESS)
-        setStatusMessage("error");
+    {
+        setStatusMessage("error init");
+        return SC_ERROR;
+    }
+    return SC_OK;
 }
 
-void SipController::destroy()
+int SipController::destroy()
 {
     pjsua_destroy();
+    return SC_OK;
 }
 
-void SipController::addTransport()
+int SipController::addTransport()
 {
     pjsua_transport_config cfg;
 
@@ -168,17 +177,25 @@ void SipController::addTransport()
     cfg.port = 5060;
     status = pjsua_transport_create(PJSIP_TRANSPORT_UDP, &cfg, NULL);
     if (status != PJ_SUCCESS)
-        setStatusMessage("error");
+    {
+        setStatusMessage("error addTransport");
+        return SC_ERROR;
+    }
+    return SC_OK;
 }
 
-void SipController::start()
+int SipController::start()
 {
     status = pjsua_start();
     if (status != PJ_SUCCESS)
-        setStatusMessage("error");
+    {
+        setStatusMessage("error start");
+        return SC_ERROR;
+    }
+    return SC_OK;
 }
 
-void SipController::createSIPAccount()
+int SipController::createSIPAccount()
 {
     pjsua_acc_config cfg;
 
@@ -222,13 +239,18 @@ void SipController::createSIPAccount()
 
     status = pjsua_acc_add(&cfg, PJ_TRUE, &acc_id);
     if (status != PJ_SUCCESS)
-        setStatusMessage("error");
+    {
+        setStatusMessage("error createSIPAccount");
+        return SC_ERROR;
+    }
     else
-        setStatusMessage("registered");
-
+    {
+        setStatusMessage("registered account");
+        return SC_OK;
+    }
 }
 
-void SipController::makeCall()
+int SipController::makeCall()
 {
     QString tmp = "sip:" + _buddy;
     char* cBuddy = new char[tmp.toLatin1().toStdString().length() + 1];
@@ -241,30 +263,45 @@ void SipController::makeCall()
 
     status = pjsua_call_make_call(acc_id, &uri, 0, NULL, NULL, NULL);
     if (status != PJ_SUCCESS)
-        setStatusMessage("error");
+    {
+        setStatusMessage("error calling");
+        return SC_ERROR;
+    }
     else
+    {
         setStatusMessage("calling");
+        return SC_OK;
+    }
 }
 
-void SipController::acceptCall()
+int SipController::acceptCall()
 {
    // answer incoming calls with 200/OK
    pjsua_call_answer(current_call_id, 200, NULL, NULL);
    setStatusMessage("accepted");
+   return SC_OK;
 }
 
-void SipController::rejectCall()
+int SipController::rejectCall()
 {
     pjsua_call_hangup(current_call_id, 0, NULL, NULL);
     setStatusMessage("rejected");
+    return SC_OK;
 }
 
-void SipController::registered()
+int SipController::registered()
 {
-    create();
-    init();
-    addTransport();
-    start();
-    createSIPAccount();
+    if(create())
+        return SC_ERROR;
+    if(init())
+        return SC_ERROR;
+    if(addTransport())
+        return SC_ERROR;
+    if(start())
+        return SC_ERROR;
+    if(createSIPAccount())
+        return SC_ERROR;
+
     setStatusMessage("registered");
+    return SC_OK;
 }

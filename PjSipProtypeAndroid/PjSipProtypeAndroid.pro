@@ -9,6 +9,7 @@ TEMPLATE = app
 QT += qml quick \
     websockets \
     webchannel \
+    widgets
 
 qtHaveModule(webengine) {
         QT +=   webengine \

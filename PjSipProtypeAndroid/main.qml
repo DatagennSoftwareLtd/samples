@@ -11,16 +11,11 @@ ApplicationWindow {
     minimumWidth: 300
     minimumHeight: 250
     color: "#FAFAFA"
-
+/*
     toolBar: ToolBar {
         id: navigationBar
         RowLayout {
             anchors.fill: parent
-
-            ToolButton {
-                id: myButton
-                text: myBridge.someProperty
-            }
 
             ToolButton {
                 id: backButton
@@ -57,7 +52,7 @@ ApplicationWindow {
             }
         }
     }
-
+*/
     WebView {
        objectName: "Browser"
        id: webView
@@ -245,12 +240,7 @@ ApplicationWindow {
             anchors.verticalCenter: parent.verticalCenter
 
             onClicked: {
-                sipua.create();
-                sipua.init();
-                sipua.addTransport();
-                sipua.start();
-                sipua.createSIPAccount();
-                //statusText.text = "registered";
+                sipua.registered();
             }
         }
 
@@ -265,7 +255,6 @@ ApplicationWindow {
 
             onClicked : {
                 sipua.acceptCall();
-                //statusText.text = "accepted";
             }
         }
 
@@ -280,7 +269,6 @@ ApplicationWindow {
 
             onClicked : {
                 sipua.rejectCall();
-                //statusText.text = "rejected";
             }
         }
 
@@ -295,7 +283,6 @@ ApplicationWindow {
 
             onClicked : {
                 sipua.makeCall();
-                //statusText.text = "calling";
             }
         }
     }
@@ -306,7 +293,7 @@ ApplicationWindow {
             anchors.fill: parent
             Label {
                 anchors.right: parent.right
-                text: webView.loadProgress == 100 ? qsTr("Done") : qsTr("Loading: ") + webView.loadProgress + "%"
+                //text: webView.loadProgress == 100 ? qsTr("Done") : qsTr("Loading: ") + webView.loadProgress + "%"
             }
             Label {
                 anchors.left: parent.left
