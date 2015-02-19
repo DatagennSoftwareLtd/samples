@@ -10,7 +10,18 @@ ApplicationWindow {
     height: 250
     minimumWidth: 300
     minimumHeight: 250
-    color: "#FAFAFA"
+
+    /*
+    SplashScreen{
+        id:splashScreen
+        imageSource: "qrc:/images/splashscreen.png"
+        anchors.fill: parent
+        onSplashScreenCompleted: {
+            // do whatever you want splash screen loaded completely
+            console.log("Splash Screen Loaded");
+        }
+    }
+    */
 /*
     toolBar: ToolBar {
         id: navigationBar
@@ -53,12 +64,14 @@ ApplicationWindow {
         }
     }
 */
+
     WebView {
        objectName: "Browser"
        id: webView
        anchors.fill: parent
        url: initialUrl
     }
+
 
 /*
     Rectangle{
@@ -286,7 +299,7 @@ ApplicationWindow {
             }
         }
     }
-*/
+
     statusBar: StatusBar {
         id: statusBar
         RowLayout {
@@ -303,4 +316,5 @@ ApplicationWindow {
             }
         }
     }
+    */
 }

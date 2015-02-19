@@ -1,3 +1,4 @@
+
 DEFINES -= UNICODE
 #DEFINES PJ_AUTOCONF=1
 #DEFINES += PJ_ANDROID=1
@@ -78,6 +79,12 @@ include(deployment.pri)
 HEADERS += \
     sipcontroller.h \
     utils.h
+
+DISTFILES += \
+    init.qml \
+    main.qml \
+    splashscreen.qml \
+    customprogressbar.qml
 
 DISTFILES += \
     android/gradle/wrapper/gradle-wrapper.jar \

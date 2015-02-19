@@ -3,7 +3,7 @@
 pjsua_call_id SipController::current_call_id;
 
 SipController* SipController::_contr = 0;
-//QString SipController::_statusMessage = "Ready";
+QString SipController::_incommingBuddy = "";
 
 /* Callback called by the library upon receiving incoming call */
 //static
@@ -21,8 +21,12 @@ void SipController::on_incoming_call(pjsua_acc_id acc_id, pjsua_call_id call_id,
     qDebug() << ci.remote_contact.ptr;
     qDebug() << ci.remote_info.ptr;
 
-    //if(_contr)
-    //    setStatusMessage2(_contr, ci.remote_info.ptr);
+    _incommingBuddy = ci.remote_info.ptr;
+    //statusMessageChanged(ci.remote_info.ptr);
+    if(_contr) // WTF?
+    {
+       ;//_contr->setStatusMessage2(_contr, ci.remote_info.ptr);
+    }
 
     /*
     PJ_LOG(3,(THIS_FILE, "Incoming call from %.*s!!",
@@ -118,19 +122,29 @@ void SipController::setBuddy(const QString& b)
     emit buddyChanged(b);
 }
 
+void SipController::setIncommingBuddy(const QString& b)
+{
+    if(_incommingBuddy == b)
+        return;
+    _incommingBuddy = b;
+    emit incommingBuddyChanged(b);
+}
+
 void SipController::setStatusMessage(const QString& m)
 {
     if(_statusMessage == m)
         return;
     _statusMessage = m;
     qDebug() << m;
-    emit statusMessageChanged(m);
+    emit statusMessageChanged(_statusMessage);
 }
 
-void SipController::setStatusMessage2(SipController* sipContr, const QString& m)
+void SipController::setStatusMessage2(SipController* sipContr, QString m)
 {
-    qDebug() << m;
-    sipContr->setStatusMessage(m);
+    qDebug() << "setStatusMessage2: " << m;
+    //sipContr->incommingCall();
+   //_incommingBuddy = m;
+    //sipContr->setStatusMessage(QString(*m));
 }
 
 int SipController::create()
@@ -141,6 +155,7 @@ int SipController::create()
         setStatusMessage("error create");
         return SC_ERROR;
     }
+    setStatusMessage("create pjsip - ok");
     return SC_OK;
 }
 
@@ -160,6 +175,7 @@ int SipController::init()
         setStatusMessage("error init");
         return SC_ERROR;
     }
+    setStatusMessage("init pjsip - ok");
     return SC_OK;
 }
 
@@ -181,6 +197,7 @@ int SipController::addTransport()
         setStatusMessage("error addTransport");
         return SC_ERROR;
     }
+    setStatusMessage("addTransport - ok");
     return SC_OK;
 }
 
@@ -192,6 +209,7 @@ int SipController::start()
         setStatusMessage("error start");
         return SC_ERROR;
     }
+    setStatusMessage("start - ok");
     return SC_OK;
 }
 
@@ -245,7 +263,7 @@ int SipController::createSIPAccount()
     }
     else
     {
-        setStatusMessage("registered account");
+        setStatusMessage("create SIP Account - ok");
         return SC_OK;
     }
 }

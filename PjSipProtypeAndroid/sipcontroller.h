@@ -14,6 +14,7 @@ class SipController : public QObject
     Q_PROPERTY(QString user READ user WRITE setUser NOTIFY userChanged)
     Q_PROPERTY(QString password READ password WRITE setPassword NOTIFY passwordChanged)
     Q_PROPERTY(QString buddy READ buddy WRITE setBuddy NOTIFY buddyChanged)
+    Q_PROPERTY(QString incommingBuddy READ incommingBuddy WRITE setIncommingBuddy NOTIFY incommingBuddyChanged)
 
     Q_PROPERTY(QString statusMessage READ statusMessage WRITE setStatusMessage NOTIFY statusMessageChanged)
 
@@ -33,16 +34,23 @@ public:
     QString buddy() const { return _buddy; }
     void setBuddy(const QString&);
 
+    QString incommingBuddy() const { return _incommingBuddy; }
+    void setIncommingBuddy(const QString&);
+
+
     QString statusMessage() const { return _statusMessage; }
     void setStatusMessage(const QString&);
 
-    static void setStatusMessage2(SipController* sipContr, const QString&);
+    static void setStatusMessage2(SipController* sipContr, QString);
 signals:
     void serverUrlChanged(const QString);
     void userChanged(const QString);
     void passwordChanged(const QString);
     void buddyChanged(const QString);
+    void incommingBuddyChanged(const QString);
     void statusMessageChanged(const QString);
+
+    void incommingCall();
 
 public slots:
 
@@ -84,6 +92,8 @@ private:
     QString _password;
     QString _buddy;
     QString _statusMessage;
+
+    static QString _incommingBuddy;
 
     // pjsua
     pjsua_acc_id acc_id;

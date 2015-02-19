@@ -5,10 +5,9 @@
         <file>images/lineedit.sci</file>
         <file>images/left-32.png</file>
         <file>images/right-32.png</file>
-        <file>www/index3.html</file>
-        <file>www/qwebchannel.js</file>
         <file>images/splashscreen.png</file>
         <file>init.qml</file>
         <file>SplashScreen.qml</file>
+        <file>CustomProgressBar.qml</file>
     </qresource>
 </RCC>

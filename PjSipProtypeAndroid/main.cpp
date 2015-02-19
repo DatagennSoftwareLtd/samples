@@ -54,10 +54,8 @@ int main(int argc, char *argv[])
     channel.registerObject("mySipUa", sipua);
 
     const QString initialUrl =
-        //QStringLiteral( "http://sip.whisperr.com:8061/Welcome%20Screen/WelcomeScreen.html");
-        QStringLiteral( "10.0.2.2/index3.html");
-        //QStringLiteral( "10.0.2.2/index2.html");
-        //QStringLiteral( "http://sip.whisperr.com:8061/index3.html");
+        //QStringLiteral( "10.0.2.2/index3.html");
+        QStringLiteral( "http://sip.whisperr.com:8061/vlad/index3.html");
 
     QQmlApplicationEngine engine;
 
@@ -67,7 +65,7 @@ int main(int argc, char *argv[])
     context->setContextProperty(QStringLiteral("utils"), new Utils(&engine));
     context->setContextProperty(QStringLiteral("initialUrl"), Utils::fromUserInput(initialUrl));
 
-    engine.load(QUrl(QStringLiteral("qrc:/main.qml")));
+    engine.load(QUrl(QStringLiteral("qrc:/init.qml")));
 
     return app.exec();
 }
