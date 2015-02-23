@@ -10,7 +10,8 @@ TEMPLATE = app
 QT += qml quick \
     websockets \
     webchannel \
-    widgets
+    widgets \
+    core
 
 qtHaveModule(webengine) {
         QT +=   webengine \
@@ -21,7 +22,8 @@ qtHaveModule(webengine) {
 
 SOURCES += main.cpp \
     sipcontroller.cpp \
-    utils.cpp
+    utils.cpp \
+    bridgejs.cpp
 
 RESOURCES += qml.qrc
 
@@ -78,7 +80,8 @@ include(deployment.pri)
 
 HEADERS += \
     sipcontroller.h \
-    utils.h
+    utils.h \
+    bridgejs.h
 
 DISTFILES += \
     init.qml \

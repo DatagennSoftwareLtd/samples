@@ -2,6 +2,7 @@
 #include <QQmlApplicationEngine>
 
 #include "sipcontroller.h"
+#include "bridgejs.h"
 
 #include <QtWebSockets/QWebSocketServer>
 #include <QtWebChannel>
@@ -12,6 +13,9 @@
 
 #include "utils.h"
 
+/* global callback/logger object */
+//extern void *globalSipUa;
+
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
@@ -21,12 +25,37 @@ int main(int argc, char *argv[])
     #endif // QT_WEBVIEW_WEBENGINE_BACKEND
 
     SipController* sipua = new SipController();
+    BridgeJS* bridgeJS = new BridgeJS();
+    //bridgeJS->setSipUa(sipua);
+
+    QObject::connect(bridgeJS, SIGNAL(makeCall()), sipua, SLOT(makeCall()));
+    QObject::connect(bridgeJS, SIGNAL(acceptCall()), sipua, SLOT(acceptCall()));
+    QObject::connect(bridgeJS, SIGNAL(rejectCall()), sipua, SLOT(rejectCall()));
+    QObject::connect(bridgeJS, SIGNAL(registered()), sipua, SLOT(registered()));
+    QObject::connect(sipua, SIGNAL(statusMessageChanged(const QString)),
+                     bridgeJS, SLOT(logMessageSlot(QString)));
+
+    //------------------------------------------------------------
+    QObject::connect(bridgeJS, SIGNAL(serverUrlChanged(const QString)),
+                     sipua,    SLOT(setServerUrl(const QString&)));
+    QObject::connect(bridgeJS, SIGNAL(userChanged(const QString)),
+                     sipua,    SLOT(setUser(const QString&)));
+    QObject::connect(bridgeJS, SIGNAL(passwordChanged(const QString)),
+                     sipua,    SLOT(setPassword(const QString&)));
+    QObject::connect(bridgeJS, SIGNAL(buddyChanged(const QString)),
+                     sipua,    SLOT(setBuddy(const QString&)));
+
+    bridgeJS->setServerUrl("sip.whisperr.com");
+    bridgeJS->setUser("device1");
+    bridgeJS->setPassword("device1");
+    bridgeJS->setBuddy("pete@sip.whisperr.com");
 
     sipua->setServerUrl("sip.whisperr.com");
     sipua->setUser("device1");
     sipua->setPassword("device1");
     sipua->setBuddy("pete@sip.whisperr.com");
-    sipua->_contr = sipua;
+
+    //bridgeJS->_contr = sipua;
 
     //if (option[0] == 'h')
     //   pjsua_call_hangup_all();
@@ -51,7 +80,8 @@ int main(int argc, char *argv[])
     QObject::connect(&clientWrapper, &WebSocketClientWrapper::clientConnected,
         &channel, &QWebChannel::connectTo);
 
-    channel.registerObject("mySipUa", sipua);
+   // channel.registerObject("mySipUa", sipua);
+    channel.registerObject("bridgeJS", bridgeJS);
 
     const QString initialUrl =
         //QStringLiteral( "10.0.2.2/index3.html");
@@ -61,7 +91,7 @@ int main(int argc, char *argv[])
 
     QQmlContext *context = engine.rootContext();
     //context->setContextProperty(QStringLiteral("channel"), &channel);
-    context->setContextProperty(QStringLiteral("sipua"), sipua);
+    //context->setContextProperty(QStringLiteral("sipua"), sipua);
     context->setContextProperty(QStringLiteral("utils"), new Utils(&engine));
     context->setContextProperty(QStringLiteral("initialUrl"), Utils::fromUserInput(initialUrl));
 

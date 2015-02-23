@@ -2,8 +2,7 @@
 
 pjsua_call_id SipController::current_call_id;
 
-SipController* SipController::_contr = 0;
-QString SipController::_incommingBuddy = "";
+static SipController* globalSipUa;
 
 /* Callback called by the library upon receiving incoming call */
 //static
@@ -21,21 +20,13 @@ void SipController::on_incoming_call(pjsua_acc_id acc_id, pjsua_call_id call_id,
     qDebug() << ci.remote_contact.ptr;
     qDebug() << ci.remote_info.ptr;
 
-    _incommingBuddy = ci.remote_info.ptr;
-    //statusMessageChanged(ci.remote_info.ptr);
-    if(_contr) // WTF?
+    if(globalSipUa)
     {
-       ;//_contr->setStatusMessage2(_contr, ci.remote_info.ptr);
+
+       SipController* sc = (SipController*)globalSipUa;
+       QString info = "incoming: " + QString::fromLatin1(ci.remote_info.ptr, (int) ci.remote_info.slen);
+       sc->setStatusMessage(info);
     }
-
-    /*
-    PJ_LOG(3,(THIS_FILE, "Incoming call from %.*s!!",
-             (int)ci.remote_info.slen,
-             ci.remote_info.ptr));
-    */
-
-    /* Automatically answer incoming calls with 200/OK */
-   // pjsua_call_answer(call_id, 200, NULL, NULL);
 }
 
 /* Callback called by the library when call's state has changed */
@@ -48,15 +39,14 @@ void SipController::on_call_state(pjsua_call_id call_id, pjsip_event *e)
 
     pjsua_call_get_info(call_id, &ci);
 
-    //qDebug() << ci.remote_contact.ptr;
-    //qDebug() << ci.remote_info.ptr;//state_text.ptr;
-
-    /*
-    PJ_LOG(3,(THIS_FILE, "Call %d state=%.*s", call_id,
-             (int)ci.state_text.slen,
-             ci.state_text.ptr));
-             */
-
+    if(globalSipUa)
+    {
+       SipController* sc = (SipController*)globalSipUa;
+       QString state = "state: " + QString::fromLatin1(ci.state_text.ptr, (int) ci.state_text.slen);
+       sc->setStatusMessage(state);
+       //QString info = "info: " + QString::fromLatin1(ci.remote_info.ptr, (int) ci.remote_info.slen);
+       //sc->setStatusMessage(info);
+    }
 }
 
 /* Callback called by the library when call's media state has changed */
@@ -82,7 +72,7 @@ SipController::SipController(QObject *parent)
     , _buddy("")
     , _statusMessage("Ready")
 {
-
+    globalSipUa = this;
 }
 
 SipController::~SipController()
@@ -122,14 +112,6 @@ void SipController::setBuddy(const QString& b)
     emit buddyChanged(b);
 }
 
-void SipController::setIncommingBuddy(const QString& b)
-{
-    if(_incommingBuddy == b)
-        return;
-    _incommingBuddy = b;
-    emit incommingBuddyChanged(b);
-}
-
 void SipController::setStatusMessage(const QString& m)
 {
     if(_statusMessage == m)
@@ -137,14 +119,6 @@ void SipController::setStatusMessage(const QString& m)
     _statusMessage = m;
     qDebug() << m;
     emit statusMessageChanged(_statusMessage);
-}
-
-void SipController::setStatusMessage2(SipController* sipContr, QString m)
-{
-    qDebug() << "setStatusMessage2: " << m;
-    //sipContr->incommingCall();
-   //_incommingBuddy = m;
-    //sipContr->setStatusMessage(QString(*m));
 }
 
 int SipController::create()
@@ -155,7 +129,7 @@ int SipController::create()
         setStatusMessage("error create");
         return SC_ERROR;
     }
-    setStatusMessage("create pjsip - ok");
+    //setStatusMessage("create pjsip - ok");
     return SC_OK;
 }
 
@@ -175,7 +149,7 @@ int SipController::init()
         setStatusMessage("error init");
         return SC_ERROR;
     }
-    setStatusMessage("init pjsip - ok");
+    //setStatusMessage("init pjsip - ok");
     return SC_OK;
 }
 
@@ -197,7 +171,7 @@ int SipController::addTransport()
         setStatusMessage("error addTransport");
         return SC_ERROR;
     }
-    setStatusMessage("addTransport - ok");
+    //setStatusMessage("addTransport - ok");
     return SC_OK;
 }
 
@@ -209,7 +183,7 @@ int SipController::start()
         setStatusMessage("error start");
         return SC_ERROR;
     }
-    setStatusMessage("start - ok");
+    //setStatusMessage("start - ok");
     return SC_OK;
 }
 
@@ -263,7 +237,7 @@ int SipController::createSIPAccount()
     }
     else
     {
-        setStatusMessage("create SIP Account - ok");
+        //setStatusMessage("create SIP Account - ok");
         return SC_OK;
     }
 }

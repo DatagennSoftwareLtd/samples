@@ -42,14 +42,15 @@
 
             window.channel = new QWebChannel(socket, function(channel) {
                 // To make the object known globally, assign it to the window object, i.e.:
-                window.mySipUa = channel.objects.mySipUa;
+                //window.mySipUa = channel.objects.mySipUa;
+		window.bridgeJS = channel.objects.bridgeJS;
 
-                mySipUa.statusMessageChanged.connect(function(message) {
-                                            output("Status: " + message);
+                bridgeJS.logMessage.connect(function(message) {
+                                            output(message);
                 });
-		mySipUa.incommingCall.connect(function(){
-					    output("Status: incomming call");
-		});
+		//mySipUa.incommingCall.connect(function(){
+		//			    output("Status: incomming call");
+		//});
             });
         }
     }
@@ -57,27 +58,30 @@
 
 <script>
     function registrationUser(var1) {
-        mySipUa.serverUrl = document.siptest.serverSip.value;
-        mySipUa.user = document.siptest.user.value;
-        mySipUa.password = document.siptest.password.value;
-        mySipUa.buddy = document.siptest.buddy.value;
-        mySipUa.registered();
+	//mySipUa.serverUrl = document.siptest.serverSip.value;
+        bridgeJS.serverUrl = document.siptest.serverSip.value;
+        bridgeJS.user = document.siptest.user.value;
+        bridgeJS.password = document.siptest.password.value;
+        bridgeJS.buddy = document.siptest.buddy.value;
+        bridgeJS.registeredSlot();
     }
 
     function acceptCall(var1) {
-        mySipUa.acceptCall();
-	document.siptest.incomming.value = mySipUa.incommingBuddy;
+        bridgeJS.acceptCallSlot();
+	//document.siptest.incomming.value = mySipUa.incommingBuddy;
     }
 
     function rejectCall(var1) {
-        mySipUa.rejectCall();
+        bridgeJS.rejectCallSlot();
 
     }
 
     function makeCall(var1) {
-        mySipUa.buddy = document.siptest.buddy.value;
-        mySipUa.makeCall();
-
+        bridgeJS.buddy = document.siptest.buddy.value;
+        bridgeJS.makeCallSlot();
+    }
+    function clearLog(var1) {
+	 output.innerHTML = "";
     }
 </script>
 </head>
@@ -89,13 +93,13 @@
       user: <input name="user" type="text" value="device1" size="25"><Br>
       password: <input name="password" type="text" value="device1" size="25"><Br>
       buddy: <input name="buddy" type="text" value="pete@sip.whisperr.com" size="25"><Br>
-      incomming: <input name="incomming" type="text" value="" size="25"><Br>
 
       <input type="button" value="Reg" onclick="registrationUser(serverSip)"><Br>
       <input type="button" value="Accept" onclick="acceptCall(serverSip)"><Br>
       <input type="button" value="Reject" onclick="rejectCall(serverSip)"><Br>
       <input type="button" value="Call" onclick="makeCall(serverSip)"><Br>
-      <textarea id="output"></textarea>
+      <input type="button" value="Clear Log" onclick="clearLog(serverSip)"><Br>
+      <textarea id="output" cols="35" style="min-widht:250;min-height:500px; overflow-y: scroll; resize: none"></textarea>
     </FORM>
 
     <object type="text/qtexample" data="100,28" width="300" height="300"></object>
