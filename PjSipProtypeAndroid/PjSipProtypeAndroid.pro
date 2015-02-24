@@ -84,10 +84,12 @@ HEADERS += \
     bridgejs.h
 
 DISTFILES += \
-    init.qml \
-    main.qml \
-    splashscreen.qml \
-    customprogressbar.qml
+    ./qml/init.qml \
+    ./qml/main.qml \
+    ./qml/splashscreen.qml \
+    ./qml/customprogressbar.qml \
+    ./qml/collapsiblepanel.qml \
+    ./qml/navigationdrawer.qml
 
 DISTFILES += \
     android/gradle/wrapper/gradle-wrapper.jar \

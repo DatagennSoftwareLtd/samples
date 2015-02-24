@@ -13,7 +13,7 @@ Item {
 
     Loader {
         id: splashScreenLoader
-        source: "qrc:/SplashScreen.qml";
+        source: "qrc:/qml/SplashScreen.qml";
         width: mainAppLoaderItem.width
         height: mainAppLoaderItem.height
         onLoaded: {
@@ -34,7 +34,7 @@ Item {
         onTriggered: {
             if (!mainAppLoader.Loading) {
                 console.debug("Starting to load the main application.");
-                mainAppLoader.source = "qrc:/main.qml";
+                mainAppLoader.source = "qrc:/qml/main.qml";
                 secondPhaseTimer.start();
             }
         }

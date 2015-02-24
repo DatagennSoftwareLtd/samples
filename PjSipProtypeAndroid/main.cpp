@@ -95,7 +95,7 @@ int main(int argc, char *argv[])
     context->setContextProperty(QStringLiteral("utils"), new Utils(&engine));
     context->setContextProperty(QStringLiteral("initialUrl"), Utils::fromUserInput(initialUrl));
 
-    engine.load(QUrl(QStringLiteral("qrc:/init.qml")));
+    engine.load(QUrl(QStringLiteral("qrc:/qml/init.qml")));
 
     return app.exec();
 }

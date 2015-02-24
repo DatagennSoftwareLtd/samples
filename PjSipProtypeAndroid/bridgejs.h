@@ -36,6 +36,10 @@ public:
 
     //void setSipUa(SipController* s);
 
+    // API
+    int login(QString username, QString password);
+
+
 signals:
 
     void serverUrlChanged(const QString);
