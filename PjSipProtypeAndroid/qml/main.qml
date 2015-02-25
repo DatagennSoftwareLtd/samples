@@ -14,14 +14,24 @@ ApplicationWindow {
     WebView {
        objectName: "Browser"
        id: webView
+       z: 1
        anchors.fill: parent
-       anchors.margins: 5
+       anchors.topMargin: 25
        url: initialUrl
+       x: drawer.width + drawer.x
+    }
+
+    Rectangle {
+        z:50
+        anchors.top: parent.top
+        width: parent.width
+        height: parent.height/2
+        color: "#ff0000"
     }
 
     NavigationDrawer {
         id: drawer
-
+        z: 100
         opacity: 0.5
         //anchors.top: toolBar.bottom
         anchors.top: parent.top

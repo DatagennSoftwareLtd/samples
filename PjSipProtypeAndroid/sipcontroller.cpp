@@ -5,7 +5,6 @@ pjsua_call_id SipController::current_call_id;
 static SipController* globalSipUa;
 
 /* Callback called by the library upon receiving incoming call */
-//static
 void SipController::on_incoming_call(pjsua_acc_id acc_id, pjsua_call_id call_id,
                  pjsip_rx_data *rdata)
 {
@@ -30,7 +29,6 @@ void SipController::on_incoming_call(pjsua_acc_id acc_id, pjsua_call_id call_id,
 }
 
 /* Callback called by the library when call's state has changed */
-//static
 void SipController::on_call_state(pjsua_call_id call_id, pjsip_event *e)
 {
     pjsua_call_info ci;
@@ -50,7 +48,6 @@ void SipController::on_call_state(pjsua_call_id call_id, pjsip_event *e)
 }
 
 /* Callback called by the library when call's media state has changed */
-//static
 void SipController::on_call_media_state(pjsua_call_id call_id)
 {
     pjsua_call_info ci;
@@ -63,6 +60,318 @@ void SipController::on_call_media_state(pjsua_call_id call_id)
     pjsua_conf_connect(0, ci.conf_slot);
     }
 }
+
+void SipController::on_call_tsx_state(pjsua_call_id call_id, pjsip_transaction *tsx, pjsip_event *e)
+{
+    PJ_UNUSED_ARG(call_id);
+    PJ_UNUSED_ARG(tsx);
+    PJ_UNUSED_ARG(e);
+}
+
+void SipController::on_call_sdp_created(pjsua_call_id call_id, pjmedia_sdp_session *sdp,
+                                   pj_pool_t *pool, const pjmedia_sdp_session *rem_sdp)
+{
+    PJ_UNUSED_ARG(call_id);
+    PJ_UNUSED_ARG(sdp);
+    PJ_UNUSED_ARG(pool);
+    PJ_UNUSED_ARG(rem_sdp);
+}
+
+void SipController::on_stream_created(pjsua_call_id call_id, pjmedia_stream *strm,
+                                      unsigned stream_idx, pjmedia_port **p_port)
+{
+    PJ_UNUSED_ARG(call_id);
+    PJ_UNUSED_ARG(strm);
+    PJ_UNUSED_ARG(stream_idx);
+    PJ_UNUSED_ARG(p_port);
+}
+
+void SipController::on_stream_destroyed(pjsua_call_id call_id, pjmedia_stream *strm, unsigned stream_idx)
+{
+    PJ_UNUSED_ARG(call_id);
+    PJ_UNUSED_ARG(strm);
+    PJ_UNUSED_ARG(stream_idx);
+}
+
+void SipController::on_dtmf_digit(pjsua_call_id call_id, int digit)
+{
+    PJ_UNUSED_ARG(call_id);
+    PJ_UNUSED_ARG(digit);
+}
+
+void SipController::on_call_transfer_request(pjsua_call_id call_id, const pj_str_t *dst,
+                                             pjsip_status_code *code)
+{
+    PJ_UNUSED_ARG(call_id);
+    PJ_UNUSED_ARG(dst);
+    PJ_UNUSED_ARG(code);
+}
+
+void SipController::on_call_transfer_request2(pjsua_call_id call_id, const pj_str_t *dst,
+                                              pjsip_status_code *code, pjsua_call_setting *opt)
+{
+    PJ_UNUSED_ARG(call_id);
+    PJ_UNUSED_ARG(dst);
+    PJ_UNUSED_ARG(code);
+    PJ_UNUSED_ARG(opt);
+}
+
+void SipController::on_call_transfer_status(pjsua_call_id call_id, int st_code,
+                                            const pj_str_t *st_text, pj_bool_t final, pj_bool_t *p_cont)
+{
+    PJ_UNUSED_ARG(call_id);
+    PJ_UNUSED_ARG(st_code);
+    PJ_UNUSED_ARG(st_text);
+    PJ_UNUSED_ARG(final);
+    PJ_UNUSED_ARG(p_cont);
+}
+
+void SipController::on_call_replace_request(pjsua_call_id call_id, pjsip_rx_data *rdata,
+                                            int *st_code, pj_str_t *st_text)
+{
+    PJ_UNUSED_ARG(call_id);
+    PJ_UNUSED_ARG(rdata);
+    PJ_UNUSED_ARG(st_code);
+    PJ_UNUSED_ARG(st_text);
+}
+
+void SipController::on_call_replace_request2(pjsua_call_id call_id, pjsip_rx_data *rdata,
+                                             int *st_code, pj_str_t *st_text, pjsua_call_setting *opt)
+{
+    PJ_UNUSED_ARG(call_id);
+    PJ_UNUSED_ARG(rdata);
+    PJ_UNUSED_ARG(st_code);
+    PJ_UNUSED_ARG(st_text);
+    PJ_UNUSED_ARG(opt);
+}
+
+void SipController::on_call_replaced(pjsua_call_id old_call_id, pjsua_call_id new_call_id)
+{
+    PJ_UNUSED_ARG(old_call_id);
+    PJ_UNUSED_ARG(new_call_id);
+}
+
+void SipController::on_call_rx_offer(pjsua_call_id call_id, const pjmedia_sdp_session *offer,
+                                     void *reserved, pjsip_status_code *code, pjsua_call_setting *opt)
+{
+    PJ_UNUSED_ARG(call_id);
+    PJ_UNUSED_ARG(offer);
+    PJ_UNUSED_ARG(reserved);
+    PJ_UNUSED_ARG(code);
+    PJ_UNUSED_ARG(opt);
+}
+
+void SipController::on_reg_started(pjsua_acc_id acc_id, pj_bool_t renew)
+{
+    PJ_UNUSED_ARG(acc_id);
+    PJ_UNUSED_ARG(renew);
+}
+
+void SipController::on_reg_state(pjsua_acc_id acc_id)
+{
+    PJ_UNUSED_ARG(acc_id);
+}
+
+void SipController::on_reg_state2(pjsua_acc_id acc_id, pjsua_reg_info *info)
+{
+    PJ_UNUSED_ARG(acc_id);
+    PJ_UNUSED_ARG(info);
+}
+
+void SipController::on_incoming_subscribe(pjsua_acc_id acc_id, pjsua_srv_pres *srv_pres,
+                                          pjsua_buddy_id buddy_id, const pj_str_t *from,
+                                          pjsip_rx_data *rdata, pjsip_status_code *code,
+                                          pj_str_t *reason, pjsua_msg_data *msg_data)
+{
+    PJ_UNUSED_ARG(acc_id);
+    PJ_UNUSED_ARG(srv_pres);
+    PJ_UNUSED_ARG(buddy_id);
+    PJ_UNUSED_ARG(from);
+    PJ_UNUSED_ARG(rdata);
+    PJ_UNUSED_ARG(code);
+    PJ_UNUSED_ARG(reason);
+    PJ_UNUSED_ARG(msg_data);
+}
+
+void SipController::on_srv_subscribe_state(pjsua_acc_id acc_id, pjsua_srv_pres *srv_pres,
+                                           const pj_str_t *remote_uri, pjsip_evsub_state state,
+                                           pjsip_event *event)
+{
+    PJ_UNUSED_ARG(acc_id);
+    PJ_UNUSED_ARG(srv_pres);
+    PJ_UNUSED_ARG(remote_uri);
+    PJ_UNUSED_ARG(state);
+    PJ_UNUSED_ARG(event);
+}
+
+void SipController::on_buddy_state(pjsua_buddy_id buddy_id)
+{
+    PJ_UNUSED_ARG(buddy_id);
+}
+
+void SipController::on_buddy_evsub_state(pjsua_buddy_id buddy_id, pjsip_evsub *sub, pjsip_event *event)
+{
+    PJ_UNUSED_ARG(buddy_id);
+    PJ_UNUSED_ARG(sub);
+    PJ_UNUSED_ARG(event);
+}
+
+void SipController::on_pager(pjsua_call_id call_id, const pj_str_t *from, const pj_str_t *to,
+                             const pj_str_t *contact, const pj_str_t *mime_type, const pj_str_t *body)
+{
+    PJ_UNUSED_ARG(call_id);
+    PJ_UNUSED_ARG(from);
+    PJ_UNUSED_ARG(to);
+    PJ_UNUSED_ARG(contact);
+    PJ_UNUSED_ARG(mime_type);
+    PJ_UNUSED_ARG(body);
+}
+
+void SipController::on_pager2(pjsua_call_id call_id, const pj_str_t *from, const pj_str_t *to,
+                              const pj_str_t *contact, const pj_str_t *mime_type,
+                              const pj_str_t *body, pjsip_rx_data *rdata, pjsua_acc_id acc_id)
+{
+    PJ_UNUSED_ARG(call_id);
+    PJ_UNUSED_ARG(from);
+    PJ_UNUSED_ARG(to);
+    PJ_UNUSED_ARG(contact);
+    PJ_UNUSED_ARG(mime_type);
+    PJ_UNUSED_ARG(body);
+    PJ_UNUSED_ARG(rdata);
+    PJ_UNUSED_ARG(acc_id);
+}
+
+void SipController::on_pager_status(pjsua_call_id call_id, const pj_str_t *to, const pj_str_t *body,
+                                    void *user_data, pjsip_status_code status, const pj_str_t *reason)
+{
+    PJ_UNUSED_ARG(call_id);
+    PJ_UNUSED_ARG(to);
+    PJ_UNUSED_ARG(body);
+    PJ_UNUSED_ARG(user_data);
+    PJ_UNUSED_ARG(status);
+    PJ_UNUSED_ARG(reason);
+}
+
+void SipController::on_pager_status2(pjsua_call_id call_id, const pj_str_t *to, const pj_str_t *body,
+                                     void *user_data, pjsip_status_code status, const pj_str_t *reason,
+                                     pjsip_tx_data *tdata, pjsip_rx_data *rdata, pjsua_acc_id acc_id)
+{
+    PJ_UNUSED_ARG(call_id);
+    PJ_UNUSED_ARG(to);
+    PJ_UNUSED_ARG(body);
+    PJ_UNUSED_ARG(user_data);
+    PJ_UNUSED_ARG(status);
+    PJ_UNUSED_ARG(reason);
+    PJ_UNUSED_ARG(tdata);
+    PJ_UNUSED_ARG(rdata);
+    PJ_UNUSED_ARG(acc_id);
+}
+
+void SipController::on_typing(pjsua_call_id call_id, const pj_str_t *from, const pj_str_t *to,
+                              const pj_str_t *contact, pj_bool_t is_typing)
+{
+    PJ_UNUSED_ARG(call_id);
+    PJ_UNUSED_ARG(from);
+    PJ_UNUSED_ARG(to);
+    PJ_UNUSED_ARG(contact);
+    PJ_UNUSED_ARG(is_typing);
+}
+
+void SipController::on_typing2(pjsua_call_id call_id, const pj_str_t *from, const pj_str_t *to,
+                               const pj_str_t *contact, pj_bool_t is_typing, pjsip_rx_data *rdata,
+                               pjsua_acc_id acc_id)
+{
+    PJ_UNUSED_ARG(call_id);
+    PJ_UNUSED_ARG(from);
+    PJ_UNUSED_ARG(to);
+    PJ_UNUSED_ARG(contact);
+    PJ_UNUSED_ARG(is_typing);
+    PJ_UNUSED_ARG(rdata);
+    PJ_UNUSED_ARG(acc_id);
+}
+
+void SipController::on_nat_detect(const pj_stun_nat_detect_result *res)
+{
+    PJ_UNUSED_ARG(res);
+}
+
+/*
+pjsip_redirect_op SipController::on_call_redirected(pjsua_call_id call_id, const pjsip_uri *target,
+                                                                const pjsip_event *e)
+{
+    PJ_UNUSED_ARG(call_id);
+    PJ_UNUSED_ARG(target);
+    PJ_UNUSED_ARG(e);
+}
+*/
+
+void SipController::on_mwi_state(pjsua_acc_id acc_id, pjsip_evsub *evsub)
+{
+    PJ_UNUSED_ARG(acc_id);
+    PJ_UNUSED_ARG(evsub);
+}
+
+void SipController::on_mwi_info(pjsua_acc_id acc_id, pjsua_mwi_info *mwi_info)
+{
+    PJ_UNUSED_ARG(acc_id);
+    PJ_UNUSED_ARG(mwi_info);
+}
+
+/*
+pjsip_tp_state_callback SipController::on_transport_state()
+{
+
+}
+*/
+
+/*
+pjsua_med_tp_state_cb SipController::on_call_media_transport_state()
+{
+
+}
+*/
+
+void SipController::on_ice_transport_error(int index, pj_ice_strans_op op,
+                                           pj_status_t status, void *param)
+{
+    PJ_UNUSED_ARG(index);
+    PJ_UNUSED_ARG(op);
+    PJ_UNUSED_ARG(status);
+    PJ_UNUSED_ARG(param);
+}
+
+/*
+pj_status_t SipController::on_snd_dev_operation(int operation)
+{
+    PJ_UNUSED_ARG(operation);
+}
+*/
+
+void SipController::on_call_media_event(pjsua_call_id call_id, unsigned med_idx, pjmedia_event *event)
+{
+    PJ_UNUSED_ARG(call_id);
+    PJ_UNUSED_ARG(med_idx);
+    PJ_UNUSED_ARG(event);
+}
+
+/*
+pjmedia_transport* SipController::on_create_media_transport(pjsua_call_id call_id, unsigned media_idx,
+                                              pjmedia_transport *base_tp, unsigned flags)
+{
+    PJ_UNUSED_ARG(call_id);
+    PJ_UNUSED_ARG(media_idx);
+    PJ_UNUSED_ARG(base_tp);
+    PJ_UNUSED_ARG(flags);
+}
+*/
+
+void SipController::on_acc_find_for_incoming(const pjsip_rx_data *rdata, pjsua_acc_id *acc_id)
+{
+    PJ_UNUSED_ARG(rdata);
+    PJ_UNUSED_ARG(acc_id);
+}
+
+//--------------------------------------------------------------------------------------------
 
 SipController::SipController(QObject *parent)
     : QObject(parent)
