@@ -1,6 +1,6 @@
 TEMPLATE = app
 
-QT += qml quick
+QT += qml quick sql core
 
 SOURCES += main.cpp \
     dbprovider.cpp

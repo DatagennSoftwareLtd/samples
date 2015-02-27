@@ -2,6 +2,7 @@
 #define DBPROVIDER_H
 
 #include <QObject>
+#include <QtQuick>
 
 class DbProvider : public QObject
 {
@@ -9,6 +10,28 @@ class DbProvider : public QObject
 public:
     explicit DbProvider(QObject *parent = 0);
     ~DbProvider();
+
+    Q_INVOKABLE void create();
+    Q_INVOKABLE void open();
+    Q_INVOKABLE void close();
+    Q_INVOKABLE void remove();
+    Q_INVOKABLE void addUse(const QString& account, const QString& server,
+                            const QString& user, const QString& password);
+
+    void addAccount(const QString& account, const QString& server,
+                       const QString& user, const QString& password);
+
+    void changeAccount(const QString& account, const QString& server,
+                       const QString& user, const QString& password);
+
+    void deleteAccount(const QString& account, const QString& server,
+                       const QString& user, const QString& password);
+
+
+
+protected:
+    void createAccountTable();
+    void createContactListTable();
 
 signals:
 
