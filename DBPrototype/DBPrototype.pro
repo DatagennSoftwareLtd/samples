@@ -3,7 +3,11 @@ TEMPLATE = app
 QT += qml quick sql core
 
 SOURCES += main.cpp \
-    dbprovider.cpp
+    dbprovider.cpp \
+    accountitem.cpp \
+    accountsmodel.cpp \
+    contactitem.cpp \
+    contactsmodel.cpp
 
 RESOURCES += qml.qrc
 
@@ -14,4 +18,8 @@ QML_IMPORT_PATH =
 include(deployment.pri)
 
 HEADERS += \
-    dbprovider.h
+    dbprovider.h \
+    accountitem.h \
+    accountsmodel.h \
+    contactitem.h \
+    contactsmodel.h
