@@ -5,6 +5,12 @@
 #include <QSqlError>
 #include <QDebug>
 
+#include "accountsmodel.h"
+#include "accountitem.h"
+
+#include "contactsmodel.h"
+#include "contactitem.h"
+
 DbProvider::DbProvider(QObject *parent) : QObject(parent)
 {
 
@@ -15,60 +21,84 @@ DbProvider::~DbProvider()
 
 }
 
-void DbProvider::create()
+void DbProvider::fillAccountsList(QList<AccountItem*>* list)
 {
     QSqlDatabase DB = QSqlDatabase::addDatabase("QSQLITE", "Con_1");
     DB.setDatabaseName("DB_One.sqlite");
     if(!DB.open())
     {
         qDebug("DB_NOT_OPEN");
+        return;
     }
 
     QSqlQuery Query(DB);
-    Query.prepare
+    bool res = Query.prepare
     (
-                " CREATE TABLE IF NOT EXISTS TableOne "
-                " ( "
-                       "  ID INTEGER PRIMARY KEY AUTOINCREMENT, "
-                       "  Server VARCHAR(100) "
-                       "  User VARCHAR(100) "
-                       "  Password VARCHAR(100) "
-                "  ); "
+        "SELECT Account, User, Password FROM AccountTable"
     );
+    qDebug() << "fillAccountsList prepare: " << res;
 
     Query.exec();
     if(!Query.isActive())
     {
-        qDebug() << "2: " << Query.lastError().text();
+        qDebug() << "fillAccountsList: " << Query.lastError().text();
+        return;
     }
 
-    Query.prepare
-    (
-                "INSERT INTO TableOne (ID, Server, User, Password)"
-                "VALUES (3, 'first')"
-    );
-
-    Query.exec();
-    if(!Query.isActive())
+    while (Query.next())
     {
-        qDebug() << "3: " << Query.lastError().text();
-    }
-
-    Query.prepare
-    (
-                "INSERT INTO TableOne (ID, Name)"
-                "VALUES (4, 'second')"
-    );
-
-    Query.exec();
-    if(!Query.isActive())
-    {
-        qDebug() << "4: " << Query.lastError().text();
+        list->append(new AccountItem());
+        list->last()->setName(Query.value(0).toString());
+        list->last()->setUser(Query.value(1).toString());
+        list->last()->setPassword(Query.value(2).toString());
     }
 
     DB.close();
     DB = QSqlDatabase();
     QSqlDatabase::removeDatabase("Con_1");
+}
+
+void DbProvider::fillContactsList(const QString& account, QList<ContactItem*>* list)
+{
+    QSqlDatabase DB = QSqlDatabase::addDatabase("QSQLITE", "Con_1");
+    DB.setDatabaseName("DB_One.sqlite");
+    if(!DB.open())
+    {
+        qDebug("DB_NOT_OPEN");
+        return;
+    }
+
+    QSqlQuery Query(DB);
+    bool res = Query.prepare
+    (
+        "SELECT Name, SipUri FROM ContactListTable WHERE Account = :account"
+    );
+    Query.bindValue(":account", account);
+
+    qDebug() << "fillContactsList prepare: " << res;
+
+    Query.exec();
+    if(!Query.isActive())
+    {
+        qDebug() << "fillContactsList: " << Query.lastError().text();
+        return;
+    }
+
+    while (Query.next())
+    {
+        list->append(new ContactItem());
+        list->last()->setName(Query.value(0).toString());
+        list->last()->setUri(Query.value(1).toString());
+    }
+
+    DB.close();
+    DB = QSqlDatabase();
+    QSqlDatabase::removeDatabase("Con_1");
+}
+
+void DbProvider::create()
+{
+
 }
 
 void DbProvider::open()
@@ -106,11 +136,13 @@ void DbProvider::addAccount(const QString& account, const QString& server,
     bool res = Query.prepare
     (
         "INSERT INTO AccountTable (Account, Server, User, Password)"
-        "VALUES ('" + account + "')"
-        "VALUES ('" + server + "')"
-        "VALUES ('" + user + "')"
-        "VALUES ('" + password + "')"
+        "VALUES (:account, :server, :user, :password)"
     );
+    Query.bindValue(":account", account);
+    Query.bindValue(":server", server);
+    Query.bindValue(":user", user);
+    Query.bindValue(":password", password);
+
     qDebug() << "addAccount prepare: " << res;
 
     Query.exec();
@@ -122,10 +154,14 @@ void DbProvider::addAccount(const QString& account, const QString& server,
     DB.close();
     DB = QSqlDatabase();
     QSqlDatabase::removeDatabase("Con_1");
+
+    emit accountsTableChanged();
 }
 
 void DbProvider::changeAccount(const QString& account, const QString& server,
-                   const QString& user, const QString& password)
+                   const QString& user, const QString& password,
+                   const QString& newaccount, const QString& newserver,
+                   const QString& newuser, const QString& newpassword)
 {
     QSqlDatabase DB = QSqlDatabase::addDatabase("QSQLITE", "Con_1");
     DB.setDatabaseName("DB_One.sqlite");
@@ -138,11 +174,24 @@ void DbProvider::changeAccount(const QString& account, const QString& server,
     bool res = Query.prepare
     (
         " UPDATE AccountTable "
-        " SET Account = '" + account + "' , Server = '" + server + "' , "
-        " User = '" + user + "' , Password = '" + password + "'"
-        " WHERE Account = '" + account + "' AND "
-        " Server = '" + server + "'"
+        " SET Account = :newaccount , Server = :newserver , "
+        " User = :newuser , Password = :newpassword "
+        " WHERE Account = :account  AND "
+        " Server = :server AND "
+        " User = :user AND "
+        " Password = :password "
     );
+
+    Query.bindValue(":newaccount", newaccount);
+    Query.bindValue(":newserver", newserver);
+    Query.bindValue(":newuser", newuser);
+    Query.bindValue(":newpassword", newpassword);
+    Query.bindValue(":account", account);
+    Query.bindValue(":server", server);
+    Query.bindValue(":user", user);
+    Query.bindValue(":password", password);
+
+
     qDebug() << "changeAccount prepare: " << res;
 
     Query.exec();
@@ -154,6 +203,8 @@ void DbProvider::changeAccount(const QString& account, const QString& server,
     DB.close();
     DB = QSqlDatabase();
     QSqlDatabase::removeDatabase("Con_1");
+
+    emit accountsTableChanged();
 }
 
 void DbProvider::deleteAccount(const QString& account, const QString& server,
@@ -169,10 +220,18 @@ void DbProvider::deleteAccount(const QString& account, const QString& server,
     QSqlQuery Query(DB);
     bool res = Query.prepare
     (
-        "DELETE FROM AccountTable"
-        "WHERE Account = '" + account + "' AND "
-        " Server = '" + server + "'"
+        " DELETE FROM AccountTable "
+        " WHERE Account = :account  AND "
+        " Server = :server AND "
+        " User = :user AND "
+        " Password = :password "
     );
+
+    Query.bindValue(":account", account);
+    Query.bindValue(":server", server);
+    Query.bindValue(":user", user);
+    Query.bindValue(":password", password);
+
     qDebug() << "deleteAccount prepare: " << res;
 
     Query.exec();
@@ -184,7 +243,125 @@ void DbProvider::deleteAccount(const QString& account, const QString& server,
     DB.close();
     DB = QSqlDatabase();
     QSqlDatabase::removeDatabase("Con_1");
+
+    emit accountsTableChanged();
 }
+
+
+void DbProvider::addContact(const QString& account, const QString& buddy, const QString& uri)
+{
+    QSqlDatabase DB = QSqlDatabase::addDatabase("QSQLITE", "Con_1");
+    DB.setDatabaseName("DB_One.sqlite");
+    if(!DB.open())
+    {
+        qDebug("DB_NOT_OPEN");
+    }
+
+    QSqlQuery Query(DB);
+    bool res = Query.prepare
+    (
+        "INSERT INTO ContactListTable (Account, Name, SipUri)"
+        "VALUES (:account, :name, :sipuri)"
+    );
+    Query.bindValue(":account", account);
+    Query.bindValue(":name", buddy);
+    Query.bindValue(":sipuri", uri);
+
+    qDebug() << "addContact prepare: " << res;
+
+    Query.exec();
+    if(!Query.isActive())
+    {
+        qDebug() << "addContact: " << Query.lastError().text();
+    }
+
+    DB.close();
+    DB = QSqlDatabase();
+    QSqlDatabase::removeDatabase("Con_1");
+
+    emit contactsTableChanged(account);
+}
+
+void DbProvider::changeContact(const QString& account,
+                            const QString& buddy, const QString& uri,
+                            const QString& newbuddy, const QString& newuri)
+{
+    QSqlDatabase DB = QSqlDatabase::addDatabase("QSQLITE", "Con_1");
+    DB.setDatabaseName("DB_One.sqlite");
+    if(!DB.open())
+    {
+        qDebug("DB_NOT_OPEN");
+    }
+
+    QSqlQuery Query(DB);
+    bool res = Query.prepare
+    (
+        " UPDATE ContactListTable "
+        " SET Account = :account , Name = :newname , "
+        " SipUri = :newsipuri "
+        " WHERE Account = :account  AND "
+        " Name = :name AND "
+        " SipUri = :sipuri "
+    );
+
+    Query.bindValue(":account", account);
+    Query.bindValue(":newname", newbuddy);
+    Query.bindValue(":newsipuri", newuri);
+    Query.bindValue(":name", buddy);
+    Query.bindValue(":sipuri", uri);
+
+    qDebug() << "changeContact prepare: " << res;
+
+    Query.exec();
+    if(!Query.isActive())
+    {
+        qDebug() << "changeContact: " << Query.lastError().text();
+    }
+
+    DB.close();
+    DB = QSqlDatabase();
+    QSqlDatabase::removeDatabase("Con_1");
+
+    emit contactsTableChanged(account);
+}
+
+void DbProvider::deleteContact(const QString& account, const QString& buddy, const QString& uri)
+{
+    QSqlDatabase DB = QSqlDatabase::addDatabase("QSQLITE", "Con_1");
+    DB.setDatabaseName("DB_One.sqlite");
+    if(!DB.open())
+    {
+        qDebug("DB_NOT_OPEN");
+    }
+
+    QSqlQuery Query(DB);
+    bool res = Query.prepare
+    (
+        " DELETE FROM ContactListTable "
+        " WHERE Account = :account  AND "
+        " Name = :name AND "
+        " SipUri = :sipuri "
+    );
+
+    Query.bindValue(":account", account);
+    Query.bindValue(":name", buddy);
+    Query.bindValue(":sipuri", uri);
+
+    qDebug() << "deleteContact prepare: " << res;
+
+    Query.exec();
+    if(!Query.isActive())
+    {
+        qDebug() << "deleteContact: " << Query.lastError().text();
+    }
+
+    DB.close();
+    DB = QSqlDatabase();
+    QSqlDatabase::removeDatabase("Con_1");
+
+    emit contactsTableChanged(account);
+}
+
 
 void DbProvider::createAccountTable()
 {
@@ -201,9 +378,9 @@ void DbProvider::createAccountTable()
         " CREATE TABLE IF NOT EXISTS AccountTable "
         " ( "
                "  ID INTEGER PRIMARY KEY AUTOINCREMENT, "
-               "  Account VARCHAR(100) "
-               "  Server VARCHAR(100) "
-               "  User VARCHAR(100) "
+               "  Account VARCHAR(100), "
+               "  Server VARCHAR(100), "
+               "  User VARCHAR(100), "
                "  Password VARCHAR(100) "
         "  ); "
     );
@@ -234,8 +411,8 @@ void DbProvider::createContactListTable()
         " CREATE TABLE IF NOT EXISTS ContactListTable "
         " ( "
                "  ID INTEGER PRIMARY KEY AUTOINCREMENT, "
-               "  Account VARCHAR(100) "
-               "  Name VARCHAR(100) "
+               "  Account VARCHAR(100), "
+               "  Name VARCHAR(100), "
                "  SipUri VARCHAR(100) "
         "  ); "
     );

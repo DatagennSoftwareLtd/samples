@@ -9,6 +9,7 @@ ApplicationWindow {
     minimumWidth: 300
     minimumHeight: 540
 
+    // account editor
     Rectangle{
         id: accountRect
         width: parent.width
@@ -33,15 +34,12 @@ ApplicationWindow {
             }
             TextInput {
                 id: accountInput
-                //text: sipua.user
                 color: "#151515"; selectionColor: "green"
                 font.pixelSize:8; font.bold: true
                 width: parent.width-16
                 anchors.centerIn: parent
                 focus: true
                 onEditingFinished: {
-                    //sipua.user = text;
-                    console.log(text);
                 }
             }
         }
@@ -72,15 +70,12 @@ ApplicationWindow {
             }
             TextInput {
                 id: userInput
-                //text: sipua.user
                 color: "#151515"; selectionColor: "green"
                 font.pixelSize:8; font.bold: true
                 width: parent.width-16
                 anchors.centerIn: parent
                 focus: true
                 onEditingFinished: {
-                    //sipua.user = text;
-                    console.log(text);
                 }
             }
         }
@@ -91,7 +86,6 @@ ApplicationWindow {
         width: parent.width
         height: 20
         anchors.top: userRect.bottom
-        //color: parent.color
 
         Text {
             id: pswText
@@ -113,15 +107,12 @@ ApplicationWindow {
             }
             TextInput {
                 id: passwordInput
-                //text: sipua.password
                 color: "#151515"; selectionColor: "green"
                 font.pixelSize:8; font.bold: true
                 width: parent.width-16
                 anchors.centerIn: parent
                 focus: true
                 onEditingFinished: {
-                    //sipua.password = text;
-                    console.log(text);
                 }
             }
         }
@@ -134,6 +125,7 @@ ApplicationWindow {
            width: parent.width; height: 80
            property var view: ListView.view
            property var isCurrent: ListView.isCurrentItem
+           property variant account: model
 
            Rectangle {
                anchors.margins: 5
@@ -145,12 +137,16 @@ ApplicationWindow {
                }
                MouseArea {
                    anchors.fill: parent
-                   onClicked: view.currentIndex = model.index
+                   onClicked: {
+                       view.currentIndex = model.index;
+                       contactsModel.updateModel(model.name);
+                   }
                }
            }
        }
     }
 
+    // account view
     ListView {
         id: accountView
         width: parent.width;
@@ -165,6 +161,7 @@ ApplicationWindow {
         delegate: accountDelegate
     }
 
+    // account manager buttons
     Rectangle {
         id: accountManagerRect
         width: parent.width
@@ -179,7 +176,9 @@ ApplicationWindow {
             anchors.margins: 5
 
             onClicked: {
-                accountsModel.addAccount(accountInput.text, userInput.text, passwordInput.text);
+                dbProvider.addAccount(accountInput.text, "sip.whisperr.com",
+                                      userInput.text, passwordInput.text);
+                console.log("add account");
             }
         }
 
@@ -192,7 +191,11 @@ ApplicationWindow {
             anchors.left: addAccountButton.right
 
             onClicked: {
-                ;
+                // take selected item
+                dbProvider.deleteAccount(accountView.currentItem.account.name, "sip.whisperr.com",
+                                      accountView.currentItem.account.user,
+                                      accountView.currentItem.account.password);
+                console.log("delete account");
             }
         }
         Button {
@@ -204,13 +207,19 @@ ApplicationWindow {
             anchors.right: parent.right
 
             onClicked: {
-                ;
+                // take selected item
+                dbProvider.changeAccount(accountView.currentItem.account.name, "sip.whisperr.com",
+                                      accountView.currentItem.account.user,
+                                      accountView.currentItem.account.password,
+                                      accountInput.text, "sip.whisperr.com",
+                                      userInput.text, passwordInput.text);
+
+                console.log("change account");
             }
         }
     }
 
-    // buddy edit
-
+    // buddy editor
     Rectangle{
         id: buddyRect
         width: parent.width
@@ -236,15 +245,12 @@ ApplicationWindow {
             }
             TextInput {
                 id: buddyInput
-                //text: sipua.user
                 color: "#151515"; selectionColor: "green"
                 font.pixelSize:8; font.bold: true
                 width: parent.width-16
                 anchors.centerIn: parent
                 focus: true
                 onEditingFinished: {
-                    //sipua.user = text;
-                    console.log(text);
                 }
             }
         }
@@ -255,7 +261,6 @@ ApplicationWindow {
         width: parent.width
         height: 20
         anchors.top: buddyRect.bottom
-        //color: parent.color
 
         Text {
             id: uriText
@@ -277,15 +282,12 @@ ApplicationWindow {
             }
             TextInput {
                 id: uriInput
-                //text: sipua.password
                 color: "#151515"; selectionColor: "green"
                 font.pixelSize:8; font.bold: true
                 width: parent.width-16
                 anchors.centerIn: parent
                 focus: true
                 onEditingFinished: {
-                    //sipua.password = text;
-                    console.log(text);
                 }
             }
         }
@@ -298,6 +300,7 @@ ApplicationWindow {
            width: parent.width; height: 80
            property var view: ListView.view
            property var isCurrent: ListView.isCurrentItem
+           property variant contact: model
 
            Rectangle {
                anchors.margins: 5
@@ -314,6 +317,7 @@ ApplicationWindow {
        }
     }
 
+    // contacts view
     ListView {
         id: contactView
         width: parent.width;
@@ -328,6 +332,7 @@ ApplicationWindow {
         delegate: contactDelegate
     }
 
+    // contacts manager buttons
     Rectangle {
         id: contactManagerRect
         width: parent.width
@@ -342,7 +347,10 @@ ApplicationWindow {
             anchors.margins: 5
 
             onClicked: {
-                contactsModel.addContact(buddyInput.text, uriInput.text);
+                //contactsModel.addContact(buddyInput.text, uriInput.text);
+                dbProvider.addContact(accountView.currentItem.account.name,
+                                      buddyInput.text, uriInput.text);
+                console.log("add contact");
             }
         }
 
@@ -355,7 +363,9 @@ ApplicationWindow {
             anchors.left: addContactButton.right
 
             onClicked: {
-                ;
+                dbProvider.deleteContact(accountView.currentItem.account.name,
+                                      buddyInput.text, uriInput.text);
+                console.log("delete contact");
             }
         }
         Button {
@@ -367,75 +377,13 @@ ApplicationWindow {
             anchors.right: parent.right
 
             onClicked: {
-                ;
+                dbProvider.changeContact(accountView.currentItem.account.name,
+                                         contactView.currentItem.contact.name,
+                                         contactView.currentItem.contact.uri,
+                                         buddyInput.text, uriInput.text);
+                console.log("change contact");
             }
         }
     }
 
-    /*
-
-    Rectangle{
-        id: buttonsRect
-        width: parent.width
-        height: 50
-        anchors.top: parent.top
-        //anchors.margins: 5
-
-        Button {
-            id: createDbButton
-            text: "create"
-            height: buttonsRect.height - 10
-            width: parent.width/4 - 10
-            anchors.left: buttonsRect.left
-            anchors.margins: 5
-            anchors.verticalCenter: parent.verticalCenter
-
-            onClicked: {
-                dbProvider.create();
-            }
-        }
-
-        Button {
-            id: openDbButton
-            text: "open"
-            height: buttonsRect.height - 10
-            width: parent.width/4 - 10
-            anchors.left: createDbButton.right
-            anchors.margins: 5
-            anchors.verticalCenter: parent.verticalCenter
-
-            onClicked: {
-                dbProvider.open();
-            }
-        }
-
-        Button {
-            id: closeDbButton
-            text: "close"
-            height: buttonsRect.height - 10
-            width: parent.width/4 - 10
-            anchors.left: openDbButton.right
-            anchors.margins: 5
-            anchors.verticalCenter: parent.verticalCenter
-
-            onClicked: {
-                dbProvider.close();
-            }
-        }
-
-        Button {
-            id: removeDbButton
-            text: "remove"
-            height: buttonsRect.height - 10
-            width: parent.width/4 - 10
-            anchors.left: closeDbButton.right
-            anchors.margins: 5
-            anchors.verticalCenter: parent.verticalCenter
-
-            onClicked: {
-                dbProvider.remove();
-            }
-        }
-    }
-*/
 }

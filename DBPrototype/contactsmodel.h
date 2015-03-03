@@ -5,6 +5,7 @@
 #include <QtQuick>
 
 class ContactItem;
+class DbProvider;
 
 class ContactsModel : public QObject
 {
@@ -13,7 +14,7 @@ class ContactsModel : public QObject
     Q_PROPERTY(QQmlListProperty<ContactItem> list READ list  NOTIFY listChanged /*CONSTANT*/)
 
 public:
-    explicit ContactsModel(QObject *parent = 0);
+    explicit ContactsModel(DbProvider* db, QObject *parent = 0);
     ~ContactsModel();
 
     QQmlListProperty<ContactItem> list()
@@ -24,13 +25,17 @@ public:
     Q_INVOKABLE void addContact(QString name, QString uri);
     Q_INVOKABLE void deleteContact(QString name);
 
+    void setDbProvider(DbProvider* db) { dbProvider = db; }
+
 signals:
     void listChanged(QList<ContactItem*>);
 
 public slots:
+    Q_INVOKABLE void updateModel(const QString& account);
 
 private:
     QList<ContactItem*> _list;
+    DbProvider* dbProvider;
 };
 
 #endif // CONTACTSMODEL_H

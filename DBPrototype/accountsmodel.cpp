@@ -1,17 +1,14 @@
 #include "accountsmodel.h"
 #include "accountitem.h"
+#include "dbprovider.h"
 
-AccountsModel::AccountsModel(QObject *parent) : QObject(parent)
+#include <QDebug>
+
+AccountsModel::AccountsModel(DbProvider* db, QObject *parent)
+    : QObject(parent)
+    , dbProvider(db)
 {
-    _list.append(new AccountItem());
-    _list.last()->setName(QStringLiteral("device1"));
-    _list.last()->setUser(QStringLiteral("device1u"));
-    _list.last()->setPassword(QStringLiteral("device1p"));
-
-    _list.append(new AccountItem());
-    _list.last()->setName(QStringLiteral("device2"));
-    _list.last()->setUser(QStringLiteral("device2u"));
-    _list.last()->setPassword(QStringLiteral("device2p"));
+    dbProvider->fillAccountsList(&_list);
 }
 
 AccountsModel::~AccountsModel()
@@ -27,6 +24,19 @@ void AccountsModel::addAccount(QString account, QString user, QString password)
     _list.last()->setPassword(password);
 
     emit listChanged(_list);
+}
+
+void AccountsModel::updateModel()
+{
+    /*foreach (AccountItem* item, _list)
+    {
+        delete item;
+    }*/
+    _list.clear();
+    dbProvider->fillAccountsList(&_list);
+    emit listChanged(_list);
+
+    qDebug() << "ContactsModel::updateModel";
 }
 
 void AccountsModel::deleteAccount(QString account)

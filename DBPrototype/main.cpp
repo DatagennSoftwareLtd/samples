@@ -12,9 +12,16 @@ int main(int argc, char *argv[])
     QGuiApplication app(argc, argv);
 
     DbProvider* dbProvider = new DbProvider();
+    dbProvider->createAccountTable();
+    dbProvider->createContactListTable();
 
-    AccountsModel* accounts = new AccountsModel();
-    ContactsModel* contacts = new ContactsModel();
+    AccountsModel* accounts = new AccountsModel(dbProvider);
+    ContactsModel* contacts = new ContactsModel(dbProvider);
+
+    QObject::connect(dbProvider, SIGNAL(accountsTableChanged()),
+                     accounts, SLOT(updateModel()));
+    QObject::connect(dbProvider, SIGNAL(contactsTableChanged(const QString&)),
+                     contacts, SLOT(updateModel(const QString&)));
 
     QQmlApplicationEngine engine;
 
