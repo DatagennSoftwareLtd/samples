@@ -364,7 +364,8 @@ ApplicationWindow {
 
             onClicked: {
                 dbProvider.deleteContact(accountView.currentItem.account.name,
-                                      buddyInput.text, uriInput.text);
+                                         contactView.currentItem.contact.name,
+                                         contactView.currentItem.contact.uri);
                 console.log("delete contact");
             }
         }
