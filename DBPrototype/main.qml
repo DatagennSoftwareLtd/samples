@@ -5,15 +5,16 @@ import QtQuick.Controls 1.3
 ApplicationWindow {
     visible: true
     width: 300
-    height: 540
+    //height: 540
     minimumWidth: 300
     minimumHeight: 540
 
+    property int myFontSize: 12
     // account editor
     Rectangle{
         id: accountRect
         width: parent.width
-        height: 20
+        height: 40
 
         Text {
             text: "account:"
@@ -34,8 +35,10 @@ ApplicationWindow {
             }
             TextInput {
                 id: accountInput
-                color: "#151515"; selectionColor: "green"
-                font.pixelSize:8; font.bold: true
+                color: "#151515";
+                selectionColor: "green"
+                font.pixelSize: myFontSize
+                font.bold: true
                 width: parent.width-16
                 anchors.centerIn: parent
                 focus: true
@@ -48,7 +51,7 @@ ApplicationWindow {
     Rectangle{
         id: userRect
         width: parent.width
-        height: 20
+        height: 40
         anchors.top: accountRect.bottom
 
         Text {
@@ -71,7 +74,8 @@ ApplicationWindow {
             TextInput {
                 id: userInput
                 color: "#151515"; selectionColor: "green"
-                font.pixelSize:8; font.bold: true
+                font.pixelSize: myFontSize
+                font.bold: true
                 width: parent.width-16
                 anchors.centerIn: parent
                 focus: true
@@ -84,7 +88,7 @@ ApplicationWindow {
     Rectangle{
         id: passwordRect
         width: parent.width
-        height: 20
+        height: 40
         anchors.top: userRect.bottom
 
         Text {
@@ -108,7 +112,8 @@ ApplicationWindow {
             TextInput {
                 id: passwordInput
                 color: "#151515"; selectionColor: "green"
-                font.pixelSize:8; font.bold: true
+                font.pixelSize: myFontSize
+                font.bold: true
                 width: parent.width-16
                 anchors.centerIn: parent
                 focus: true
@@ -122,7 +127,7 @@ ApplicationWindow {
     Component {
        id: accountDelegate
        Item {
-           width: parent.width; height: 80
+           width: parent.width; height: 120
            property var view: ListView.view
            property var isCurrent: ListView.isCurrentItem
            property variant account: model
@@ -150,7 +155,7 @@ ApplicationWindow {
     ListView {
         id: accountView
         width: parent.width;
-        height: 160
+        height: 240
         anchors.top: passwordRect.bottom
         highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
         highlightFollowsCurrentItem: true
@@ -223,7 +228,7 @@ ApplicationWindow {
     Rectangle{
         id: buddyRect
         width: parent.width
-        height: 20
+        height: 40
         anchors.top: accountManagerRect.bottom
 
         Text {
@@ -246,7 +251,8 @@ ApplicationWindow {
             TextInput {
                 id: buddyInput
                 color: "#151515"; selectionColor: "green"
-                font.pixelSize:8; font.bold: true
+                font.pixelSize: myFontSize
+                font.bold: true
                 width: parent.width-16
                 anchors.centerIn: parent
                 focus: true
@@ -259,7 +265,7 @@ ApplicationWindow {
     Rectangle{
         id: uriRect
         width: parent.width
-        height: 20
+        height: 40
         anchors.top: buddyRect.bottom
 
         Text {
@@ -283,7 +289,8 @@ ApplicationWindow {
             TextInput {
                 id: uriInput
                 color: "#151515"; selectionColor: "green"
-                font.pixelSize:8; font.bold: true
+                font.pixelSize: myFontSize
+                font.bold: true
                 width: parent.width-16
                 anchors.centerIn: parent
                 focus: true
