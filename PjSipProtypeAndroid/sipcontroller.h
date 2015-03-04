@@ -29,6 +29,12 @@ public:
     QString statusMessage() const { return _statusMessage; }
     void setStatusMessage(const QString&);
 
+
+    void on_pager_wrapper(pjsua_call_id call_id, const pj_str_t *from,
+            const pj_str_t *to, const pj_str_t *contact, const pj_str_t *mime_type,
+            const pj_str_t *text);
+
+
 public slots:
     void setServerUrl(const QString&);
     void setUser(const QString&);
@@ -43,6 +49,11 @@ signals:
     void statusMessageChanged(const QString);
 
     void incommingCall();
+
+    /* this signal forwards the instant message a-synchronous to the GUI thread */
+    void new_im(QString from, QString text);
+    /* this signal forwards the instant message a-synchronous to the GUI thread */
+    void nat_detect(QString text, QString description);
 
 public slots:
 
@@ -60,6 +71,10 @@ public slots:
     Q_INVOKABLE int rejectCall();
 
     Q_INVOKABLE int registered();
+
+    // im
+    Q_INVOKABLE void new_incoming_im(QString from, QString text);
+    Q_INVOKABLE void new_outgoing_im(QString to, QString text);
 
 protected:
 

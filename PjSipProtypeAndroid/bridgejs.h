@@ -38,6 +38,15 @@ public:
 
     // API
     int login(QString username, QString password);
+    int signup (QString username, QString password);
+    int logoff();
+    int resetPassword(QString emailAddress);
+
+    enum language {EN = 0, };
+    int changeLanguage(language lng = EN);
+
+    // configure(sessionToken, feature, value)
+    // getInfo(sessionToken, feature)
 
 
 signals:
@@ -55,12 +64,16 @@ signals:
     //void logMessage(QString);
     void logMessage(QVariant);
 
+    void outgoingIm(QString to, QString text);
+
 public slots:
 
     void makeCallSlot();
     void acceptCallSlot();
     void rejectCallSlot();
     void registeredSlot();
+
+    void outgoingImSlot(QString to, QString text);
 
     void logMessageSlot(QString);
 

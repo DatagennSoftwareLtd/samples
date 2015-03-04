@@ -11,5 +11,7 @@
         <file>qml/init.qml</file>
         <file>qml/main.qml</file>
         <file>qml/SplashScreen.qml</file>
+        <file>images/menu_overflow.png</file>
+        <file>images/menu_slider.png</file>
     </qresource>
 </RCC>

@@ -3,6 +3,7 @@ import QtQuick.Window 2.2
 import QtQuick.Controls 1.3
 import QtQuick.Layouts 1.1
 import QtWebView 1.0
+import QtQuick.Controls.Styles 1.3
 
 ApplicationWindow {
     visible: true
@@ -11,22 +12,56 @@ ApplicationWindow {
     minimumWidth: 300
     minimumHeight: 250
 
+    //toolBar:
+    ToolBar {
+        id: toolBar
+        width: parent.width
+        height: 32
+
+        style: ToolBarStyle {
+            padding {
+                left: 6
+                right: 6
+                top: 3
+                bottom: 3
+            }
+            background: Rectangle {
+                anchors.fill: parent
+                color: "red"
+            }
+        }
+
+        RowLayout {
+            anchors.fill: parent
+            ToolButton {
+                width: toolBar.height
+                height: toolBar.height
+                Image {
+                    source: "qrc:/images/menu_slider.png"
+                    anchors.fill: parent
+                }
+            }
+            ToolButton {
+                width: toolBar.height
+                height: toolBar.height
+                anchors.right: parent.right
+                Image {
+                    source: "qrc:/images/menu_overflow.png"
+                    anchors.fill: parent
+                }
+            }
+        }
+    }
+
     WebView {
        objectName: "Browser"
        id: webView
-       z: 1
-       anchors.fill: parent
-       anchors.topMargin: 25
+       //anchors.fill: parent
+       anchors.top: toolBar.bottom
+       anchors.bottom: parent.bottom
+       width: parent.width
        url: initialUrl
        x: drawer.width + drawer.x
-    }
-
-    Rectangle {
-        z:50
-        anchors.top: parent.top
-        width: parent.width
-        height: parent.height/2
-        color: "#ff0000"
     }
 
     NavigationDrawer {

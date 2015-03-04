@@ -219,12 +219,12 @@ void SipController::on_buddy_evsub_state(pjsua_buddy_id buddy_id, pjsip_evsub *s
 void SipController::on_pager(pjsua_call_id call_id, const pj_str_t *from, const pj_str_t *to,
                              const pj_str_t *contact, const pj_str_t *mime_type, const pj_str_t *body)
 {
-    PJ_UNUSED_ARG(call_id);
-    PJ_UNUSED_ARG(from);
-    PJ_UNUSED_ARG(to);
-    PJ_UNUSED_ARG(contact);
-    PJ_UNUSED_ARG(mime_type);
-    PJ_UNUSED_ARG(body);
+    /* call the non-static member */
+    if(globalSipUa)
+    {
+       SipController* sc = (SipController*)globalSipUa;
+       sc->on_pager_wrapper(call_id, from, to, contact, mime_type, body);
+    }
 }
 
 void SipController::on_pager2(pjsua_call_id call_id, const pj_str_t *from, const pj_str_t *to,
@@ -448,6 +448,7 @@ int SipController::init()
     cfg.cb.on_incoming_call = &SipController::on_incoming_call;
     cfg.cb.on_call_media_state = &SipController::on_call_media_state;
     cfg.cb.on_call_state = &SipController::on_call_state;
+    cfg.cb.on_pager = &SipController::on_pager;
 
     pjsua_logging_config_default(&log_cfg);
     log_cfg.console_level = 4;
@@ -605,4 +606,52 @@ int SipController::registered()
 
     setStatusMessage("registered");
     return SC_OK;
+}
+
+
+void SipController::on_pager_wrapper(pjsua_call_id call_id, const pj_str_t *from,
+        const pj_str_t *to, const pj_str_t *contact, const pj_str_t *mime_type,
+        const pj_str_t *text) {
+    /* Note: call index may be -1 */
+    PJ_UNUSED_ARG(call_id);
+    PJ_UNUSED_ARG(to);
+    PJ_UNUSED_ARG(contact);
+    PJ_UNUSED_ARG(mime_type);
+
+    QString msg = QString::fromLatin1(from->ptr, from->slen) + " : "
+            + QString::fromLatin1(text->ptr, text->slen);
+
+    setStatusMessage(msg);
+
+    //emit new_im(QString::fromAscii(from->ptr, from->slen),
+    //		QString::fromAscii(text->ptr, text->slen));
+}
+
+void SipController::new_incoming_im(QString from, QString text)
+{
+
+}
+
+void SipController::new_outgoing_im(QString to, QString text)
+{
+    to = "sip:" + to;
+    pj_status_t status;
+    QByteArray tempto, temptext;
+    pj_str_t pjto, pjtext;
+
+    tempto   = to.toLatin1();
+    temptext = text.toLatin1();
+
+    pjto = pj_str(tempto.data());
+    pjtext = pj_str(temptext.data());
+
+    status = pjsua_im_send(acc_id, &pjto,
+            NULL, &pjtext,
+            NULL, NULL);
+    if (status != PJ_SUCCESS)
+        setStatusMessage("Error sending IM");
+    else
+        setStatusMessage("Ok sending IM");
+
+    qDebug() << to << " : " << status;
 }

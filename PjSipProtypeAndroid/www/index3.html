@@ -80,6 +80,10 @@
         bridgeJS.buddy = document.siptest.buddy.value;
         bridgeJS.makeCallSlot();
     }
+    function sendIM(var1){
+        bridgeJS.outgoingImSlot(document.siptest.buddy.value, "hello");
+    }
+
     function clearLog(var1) {
 	 document.siptest.output.value = '';
     }
@@ -95,9 +99,10 @@
       buddy: <input name="buddy" type="text" value="pete@sip.whisperr.com" size="25"><Br>
 
       <input type="button" value="Reg" onclick="registrationUser(serverSip)"><Br>
-      <input type="button" value="Accept" onclick="acceptCall(serverSip)"><Br>
-      <input type="button" value="Reject" onclick="rejectCall(serverSip)"><Br>
+      <input type="button" value="Accept" onclick="acceptCall(serverSip)">
+      <input type="button" value="Reject" onclick="rejectCall(serverSip)">
       <input type="button" value="Call" onclick="makeCall(serverSip)"><Br>
+      <input type="button" value="Send IM" onclick="sendIM(serverSip)"><Br>
       <input type="button" value="Clear Log" onclick="clearLog(serverSip)"><Br>
       <textarea id="output" cols="35" style="min-widht:250;min-height:500px; overflow-y: scroll; resize: none"></textarea>
     </FORM>

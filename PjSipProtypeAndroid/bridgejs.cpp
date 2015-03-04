@@ -97,3 +97,8 @@ void BridgeJS::logMessageSlot(QString m)
 {
     emit logMessage(QVariant(m));
 }
+
+void BridgeJS::outgoingImSlot(QString to, QString text)
+{
+    emit outgoingIm(to, text);
+}

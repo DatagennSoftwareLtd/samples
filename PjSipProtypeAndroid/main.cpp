@@ -35,6 +35,9 @@ int main(int argc, char *argv[])
     QObject::connect(sipua, SIGNAL(statusMessageChanged(const QString)),
                      bridgeJS, SLOT(logMessageSlot(QString)));
 
+    QObject::connect(bridgeJS, SIGNAL(outgoingIm(QString, QString)),
+                     sipua, SLOT(new_outgoing_im(QString, QString)));
+
     //------------------------------------------------------------
     QObject::connect(bridgeJS, SIGNAL(serverUrlChanged(const QString)),
                      sipua,    SLOT(setServerUrl(const QString&)));
@@ -85,7 +88,8 @@ int main(int argc, char *argv[])
 
     const QString initialUrl =
         //QStringLiteral( "10.0.2.2/index3.html");
-        QStringLiteral( "http://sip.whisperr.com:8061/vlad/index3.html");
+        //QStringLiteral( "http://sip.whisperr.com:8061/vlad/index3.html");
+        QStringLiteral( "http://vlad.whisperr.com:8061/index3.html");
 
     QQmlApplicationEngine engine;
 
