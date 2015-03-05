@@ -102,3 +102,83 @@ void BridgeJS::outgoingImSlot(QString to, QString text)
 {
     emit outgoingIm(to, text);
 }
+
+
+//------------- JS API -------------------
+
+int BridgeJS::login(QString username, QString password)
+{
+    return RETURN_OK;
+}
+
+int BridgeJS::signup(QString username, QString password)
+{
+    return RETURN_OK;
+}
+
+int BridgeJS::logoff()
+{
+    return RETURN_OK;
+}
+
+int BridgeJS::resetPassword(QString emailAddress)
+{
+    return RETURN_OK;
+}
+
+int BridgeJS::changeLanguage(language lng)
+{
+    return RETURN_OK;
+}
+
+// int configure(sessionToken, feature, value);
+// int getInfo(sessionToken, feature);
+
+// configure(sessionToken, feature, value)
+// getInfo(sessionToken, feature)
+
+// Note: where to find contact profile picture? From PHP API or from Phone contacts list? Both?
+//int function manageContact(sessionToken, action, info[]);
+// action: add {name, picture, status(OK/Ignore/Blocked), numbers[], emails[]} / update {contactId, name, picture, status(OK/Ignore/Blocked), numbers[], emails[]} / remove {contactId}
+
+int BridgeJS::getContacts(tokenID32 sessionToken)
+{
+    return RETURN_OK;
+}
+
+int BridgeJS::getContactDetails(tokenID32 sessionToken, contactID32 contactId)
+{
+    return RETURN_OK;
+}
+
+int BridgeJS::getCallLogs(tokenID32 sessionToken, long startPos, long itemCount)
+{
+    return RETURN_OK;
+}
+
+int BridgeJS::removeCallLog(tokenID32 sessionToken, long callId)
+{
+    return RETURN_OK;
+}
+
+int BridgeJS::clearCallLogs(tokenID32 sessionToken)
+{
+    return RETURN_OK;
+}
+
+int BridgeJS::getCallDetails(tokenID32 sessionToken, long callId)
+{
+    return RETURN_OK;
+}
+
+// Get list of conversations and groups with different people only displaying the info of the last conversation with each person
+int BridgeJS::getChatsList(tokenID32 sessionToken, long startPos, long itemCount)
+{
+    return RETURN_OK;
+}
+
+int BridgeJS::getMessages(tokenID32 sessionToken, long conversationOrGroupId,
+                          long startPos, long itemCount)
+{
+    return RETURN_OK;
+}

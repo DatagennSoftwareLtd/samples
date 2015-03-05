@@ -7,6 +7,13 @@
 
 //class SipController;
 
+typedef quint32 tokenID32;
+typedef quint32 contactID32;
+
+enum {
+    RETURN_OK = 100,
+};
+
 class BridgeJS : public QObject
 {
     Q_OBJECT
@@ -38,16 +45,34 @@ public:
 
     // API
     int login(QString username, QString password);
-    int signup (QString username, QString password);
+    int signup(QString username, QString password);
     int logoff();
     int resetPassword(QString emailAddress);
 
     enum language {EN = 0, };
     int changeLanguage(language lng = EN);
 
-    // configure(sessionToken, feature, value)
-    // getInfo(sessionToken, feature)
+    // int configure(sessionToken, feature, value);
+    // int getInfo(sessionToken, feature);
 
+    // Note: where to find contact profile picture? From PHP API or from Phone contacts list? Both?
+    // int function manageContact(sessionToken, action, info[]);
+    // action: add {name, picture, status(OK/Ignore/Blocked), numbers[], emails[]} / update {contactId, name, picture, status(OK/Ignore/Blocked), numbers[], emails[]} / remove {contactId}
+
+    int getContacts(tokenID32 sessionToken);
+    int getContactDetails(tokenID32 sessionToken, contactID32 contactId);
+
+
+    int getCallLogs(tokenID32 sessionToken, long startPos, long itemCount);
+    int removeCallLog(tokenID32 sessionToken, long callId);
+    int clearCallLogs(tokenID32 sessionToken);
+
+    int getCallDetails(tokenID32 sessionToken, long callId);
+
+    // Get list of conversations and groups with different people only displaying the info of the last conversation with each person
+    int getChatsList(tokenID32 sessionToken, long startPos, long itemCount);
+
+    int getMessages(tokenID32 sessionToken, long conversationOrGroupId, long startPos, long itemCount);
 
 signals:
 
