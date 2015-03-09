@@ -618,8 +618,11 @@ void SipController::on_pager_wrapper(pjsua_call_id call_id, const pj_str_t *from
     PJ_UNUSED_ARG(contact);
     PJ_UNUSED_ARG(mime_type);
 
-    QString msg = QString::fromLatin1(from->ptr, from->slen) + " : "
-            + QString::fromLatin1(text->ptr, text->slen);
+    QString msg = QString::fromUtf8(from->ptr, from->slen) + " : "
+            + QString::fromUtf8(text->ptr, text->slen);
+
+    qDebug() << "im: " << text->ptr;
+
 
     setStatusMessage(msg);
 
@@ -639,8 +642,10 @@ void SipController::new_outgoing_im(QString to, QString text)
     QByteArray tempto, temptext;
     pj_str_t pjto, pjtext;
 
-    tempto   = to.toLatin1();
-    temptext = text.toLatin1();
+    tempto   = to.toUtf8();
+    temptext = text.toUtf8();
+
+    qDebug() << "im: " << text << " : " << temptext;
 
     pjto = pj_str(tempto.data());
     pjtext = pj_str(temptext.data());

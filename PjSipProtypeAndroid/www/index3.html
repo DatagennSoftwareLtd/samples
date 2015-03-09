@@ -81,7 +81,7 @@
         bridgeJS.makeCallSlot();
     }
     function sendIM(var1){
-        bridgeJS.outgoingImSlot(document.siptest.buddy.value, "hello");
+        bridgeJS.outgoingImSlot(document.siptest.buddy.value, document.siptest.imtext.value);
     }
 
     function clearLog(var1) {
@@ -97,6 +97,7 @@
       user: <input name="user" type="text" value="device1" size="25"><Br>
       password: <input name="password" type="text" value="device1" size="25"><Br>
       buddy: <input name="buddy" type="text" value="pete@sip.whisperr.com" size="25"><Br>
+      IM text: <input name="imtext" type="text" value="hello" size="25"><Br>
 
       <input type="button" value="Reg" onclick="registrationUser(serverSip)"><Br>
       <input type="button" value="Accept" onclick="acceptCall(serverSip)">
