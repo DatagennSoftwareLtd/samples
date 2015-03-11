@@ -95,7 +95,7 @@ int main(int argc, char *argv[])
 
     QQmlContext *context = engine.rootContext();
     //context->setContextProperty(QStringLiteral("channel"), &channel);
-    //context->setContextProperty(QStringLiteral("sipua"), sipua);
+    context->setContextProperty(QStringLiteral("sipua"), sipua);
     context->setContextProperty(QStringLiteral("utils"), new Utils(&engine));
     context->setContextProperty(QStringLiteral("initialUrl"), Utils::fromUserInput(initialUrl));
 

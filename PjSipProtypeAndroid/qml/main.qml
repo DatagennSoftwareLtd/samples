@@ -54,6 +54,7 @@ ApplicationWindow {
     }
 
     WebView {
+    //WebEngineView {
        objectName: "Browser"
        id: webView
        //anchors.fill: parent

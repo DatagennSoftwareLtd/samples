@@ -46,7 +46,7 @@ signals:
     void userChanged(const QString);
     void passwordChanged(const QString);
     void buddyChanged(const QString);
-    void statusMessageChanged(const QString);
+    void statusMessageChanged(const QString msg);
 
     void incommingCall();
 

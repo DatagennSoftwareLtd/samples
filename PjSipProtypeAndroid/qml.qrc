@@ -1,17 +1,18 @@
 <RCC>
     <qresource prefix="/">
-        <file>images/lineedit.png</file>
-        <file>images/lineedit.sci</file>
-        <file>images/left-32.png</file>
-        <file>images/right-32.png</file>
-        <file>images/splashscreen.png</file>
         <file>qml/CollapsiblePanel.qml</file>
-        <file>qml/NavigationDrawer.qml</file>
         <file>qml/CustomProgressBar.qml</file>
         <file>qml/init.qml</file>
         <file>qml/main.qml</file>
+        <file>qml/mainOffline.qml</file>
+        <file>qml/NavigationDrawer.qml</file>
         <file>qml/SplashScreen.qml</file>
+        <file>images/left-32.png</file>
+        <file>images/lineedit.png</file>
+        <file>images/lineedit.sci</file>
         <file>images/menu_overflow.png</file>
         <file>images/menu_slider.png</file>
+        <file>images/right-32.png</file>
+        <file>images/splashscreen.png</file>
     </qresource>
 </RCC>

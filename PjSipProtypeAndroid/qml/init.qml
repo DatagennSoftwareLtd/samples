@@ -34,7 +34,7 @@ Item {
         onTriggered: {
             if (!mainAppLoader.Loading) {
                 console.debug("Starting to load the main application.");
-                mainAppLoader.source = "qrc:/qml/main.qml";
+                mainAppLoader.source = "qrc:/qml/mainOffline.qml";
                 secondPhaseTimer.start();
             }
         }

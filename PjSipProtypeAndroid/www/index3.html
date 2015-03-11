@@ -18,25 +18,73 @@
        output.innerHTML = output.innerHTML + message + "\n";
     }
 
+    function WebSocketTest()
+    {
+       if ("WebSocket" in window)
+       {
+	    output("WebSocket is supported by your Browser!");
+       }
+       else
+       {
+            // The browser doesn't support WebSocket
+	    output("WebSocket NOT supported by your Browser!");
+       }
+    }
+
+function get_browser_info(){
+    var ua=navigator.userAgent,tem,M=ua.match(/(opera|chrome|safari|firefox|msie|trident(?=\/))\/?\s*(\d+)/i) || []; 
+    if(/trident/i.test(M[1])){
+        tem=/\brv[ :]+(\d+)/g.exec(ua) || []; 
+        return {name:'IE ',version:(tem[1]||'')};
+        }   
+    if(M[1]==='Chrome'){
+        tem=ua.match(/\bOPR\/(\d+)/)
+        if(tem!=null)   {return {name:'Opera', version:tem[1]};}
+        }   
+    M=M[2]? [M[1], M[2]]: [navigator.appName, navigator.appVersion, '-?'];
+    if((tem=ua.match(/version\/(\d+)/i))!=null) {M.splice(1,1,tem[1]);}
+    return {
+      name: M[0],
+      version: M[1]
+    };
+ }
+
     window.loggedin = false;
 
     window.onload = function() {
 
-    //var baseUrl = (/[?&]webChannelBaseUrl=([A-Za-z0-9\-:/\.]+)./exec(location.search)[1]);
+        //var baseUrl = (/[?&]webChannelBaseUrl=([A-Za-z0-9\-:/\.]+)./exec(location.search)[1]);
         var baseUrl = "ws://localHost:12345";
 
-        var socket = new WebSocket(baseUrl);
+        WebSocketTest();
+//        var browser = get_browser_info();
+//	output(browser.name + " : " + browser.version);
+
+	output("browser: " + navigator.userAgent);
+
+	try
+	{	
+           var socket = new WebSocket(baseUrl);
+	   output("websocket created: " + socket.readyState);
+	}
+	catch(e)
+	{
+	   output("error websocket creation: " + e);
+	}
 
         socket.onclose = function()
         {
             console.error("web channel closed");
+	    output("web channel closed");
         };
         socket.onerror = function(error)
         {
             console.error("web channel error: " + error);
+	    output("web channel error: " + error);
         };
         socket.onopen = function()
         {
+	    output("websocket onopen: " + socket.readyState);	
             console.error("socket.onopen")
 	    output("Status: " + "webchannel init");
 
@@ -52,6 +100,8 @@
 		//			    output("Status: incomming call");
 		//});
             });
+	    
+            output("websocket onopen: " + socket.readyState);	
         }
     }
 </script>

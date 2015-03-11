@@ -25,7 +25,8 @@ SOURCES += main.cpp \
     utils.cpp \
     bridgejs.cpp
 
-RESOURCES += qml.qrc
+RESOURCES += \
+    qml.qrc
 
 INCLUDEPATH += \
     ./pjproject-2.3/pjsip/include \
@@ -86,6 +87,7 @@ HEADERS += \
 DISTFILES += \
     ./qml/init.qml \
     ./qml/main.qml \
+    ./qml/mainoffline.qml \
     ./qml/splashscreen.qml \
     ./qml/customprogressbar.qml \
     ./qml/collapsiblepanel.qml \
