@@ -1,0 +1,17 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>MainForm.ui.qml</file>
+        <file>images/background.png</file>
+        <file>images/facebook_background.png</file>
+        <file>images/facebook_logo.png</file>
+        <file>images/line_1.png</file>
+        <file>images/line_2.png</file>
+        <file>images/log_in_and_password_field.png</file>
+        <file>images/log_in_and_password_separator.png</file>
+        <file>images/log_in_button.png</file>
+        <file>images/rr_layer.png</file>
+        <file>images/sing_up_button.png</file>
+        <file>WhisperrLogInScreen.qml</file>
+    </qresource>
+</RCC>
