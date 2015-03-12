@@ -13,5 +13,10 @@
         <file>images/rr_layer.png</file>
         <file>images/sing_up_button.png</file>
         <file>WhisperrLogInScreen.qml</file>
+        <file>images/facebook_background_pressed.png</file>
+        <file>images/log_in_button_pressed.png</file>
+        <file>images/sing_up_button_pressed.png</file>
+        <file>images/background_button.png</file>
+        <file>images/background_button_pressed.png</file>
     </qresource>
 </RCC>

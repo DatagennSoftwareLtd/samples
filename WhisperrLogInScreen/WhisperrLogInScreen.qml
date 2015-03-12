@@ -1,5 +1,7 @@
 //import Qt 4.7
 import QtQuick 2.4
+import QtQuick.Controls 1.3
+import QtQuick.Controls.Styles 1.3
 
 Item {
     id: logInScreen
@@ -20,7 +22,6 @@ Item {
         source: "qrc:/images/rr_layer.png"
         width: logInScreen.width
         anchors.horizontalCenter: parent.horizontalCenter
-        //anchors.top: logInScreen.height/10
         anchors.leftMargin: 10.0
         anchors.rightMargin: 10.0
         opacity: 1
@@ -34,6 +35,7 @@ Item {
         width: logInScreen.width
         anchors.horizontalCenter: logInScreen.horizontalCenter
         anchors.top: rr_layer.bottom
+        anchors.topMargin: 20
         horizontalAlignment: Text.Center
 
         font.pixelSize: 20
@@ -43,10 +45,8 @@ Item {
         opacity: 1
     }
 
-
     // "facebook" button
-    Rectangle
-    {
+    Button {
         id: facebookButton
         //width: logInScreen.width
         height: 40
@@ -56,38 +56,49 @@ Item {
         anchors.leftMargin: 30.0
         anchors.rightMargin: 30.0
 
-        Image {
-            id: facebook_background
-            source: "qrc:/images/facebook_background.png"
-            //width: facebookButton.width
-            //height: facebookButton.height
-            anchors.fill: facebookButton
-            opacity: 1
-        }
-        Image {
-            id: facebook_logo
-            source: "qrc:/images/facebook_logo.png"
-            anchors.left: facebookButton.left
-            height: facebookButton.height
-            width: facebookButton.height
-            opacity: 1
-        }
-        Text {
-            id: facebook
-            width: parent.width
-            anchors.horizontalCenter: facebookButton.horizontalCenter
-            anchors.left: facebook_logo.right
-            horizontalAlignment: Text.Center
-            verticalAlignment: Text.Center
-            text: "Facebook"
-            font.pixelSize: 20
-            font.family: "Raleway-Regular"
-            color: "#ffffff"
-            smooth: true
-            opacity: 1
+        onClicked:
+        {
+            console.log("facebookButton clicked");
         }
 
+        style: ButtonStyle {
+            background: Rectangle {
+                Image {
+                    id: facebook_background
+                    source: control.pressed ? "qrc:/images/facebook_background_pressed.png" : "qrc:/images/facebook_background.png"
+                    anchors.fill: parent
+                    opacity: 1
+                }
+                Image {
+                    id: facebook_logo
+                    source: "qrc:/images/facebook_logo.png"
+                    //anchors.left: facebookButton.left
+                    height: facebookButton.height
+                    width: facebookButton.height
+                    opacity: 1
+                }
+                implicitWidth: 100
+                implicitHeight: 25
+                border.width: control.activeFocus ? 2 : 1
+                border.color: "#888"
+                radius: 4
+            }
+            label: Text {
+                id: facebook
+                width: parent.width
+                //anchors.horizontalCenter: facebookButton.horizontalCenter
+                horizontalAlignment: Text.Center
+                verticalAlignment: Text.Center
+                text: "Facebook"
+                font.pixelSize: 20
+                font.family: "Raleway-Regular"
+                color: "#ffffff"
+                smooth: true
+                opacity: 1
+            }
+        }
     }
+
 
     Rectangle
     {
@@ -95,6 +106,7 @@ Item {
         width: logInScreen.width
         height: 30//logInScreen.height/15
         anchors.top: facebookButton.bottom
+        anchors.topMargin: 20
 
         Image {
             source: "qrc:/images/background.png"
@@ -146,7 +158,7 @@ Item {
             opacity: 1
         }
 
-        Text {
+        TextInput {
             id: username
             text: "Username"
             width: parent.width
@@ -154,7 +166,7 @@ Item {
             anchors.top: log_in_and_password_field.top
             font.pixelSize: 20
             font.family: "Raleway-Regular"
-            color: "#d9d9d9"
+            color: "#999999"
             smooth: true
             opacity: 1
         }
@@ -168,7 +180,7 @@ Item {
             opacity: 1
         }
 
-        Text {
+        TextInput {
             id: password
             text: "Password"
             width: parent.width
@@ -182,93 +194,145 @@ Item {
         }
     }
 
-    Rectangle
-    {
+    // login button
+    Button {
         id: log_in_button
         width: logInScreen.width
         height: 50//logInScreen.height/15
         anchors.top: log_in_and_password_field.bottom
-        Image {
-            source: "qrc:/images/log_in_button.png"
-            anchors.fill: log_in_button
-            opacity: 1
+        anchors.topMargin: 20
+
+        style: ButtonStyle {
+            background: BorderImage {
+                    id: login_background
+                    source: control.pressed ? "qrc:/images/log_in_button_pressed.png" : "qrc:/images/log_in_button.png"
+                    border.left: 4 ; border.right: 4
+                    border.top: 4 ; border.bottom: 4
+                }
+
+            label: Text {
+                id: log_in
+                text: "LOG IN"
+                width: parent.width
+                anchors.horizontalCenter: parent.horizontalCenter
+                horizontalAlignment: Text.Center
+                font.pixelSize: 24
+                font.family: "Raleway-Regular"
+                color: "#ffffff"
+                smooth: true
+                opacity: 1
+            }
         }
-        Text {
-            id: log_in
-            text: "LOG IN"
-            width: parent.width
-            anchors.horizontalCenter: parent.horizontalCenter
-            horizontalAlignment: Text.Center
-            font.pixelSize: 24
-            font.family: "Raleway-Regular"
-            color: "#ffffff"
-            smooth: true
-            opacity: 1
-        }
+
     }
 
-    Rectangle
-    {
+    // signup button
+    Button {
         id: sign_up_button
         width: logInScreen.width
         height: 50//logInScreen.height/15
         anchors.top: log_in_button.bottom
-        Image {
-            source: "qrc:/images/sing_up_button.png"
-            opacity: 1
-            anchors.fill: sign_up_button
+        anchors.topMargin: 5
+
+        style: ButtonStyle {
+            background: BorderImage {
+                    id: signup_background
+                    source: control.pressed ? "qrc:/images/sing_up_button_pressed.png" : "qrc:/images/sing_up_button.png"
+                    border.left: 4 ; border.right: 4
+                    border.top: 4 ; border.bottom: 4
+                }
+
+            label: Text {
+                id: sign_up
+                text: "SIGN UP"
+                font.pixelSize: 24
+                font.family: "Raleway-Regular"
+                color: "#ffffff"
+                smooth: true
+                opacity: 1
+                width: parent.width
+                horizontalAlignment: Text.Center
+                anchors.horizontalCenter: parent.horizontalCenter
+            }
         }
-        Text {
-            id: sign_up
-            text: "SIGN UP"
-            font.pixelSize: 24
-            font.family: "Raleway-Regular"
-            color: "#ffffff"
-            smooth: true
-            opacity: 1
-            width: parent.width
-            horizontalAlignment: Text.Center
-            anchors.horizontalCenter: sign_up_button.horizontalCenter
+
+    }
+
+    Button {
+        id: create_new_account
+        anchors.bottom: forgotten_password.top
+        width: logInScreen.width
+        height: 30
+        style: ButtonStyle {
+            label: Text {
+                text: "Create New Account"
+                font.pixelSize: 20
+                font.family: "Raleway-Light"
+                color: "#ffffff"
+                smooth: true
+                opacity: 1
+                width: logInScreen.width
+                horizontalAlignment: Text.Center
+                //anchors.horizontalCenter: logInScreen.horizontalCenter
+
+            }
+            background: BorderImage {
+                source: control.pressed ? "qrc:/images/background_button_pressed.png" : "qrc:/images/background_button.png"
+                border.left: 4 ; border.right: 4
+                border.top: 4 ; border.bottom: 4
+            }
         }
     }
 
-    Text {
-        id: create_new_account_
-        text: "Create New Account"
-        font.pixelSize: 20
-        font.family: "Raleway-Light"
-        color: "#ffffff"
-        smooth: true
-        opacity: 1
+    Button {
+        id: forgotten_password
         width: logInScreen.width
-        horizontalAlignment: Text.Center
-        anchors.horizontalCenter: logInScreen.horizontalCenter
-        anchors.bottom: forgotten_password__.top
+        height: 30
+        anchors.bottom: change_language.top
+
+        style: ButtonStyle {
+            label: Text {
+                text: "Forgotten Password?"
+                font.pixelSize: 20
+                font.family: "Raleway-Light"
+                color: "#ffffff"
+                smooth: true
+                opacity: 1
+                width: logInScreen.width
+                horizontalAlignment: Text.Center
+                //anchors.horizontalCenter: logInScreen.horizontalCenter
+
+            }
+            background: BorderImage {
+                source: control.pressed ? "qrc:/images/background_button_pressed.png" : "qrc:/images/background_button.png"
+                border.left: 4 ; border.right: 4
+                border.top: 4 ; border.bottom: 4
+            }
+        }
     }
-    Text {
-        id: forgotten_password__
-        text: "Forgotten Password?"
-        font.pixelSize: 20
-        font.family: "Raleway-Light"
-        color: "#ffffff"
-        smooth: true
-        opacity: 1
-        width: logInScreen.width
-        horizontalAlignment: Text.Center
-        anchors.horizontalCenter: logInScreen.horizontalCenter
-        anchors.bottom: change_language__.top
-    }
-    Text {
-        id: change_language__
-        text: "Change Language"
-        font.pixelSize: 20
-        font.family: "Raleway-Light"
-        color: "#ffffff"
-        smooth: true
-        opacity: 1
-        width: logInScreen.width
-        horizontalAlignment: Text.Center
-        anchors.horizontalCenter: logInScreen.horizontalCenter
+
+
+    Button {
+        id: change_language
         anchors.bottom: logInScreen.bottom
+        width: logInScreen.width
+        height: 30
+        style: ButtonStyle {
+            label: Text {
+                text: "Change Language"
+                font.pixelSize: 20
+                font.family: "Raleway-Light"
+                color: "#ffffff"
+                smooth: true
+                opacity: 1
+                horizontalAlignment: Text.Center
+                //anchors.horizontalCenter: change_language.horizontalCenter
+            }
+            background: BorderImage {
+                source: control.pressed ? "qrc:/images/background_button_pressed.png" : "qrc:/images/background_button.png"
+                border.left: 4 ; border.right: 4
+                border.top: 4 ; border.bottom: 4
+            }
+        }
     }
 }
