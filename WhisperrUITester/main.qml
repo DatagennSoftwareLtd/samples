@@ -10,33 +10,49 @@ ApplicationWindow {
     Rectangle{
         id: iruRect
         width: parent.width
-        height: 20
+        height: 60
 
-        TextInput {
-            id: gmlUri
-            //text: "http://vlad.whisperr.com:8061/WhisperrLogInScreen.qml"
-            text: "http://rolen.whisperr.com:8061/"
+        Item {
+            id: iruItem
+            property alias text: gmlUri.text
+            width: 180; height: iruRect.height
             anchors.left: iruRect.left
             anchors.right: loadButton.left
+
+            BorderImage {
+                source: "qrc:/images/lineedit.sci"
+                anchors.fill: parent
+            }
+            TextInput {
+                id: gmlUri
+                color: "#151515"; selectionColor: "green"
+                font.pixelSize:18; font.bold: true
+                width: parent.width-16
+                height: iruRect.height
+                anchors.centerIn: parent
+                verticalAlignment: TextInput.AlignVCenter
+                focus: true
+                text: "http://rolen.whisperr.com:8061/"
+            }
         }
+
+
         Button {
             id: loadButton
             text: "Go"
             anchors.right: iruRect.right
+            height: iruRect.height
             onClicked:
             {
                 // load .qml
-                testFile.source = gmlUri.text
+                testFile.source = iruItem.text //gmlUri.text
             }
         }
     }
 
     Loader {
         id: testFile
-
         anchors.fill: parent
-        //source: "Background_1.qml"
-
     }
 
 
