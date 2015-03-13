@@ -10,7 +10,7 @@ ApplicationWindow {
     Rectangle{
         id: iruRect
         width: parent.width
-        height: 60
+        height: 50
 
         Item {
             id: iruItem
@@ -45,14 +45,18 @@ ApplicationWindow {
             onClicked:
             {
                 // load .qml
-                testFile.source = iruItem.text //gmlUri.text
+                testFile.source = iruItem.text; //gmlUri.text
+                console.log(iruItem.text);
             }
         }
     }
 
     Loader {
         id: testFile
-        anchors.fill: parent
+        //anchors.fill: parent
+        anchors.top: iruRect.bottom
+        anchors.bottom: parent.bottom
+        width: parent.width
     }
 
 
