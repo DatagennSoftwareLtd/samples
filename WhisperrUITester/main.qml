@@ -32,7 +32,7 @@ ApplicationWindow {
                 anchors.centerIn: parent
                 verticalAlignment: TextInput.AlignVCenter
                 focus: true
-                text: "http://rolen.whisperr.com:8061/"
+                text: "http://rolen.whisperr.com:8061/march/WLIS/.qml"
             }
         }
 
@@ -44,6 +44,8 @@ ApplicationWindow {
             height: iruRect.height
             onClicked:
             {
+                Qt.inputMethod.commit();
+                Qt.inputMethod.hide();
                 // load .qml
                 testFile.source = iruItem.text; //gmlUri.text
                 console.log(iruItem.text);
