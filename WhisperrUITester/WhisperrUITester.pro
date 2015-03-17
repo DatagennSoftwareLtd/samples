@@ -27,6 +27,8 @@ DISTFILES += \
     android/build.gradle \
     android/gradle/wrapper/gradle-wrapper.properties \
     android/gradlew \
-    android/gradlew.bat
+    android/gradlew.bat \
+    android/res/values/style.xml \
+    android/res/drawable/splash_screen.png
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
