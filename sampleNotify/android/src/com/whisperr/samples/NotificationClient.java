@@ -50,6 +50,7 @@ public class NotificationClient extends org.qtproject.qt5.android.bindings.QtAct
 
     public static void notify(String s)
     {
+
         if (m_notificationManager == null) {
             m_notificationManager = (NotificationManager)m_instance.getSystemService(Context.NOTIFICATION_SERVICE);
             m_builder = new Notification.Builder(m_instance);

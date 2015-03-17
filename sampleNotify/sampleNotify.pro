@@ -1,6 +1,6 @@
 TEMPLATE = app
 
-QT += qml quick androidextras
+QT += core qml quick androidextras
 
 SOURCES += main.cpp \
     notificationclient.cpp
