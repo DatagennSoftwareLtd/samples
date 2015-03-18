@@ -1,7 +1,14 @@
 import QtQuick 2.4
+import QtQuick.Controls 1.2
 
-Item {
-    anchors.fill: parent
+ApplicationWindow {
+    id: splashScreen
+    width: 320
+    height: 480
+    visible: true
+//Item {
+
+    //anchors.fill: parent
     Rectangle {
         id: background
         width: parent.width
@@ -29,12 +36,12 @@ Item {
         anchors.horizontalCenter: parent.horizontalCenter
         width: parent.width * 0.5
         height: parent.height * 0.4
-        source: "ssload.qml"
+        source: "qrc:/qml/ssload.qml"
     }
 	
     Image {
         id: rr_layer
-        source: "images/rr_layer.png"
+        source: "qrc:/images/rr_layer.png"
         anchors.horizontalCenter: parent.horizontalCenter
         anchors.top: parent.top
         anchors.topMargin: parent.height * 0.10       

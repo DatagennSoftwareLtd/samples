@@ -31,7 +31,7 @@ ApplicationWindow {
                 height: iruRect.height
                 anchors.centerIn: parent
                 verticalAlignment: TextInput.AlignVCenter
-                focus: true
+                //focus: true
                 text: "http://rolen.whisperr.com:8061/march/WLIS/.qml"
             }
         }
