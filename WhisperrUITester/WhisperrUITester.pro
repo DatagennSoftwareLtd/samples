@@ -31,4 +31,11 @@ DISTFILES += \
     android/res/values/style.xml \
     android/res/drawable/splash_screen.png
 
+DISTFILES += \
+    ./qml/init.qml \
+    ./qml/main.qml \
+    ./qml/ssload.qml \
+    ./qml/whisperrSS.qml \
+
+
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
