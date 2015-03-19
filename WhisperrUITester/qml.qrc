@@ -8,5 +8,6 @@
         <file>qml/WhisperrSS.qml</file>
         <file>images/rr_layer.png</file>
         <file>images/splashscreen.png</file>
+        <file>qml/signaltest.qml</file>
     </qresource>
 </RCC>
