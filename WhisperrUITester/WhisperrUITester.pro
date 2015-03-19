@@ -1,6 +1,6 @@
 TEMPLATE = app
 
-QT += qml quick enginio
+QT += qml quick enginio widgets
 
 android {
     QT += androidextras
@@ -29,7 +29,8 @@ DISTFILES += \
     android/gradlew \
     android/gradlew.bat \
     android/res/values/style.xml \
-    android/res/drawable/splash_screen.png
+    android/res/drawable/splash_screen.png \
+    android/res/drawable/androidwhisperrlogo.png
 
 DISTFILES += \
     ./qml/init.qml \

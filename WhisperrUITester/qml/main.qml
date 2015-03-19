@@ -1,12 +1,11 @@
 import QtQuick 2.4
-import QtQuick.Window 2.2
 import QtQuick.Controls 1.3
-import QtQuick.Layouts 1.1
 
-ApplicationWindow {
-    visible: true
-    width: 300
-    height: 800
+Item{
+    id: main
+    anchors.fill: parent
+
+    signal message(string msg)
 
     Rectangle{
         id: iruRect
@@ -57,41 +56,20 @@ ApplicationWindow {
 
     Loader {
         id: loader
-        //anchors.fill: parent
         anchors.top: iruRect.bottom
-        anchors.bottom: parent.bottom //status.top
+        anchors.bottom: parent.bottom
         width: parent.width
 
         onStatusChanged: {
-            if (loader.status == Loader.Null) statusText.text = "Inactive"
-            else if (loader.status == Loader.Ready) statusText.text = "Ready"
-            else if (loader.status == Loader.Loading) statusText.text = "Loading"
-            else if (loader.status == Loader.Error) statusText.text = "Error"
+            if (loader.status == Loader.Null) main.message("Inactive")
+            else if (loader.status == Loader.Ready) main.message("Ready")
+            else if (loader.status == Loader.Loading) main.message("Loading")
+            else if (loader.status == Loader.Error) main.message("Error")
         }
 
         Connections {
             target: loader.item
-            onMessage: statusText.text = msg;
+            onMessage: main.message(msg);
         }
     }
-
-
-    statusBar: StatusBar {
-        id: status
-            RowLayout {
-                id: rowLayout
-                anchors.fill: parent
-                Label {
-                    id: statusText
-                    text: "Ready"
-                }
-
-                Label {
-                    id: progressText
-                    anchors.right: rowLayout.right
-                    text: loader.progress
-                }
-            }
-        }
-
 }

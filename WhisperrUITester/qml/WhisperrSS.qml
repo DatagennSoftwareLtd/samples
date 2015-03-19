@@ -1,14 +1,10 @@
 import QtQuick 2.4
-import QtQuick.Controls 1.2
+//import QtQuick.Controls 1.2
 
-ApplicationWindow {
+Item{
     id: splashScreen
-    width: 320
-    height: 480
-    visible: true
-//Item {
+    anchors.fill: parent
 
-    //anchors.fill: parent
     Rectangle {
         id: background
         width: parent.width
@@ -29,6 +25,7 @@ ApplicationWindow {
         opacity: 1
     }
 
+    //BusyIndicator{
     Loader {
         id: splashscreen
         anchors.top: rr_layer.bottom

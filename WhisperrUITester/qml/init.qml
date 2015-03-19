@@ -1,6 +1,11 @@
 import QtQuick 2.0
-
-Item {
+import QtQuick.Controls 1.2
+import QtQuick.Layouts 1.1
+//Item {
+ApplicationWindow {
+    visible: true
+    width: 300
+    height: 800
     id: mainAppLoaderItem
 
     // Loaders for the main application and the splash screen.
@@ -9,6 +14,11 @@ Item {
         width: mainAppLoaderItem.width
         height: mainAppLoaderItem.height
         onLoaded: console.debug("Main application loaded.");
+
+        Connections {
+            target: mainAppLoader.item
+            onMessage: statusText.text = msg;
+        }
     }
 
     Loader {
@@ -20,7 +30,6 @@ Item {
             //item.progressBarValue = 50;
             console.debug("SplashScreen loaded.");
         }
-
     }
 
     // Timers for starting to load the main application and eventually deleting
@@ -64,6 +73,7 @@ Item {
                 console.debug("Hiding the splash screen.");
                 if (splashScreenLoader.item) {
                     splashScreenLoader.item.opacity = 0;
+                    status.visible = true;
                 }
                 phase += 1;
             }
@@ -77,4 +87,25 @@ Item {
             }
         }
     }
+
+    statusBar: StatusBar {
+        id: status
+        visible: false
+            RowLayout {
+                id: rowLayout
+                anchors.fill: parent
+                Label {
+                    id: statusText
+                    text: "Ready"
+                }
+
+                /*
+                Label {
+                    id: progressText
+                    anchors.right: rowLayout.right
+                    text: //loader.progress
+                }
+                */
+            }
+        }
 }
