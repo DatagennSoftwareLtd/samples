@@ -3,7 +3,9 @@ TEMPLATE = app
 QT += qml quick
 
 SOURCES += main.cpp \
-    facadeui.cpp
+    facadeui.cpp \
+    httprequestworker.cpp \
+    restapicontroller.cpp
 
 RESOURCES += qml.qrc
 
@@ -14,4 +16,6 @@ QML_IMPORT_PATH =
 include(deployment.pri)
 
 HEADERS += \
-    facadeui.h
+    facadeui.h \
+    httprequestworker.h \
+    restapicontroller.h
