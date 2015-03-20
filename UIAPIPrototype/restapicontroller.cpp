@@ -9,7 +9,8 @@ static const QString url_str_restore = "http://api.whisperr.com:8080/v1/restore"
 
 restAPIcontroller::restAPIcontroller(QObject *parent) : QObject(parent)
 {
-
+    worker = new HttpRequestWorker(this);
+    connect(worker, SIGNAL(on_execution_finished(HttpRequestWorker*)), this, SLOT(handle_result(HttpRequestWorker*)));
 }
 
 restAPIcontroller::~restAPIcontroller()
@@ -40,8 +41,8 @@ void restAPIcontroller::on_login(const QString& uid, const QString& pwd, const Q
     input.add_var("pwd", pwd);
     input.add_var("lang", lang);
 
-    HttpRequestWorker *worker = new HttpRequestWorker(this);
-    connect(worker, SIGNAL(on_execution_finished(HttpRequestWorker*)), this, SLOT(handle_result(HttpRequestWorker*)));
+    //HttpRequestWorker *worker = new HttpRequestWorker(this);
+    //connect(worker, SIGNAL(on_execution_finished(HttpRequestWorker*)), this, SLOT(handle_result(HttpRequestWorker*)));
     worker->execute(&input);
 }
 
@@ -51,8 +52,8 @@ void restAPIcontroller::on_resetPassword(const QString& email, const QString& la
     input.add_var("email", email);
     input.add_var("lang", lang);
 
-    HttpRequestWorker *worker = new HttpRequestWorker(this);
-    connect(worker, SIGNAL(on_execution_finished(HttpRequestWorker*)), this, SLOT(handle_result(HttpRequestWorker*)));
+    //HttpRequestWorker *worker = new HttpRequestWorker(this);
+    //connect(worker, SIGNAL(on_execution_finished(HttpRequestWorker*)), this, SLOT(handle_result(HttpRequestWorker*)));
     worker->execute(&input);
 }
 
@@ -63,8 +64,8 @@ void restAPIcontroller::on_signup(const QString& uid, const QString& pwd, const 
     input.add_var("pwd", pwd);
     input.add_var("lang", lang);
 
-    HttpRequestWorker *worker = new HttpRequestWorker(this);
-    connect(worker, SIGNAL(on_execution_finished(HttpRequestWorker*)), this, SLOT(handle_result(HttpRequestWorker*)));
+    //HttpRequestWorker *worker = new HttpRequestWorker(this);
+    //connect(worker, SIGNAL(on_execution_finished(HttpRequestWorker*)), this, SLOT(handle_result(HttpRequestWorker*)));
     worker->execute(&input);
 }
 

@@ -78,7 +78,7 @@ enum {
     RETURN_OK = 100,
 };
 
-
+class restAPIcontroller;
 
 class FacadeUI : public QObject
 {
@@ -88,13 +88,21 @@ public:
     ~FacadeUI();
 
 signals:
+    void statusMessageChanged(const QString msg);
 
 public slots:
-    Q_INVOKABLE int login(const QString& username, const QString& password);
-    Q_INVOKABLE int signup(const QString& username, const QString& password);
-    Q_INVOKABLE int logoff();
-    Q_INVOKABLE int resetPassword(const QString& emailAddress);
+    Q_INVOKABLE int login(const QString& username, const QString& password, const QString& lang);
+    Q_INVOKABLE int resetPassword(const QString& emailAddress, const QString& lang);
+    Q_INVOKABLE int signup(const QString& username, const QString& password, const QString& lang);
+    Q_INVOKABLE int backup(const QString& token, const QString& pin, const QString& xml, const QString& lang);
+    Q_INVOKABLE int restore(const QString& token, const QString& pin, const QString& lang);
 
+    Q_INVOKABLE int logoff();
+
+    void message(const QString msg);
+
+private:
+    restAPIcontroller* contr;
 };
 
 #endif // FACADEUI_H

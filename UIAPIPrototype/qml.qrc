@@ -1,5 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>main.qml</file>
+        <file>images/lineedit.png</file>
+        <file>images/lineedit.sci</file>
     </qresource>
 </RCC>

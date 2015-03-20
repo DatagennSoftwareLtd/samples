@@ -35,6 +35,9 @@ public slots:
     void on_restore(const QString& token, const QString& pin, const QString& lang, ServerResponse& response);
 
     void handle_result(HttpRequestWorker *worker);
+
+private:
+    HttpRequestWorker* worker;
 };
 
 #endif // RESTAPICONTROLLER_H
