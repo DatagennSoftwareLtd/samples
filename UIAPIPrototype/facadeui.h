@@ -79,6 +79,7 @@ enum {
 };
 
 class restAPIcontroller;
+class ServerResponse;
 
 class FacadeUI : public QObject
 {
@@ -103,6 +104,7 @@ public slots:
 
 private:
     restAPIcontroller* contr;
+    ServerResponse* sr;
 };
 
 #endif // FACADEUI_H

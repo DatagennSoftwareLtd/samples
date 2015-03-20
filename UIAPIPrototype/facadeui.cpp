@@ -5,10 +5,9 @@
 
 FacadeUI::FacadeUI(QObject *parent) : QObject(parent)
 {
+    sr = new ServerResponse();
     contr = new restAPIcontroller();
     QObject::connect(contr, SIGNAL(responseMsg(QString)), this, SLOT(message(const QString)));
-
-
 }
 
 FacadeUI::~FacadeUI()
@@ -19,8 +18,7 @@ FacadeUI::~FacadeUI()
 int FacadeUI::login(const QString& username, const QString& password, const QString& lang)
 {
     qDebug() << "FacadeUI::login: " << username << " : " << password;
-
-    ServerResponse sr;
+qDebug() << sr;
     contr->on_login(username, password, lang, sr);
     return RETURN_OK;
 }
@@ -29,7 +27,6 @@ int FacadeUI::resetPassword(const QString& emailAddress, const QString& lang)
 {
     qDebug() << "FacadeUI::resetPassword";
 
-    ServerResponse sr;
     contr->on_resetPassword(emailAddress, lang, sr);
     return RETURN_OK;
 }
@@ -38,7 +35,6 @@ int FacadeUI::signup(const QString& username, const QString& password, const QSt
 {
     qDebug() << "FacadeUI::signup: " << username << " : " << password;
 
-    ServerResponse sr;
     contr->on_signup(username, password, lang, sr);
     return RETURN_OK;
 }
