@@ -39,11 +39,12 @@ void restAPIcontroller::handle_result(HttpRequestWorker *worker)
             {
                 qDebug() << response;
                 //ServerResponse *response = new ServerResponse();
-                //response->token = (*itr).toString();
-                emit responseMsg("token: " + (*itr).toString());
+                response->token = (*itr).toString();
+                //emit responseMsg("token: " + (*itr).toString());
             }
             else
-                emit responseMsg("no token in the response, wrong format?");
+               response->token = "";
+               //emit responseMsg("no token in the response, wrong format?");
 
             if(obj["responses"].isArray())
             {
@@ -56,13 +57,13 @@ void restAPIcontroller::handle_result(HttpRequestWorker *worker)
                         QJsonObject obj2 = val.toObject();
                         if(obj2["code"].isDouble())
                         {
-                           // response->code = obj2["code"].toInt();
-                            emit responseMsg(QString("code: %1").arg(obj2["code"].toInt()));
+                            response->code = obj2["code"].toInt();
+                            //emit responseMsg(QString("code: %1").arg(obj2["code"].toInt()));
                         }
                         if(obj2["message"].isString())
                         {
-                           // response->message = obj2["message"].toString();
-                            emit responseMsg("message: " + obj2["message"].toString());
+                            response->message = obj2["message"].toString();
+                            //emit responseMsg("message: " + obj2["message"].toString());
                         }
                     }
                 }
@@ -71,11 +72,14 @@ void restAPIcontroller::handle_result(HttpRequestWorker *worker)
             }
         }
         //msg = QString("token = %1, code = %2 (%3)").arg(response->token)
-          //      .arg(response->code).arg(response->message);
+        //        .arg(response->code).arg(response->message);
+        emit responseReceived(response);
     }
     else {
         // an error occurred
         msg = "Error: " + worker->error_str;
+        response->code = 0;
+        emit responseReceived(response);
     }
 
     emit responseMsg(msg);

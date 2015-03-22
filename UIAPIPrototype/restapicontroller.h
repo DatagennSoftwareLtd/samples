@@ -26,6 +26,7 @@ public:
 
 signals:
     void responseMsg(QString msg);
+    void responseReceived(ServerResponse* response);
 public slots:
 
     // trigger the request

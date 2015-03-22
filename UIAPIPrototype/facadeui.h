@@ -90,6 +90,7 @@ public:
 
 signals:
     void statusMessageChanged(const QString msg);
+    void response(const QString token, int retcode, const QString message);
 
 public slots:
     Q_INVOKABLE int login(const QString& username, const QString& password, const QString& lang);
@@ -101,6 +102,7 @@ public slots:
     Q_INVOKABLE int logoff();
 
     void message(const QString msg);
+    void on_responseReceived(ServerResponse* response);
 
 private:
     restAPIcontroller* contr;

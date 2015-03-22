@@ -8,6 +8,9 @@ FacadeUI::FacadeUI(QObject *parent) : QObject(parent)
     sr = new ServerResponse();
     contr = new restAPIcontroller();
     QObject::connect(contr, SIGNAL(responseMsg(QString)), this, SLOT(message(const QString)));
+    QObject::connect(contr, SIGNAL(responseReceived(ServerResponse*)),
+                     this, SLOT(on_responseReceived(ServerResponse*)));
+
 }
 
 FacadeUI::~FacadeUI()
@@ -18,8 +21,9 @@ FacadeUI::~FacadeUI()
 int FacadeUI::login(const QString& username, const QString& password, const QString& lang)
 {
     qDebug() << "FacadeUI::login: " << username << " : " << password;
-qDebug() << sr;
+    qDebug() << sr;
     contr->on_login(username, password, lang, sr);
+
     return RETURN_OK;
 }
 
@@ -60,4 +64,16 @@ void FacadeUI::message(const QString msg)
 {
     qDebug() << "FacadeUI::message: " << msg;
     emit statusMessageChanged(msg);
+}
+
+void FacadeUI::on_responseReceived(ServerResponse* res)
+{
+    if(!res->code)
+    {
+        emit statusMessageChanged("server error");
+        return;
+    }
+
+    emit response(res->token, res->code, res->message);
+
 }

@@ -145,14 +145,20 @@ ApplicationWindow {
         width: parent.width
         anchors.top: buttonsRect.bottom
         anchors.bottom: parent.bottom
-
+        font.pixelSize: 14
         Connections {
             target: facade
             onStatusMessageChanged: {
                 var oldText = log.text;
                 log.text = oldText + "\n" + msg;
             }
-
+            onResponse: {
+                var oldText = log.text;
+                log.text = oldText + "\n\n" +
+                        "token: " + token + "\n" +
+                        "code: " + retcode + "\n" +
+                        "message: " + message + "\n";
+            }
         }
     }
 
