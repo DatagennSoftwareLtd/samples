@@ -7,7 +7,9 @@ android {
 }
 
 SOURCES += main.cpp \
-    facadeui.cpp
+    ../UIAPIPrototype/facadeui.cpp \
+    ../UIAPIPrototype/httprequestworker.cpp \
+    ../UIAPIPrototype/restapicontroller.cpp
 
 RESOURCES += qml.qrc
 
@@ -18,7 +20,9 @@ QML_IMPORT_PATH =
 include(deployment.pri)
 
 HEADERS += \
-    facadeui.h
+    ../UIAPIPrototype/facadeui.h \
+    ../UIAPIPrototype/httprequestworker.h \
+    ../UIAPIPrototype/restapicontroller.h
 
 DISTFILES += \
     android/gradle/wrapper/gradle-wrapper.jar \
