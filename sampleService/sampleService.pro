@@ -1,6 +1,9 @@
 TEMPLATE = app
 
-QT += qml quick
+QT += qml quick androidextras
+
+CONFIG   += console
+CONFIG   -= app_bundle
 
 SOURCES += main.cpp
 
@@ -13,19 +16,8 @@ QML_IMPORT_PATH =
 include(deployment.pri)
 
 DISTFILES += \
-    android/gradle/wrapper/gradle-wrapper.jar \
     android/AndroidManifest.xml \
     android/res/values/libs.xml \
-    android/build.gradle \
-    android/gradle/wrapper/gradle-wrapper.properties \
-    android/gradlew \
-    android/gradlew.bat \
-    android/src/org/qtproject/example/sampleService.java \
-    android/src/org/qtproject/example/sampleServiceActivity.java \
-    android/src/org/qtproject/example/sampleServiceBroadcastReceiver.java \
-    android/res/layout/serviceconfigactivity.xml \
-    android/src/org/qtproject/qt5/android/addons/qtserviceapp/QtService.java \
-    android/src/org/qtproject/qt5/android/addons/qtserviceapp/QtServiceActivity.java \
-    android/src/org/qtproject/qt5/android/addons/qtserviceapp/QtServiceBroadcastReceiver.java \
-    android/src/org/qtproject/qt5/android/QtServiceDelegate.java
+    android/build.gradle
 
+ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android

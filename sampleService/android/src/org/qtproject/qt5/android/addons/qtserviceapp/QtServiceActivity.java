@@ -1,6 +1,6 @@
 package org.qtproject.qt5.android.addons.qtserviceapp;
 
-import com.mycompany.test1.R;
+import com.whisperr.samples.R;
 
 import android.app.Activity;
 import android.app.ActivityManager;
