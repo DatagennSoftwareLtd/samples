@@ -11,7 +11,12 @@ QT += qml quick \
     websockets \
     webchannel \
     widgets \
-    core
+    core \
+    enginio
+
+android {
+    QT += androidextras
+}
 
 qtHaveModule(webengine) {
         QT +=   webengine \
@@ -23,7 +28,8 @@ qtHaveModule(webengine) {
 SOURCES += main.cpp \
     sipcontroller.cpp \
     utils.cpp \
-    bridgejs.cpp
+    bridgejs.cpp \
+    notificationclient.cpp
 
 RESOURCES += \
     qml.qrc
@@ -82,7 +88,8 @@ include(deployment.pri)
 HEADERS += \
     sipcontroller.h \
     utils.h \
-    bridgejs.h
+    bridgejs.h \
+    notificationclient.h
 
 DISTFILES += \
     ./qml/init.qml \
@@ -91,7 +98,20 @@ DISTFILES += \
     ./qml/splashscreen.qml \
     ./qml/customprogressbar.qml \
     ./qml/collapsiblepanel.qml \
-    ./qml/navigationdrawer.qml
+    ./qml/navigationdrawer.qml \
+    android/src/com/whisperr/sample/MySampleActivity.java \
+    android/src/com/whisperr/sample/MySampleService.java \
+    android/src/org/qtproject/qt5/android/addons/qtactivityapp/QtService.java \
+    android/src/org/qtproject/qt5/android/addons/qtactivityapp/QtServiceActivity.java \
+    android/jni/Android.mk \
+    android/libs/guava-10.0.1.jar \
+    android/res/drawable/icon_hq.png \
+    android/res/drawable/icon_lq.png \
+    android/res/drawable/icon_mq.png \
+    android/res/drawable/notificon.png \
+    android/res/layout/serviceconfigactivity.xml \
+    android/res/values/dimens.xml \
+    android/res/values/style.xml
 
 DISTFILES += \
     android/gradle/wrapper/gradle-wrapper.jar \

@@ -41,7 +41,7 @@ ApplicationWindow {
                 font.pixelSize:14; font.bold: true
                 width: parent.width-16
                 anchors.centerIn: parent
-                focus: true
+                //focus: true
                 onEditingFinished: {
                     sipua.serverUrl = text;
                     console.log(text);
@@ -82,7 +82,7 @@ ApplicationWindow {
                 font.pixelSize:14; font.bold: true
                 width: parent.width-16
                 anchors.centerIn: parent
-                focus: true
+                //focus: true
                 onEditingFinished: {
                     sipua.user = text;
                     console.log(text);
@@ -123,7 +123,7 @@ ApplicationWindow {
                 font.pixelSize:14; font.bold: true
                 width: parent.width-16
                 anchors.centerIn: parent
-                focus: true
+                //focus: true
                 onEditingFinished: {
                     sipua.password = text;
                     console.log(text);
@@ -163,7 +163,7 @@ ApplicationWindow {
                 font.pixelSize:14; font.bold: true
                 width: parent.width-16
                 anchors.centerIn: parent
-                focus: true
+                //focus: true
                 onEditingFinished: {
                     sipua.buddy = text;
                     console.log(text);
@@ -203,9 +203,9 @@ ApplicationWindow {
                 font.pixelSize:14; font.bold: true
                 width: parent.width-16
                 anchors.centerIn: parent
-                focus: true
+                //focus: true
                 onEditingFinished: {
-                    sipua.buddy = text;
+                    //sipua.buddy = text;
                     console.log(text);
                 }
             }
@@ -227,6 +227,8 @@ ApplicationWindow {
             anchors.margins: 5
 
             onClicked: {
+                Qt.inputMethod.commit();
+                Qt.inputMethod.hide();
                 sipua.registered();
             }
         }
@@ -266,6 +268,8 @@ ApplicationWindow {
             anchors.margins: 5
 
             onClicked : {
+                Qt.inputMethod.commit();
+                Qt.inputMethod.hide();
                 sipua.makeCall();
             }
         }
@@ -280,6 +284,8 @@ ApplicationWindow {
         anchors.margins: 5
 
         onClicked : {
+            Qt.inputMethod.commit();
+            Qt.inputMethod.hide();
             sipua.new_outgoing_im(buddyInput.text, imInput.text);
         }
     }

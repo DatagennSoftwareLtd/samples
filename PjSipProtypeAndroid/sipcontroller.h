@@ -6,6 +6,8 @@
 
 #include <pjsua-lib/pjsua.h>
 
+class NotificationClient;
+
 class SipController : public QObject
 {
     Q_OBJECT
@@ -34,6 +36,7 @@ public:
             const pj_str_t *to, const pj_str_t *contact, const pj_str_t *mime_type,
             const pj_str_t *text);
 
+    void on_incoming_call_wrapper(QString msg);
 
 public slots:
     void setServerUrl(const QString&);
@@ -334,6 +337,8 @@ private:
     pjsua_logging_config log_cfg;
 
     static pjsua_call_id current_call_id; // Incoming call identification
+
+    NotificationClient* notify;
 
 };
 

@@ -1,5 +1,7 @@
 #include "sipcontroller.h"
 
+#include "notificationclient.h"
+
 pjsua_call_id SipController::current_call_id;
 
 static SipController* globalSipUa;
@@ -25,6 +27,7 @@ void SipController::on_incoming_call(pjsua_acc_id acc_id, pjsua_call_id call_id,
        SipController* sc = (SipController*)globalSipUa;
        QString info = "incoming: " + QString::fromLatin1(ci.remote_info.ptr, (int) ci.remote_info.slen);
        sc->setStatusMessage(info);
+       sc->on_incoming_call_wrapper(info);
     }
 }
 
@@ -382,6 +385,8 @@ SipController::SipController(QObject *parent)
     , _statusMessage("Ready")
 {
     globalSipUa = this;
+
+    notify = new NotificationClient();
 }
 
 SipController::~SipController()
@@ -625,9 +630,17 @@ void SipController::on_pager_wrapper(pjsua_call_id call_id, const pj_str_t *from
 
 
     setStatusMessage(msg);
+    //notify->setNotification(msg);
+    notify->setIMNotification(QString::fromUtf8(from->ptr, from->slen),
+                              QString::fromUtf8(text->ptr, text->slen));
 
     //emit new_im(QString::fromAscii(from->ptr, from->slen),
     //		QString::fromAscii(text->ptr, text->slen));
+}
+
+void SipController::on_incoming_call_wrapper(QString msg)
+{
+    notify->setNotification(msg);
 }
 
 void SipController::new_incoming_im(QString from, QString text)
