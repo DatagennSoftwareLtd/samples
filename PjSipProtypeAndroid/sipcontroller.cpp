@@ -640,7 +640,7 @@ void SipController::on_pager_wrapper(pjsua_call_id call_id, const pj_str_t *from
 
 void SipController::on_incoming_call_wrapper(QString msg)
 {
-    notify->setNotification(msg);
+    notify->setIncommingCallNotification(msg);
 }
 
 void SipController::new_incoming_im(QString from, QString text)

@@ -27,9 +27,9 @@ import android.media.RingtoneManager;
 
 public class QtService extends Service
 {
-    public static final String EXTRA_MESSAGE="EXTRA_MESSAGE";
+    public static final String EXTRA_MESSAGE = "EXTRA_MESSAGE";
 
-    private boolean isRunning=false;
+    private boolean isRunning = false;
     private ComponentName myService;
     private Class m_class = QtServiceActivity.class;
 
@@ -39,6 +39,8 @@ public class QtService extends Service
     private static QtService m_instance;
     private static String m_lib_name;
     private static PendingIntent pi;
+
+    //private static Builder messageNotification;
 
     /* Event handling */
 
@@ -66,19 +68,20 @@ public class QtService extends Service
 
     public int onStartCommand(Intent intent, int flags, int startId){
 
-        /* Notifiication */
+        /* Notification */
 
-        Notification note=new Notification(m_serviceInfo.metaData.getInt("android.app.notificon"),"",System.currentTimeMillis());
+        Notification note = new Notification(m_serviceInfo.metaData.getInt("android.app.notificon")
+            ,"" , System.currentTimeMillis());
 
-        Intent i=new Intent(m_instance, m_class);
-            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        Intent i = new Intent(m_instance, m_class);
+        i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
-        pi=PendingIntent.getActivity(this, 0, i, 0);
+        pi = PendingIntent.getActivity(this, 0, i, 0);
 
-        note.setLatestEventInfo(this, m_lib_name ,
+        note.setLatestEventInfo(this, "Whisperr"/*m_lib_name*/,
             "Running",
             pi);
-        note.flags|=Notification.FLAG_NO_CLEAR;
+        note.flags |= Notification.FLAG_NO_CLEAR;
 
         startForeground(1337, note);
 
@@ -117,13 +120,6 @@ public class QtService extends Service
         m_builder.setContentText(s);
         Notification note = m_builder.build();
         note.flags |= Notification.FLAG_NO_CLEAR;
-
-        /*
-        Uri ringURI = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        note.sound = ringURI;
-        long[] vibrate = new long[] { 1000, 1000, 1000, 1000, 1000 };
-        note.vibrate = vibrate;
-        */
         m_notificationManager.notify(1337, note);
     }
 
@@ -132,21 +128,109 @@ public class QtService extends Service
 
         if (m_notificationManager == null) {
             m_notificationManager = (NotificationManager)m_instance.getSystemService(Context.NOTIFICATION_SERVICE);
+        }
+        /*
             m_builder = new Notification.Builder(m_instance);
             m_builder.setSmallIcon(m_serviceInfo.metaData.getInt("android.app.notificon"));
             m_builder.setContentTitle("IM from:" + s1);
             m_builder.setContentIntent(pi);
         }
+        */
 
-        m_builder.setContentText(s2);
+        Notification.Builder mbuilder = new Notification.Builder(m_instance);
+        mbuilder.setSmallIcon(m_serviceInfo.metaData.getInt("android.app.notificon"));
+        mbuilder.setContentTitle("IM from: " + s1);
+        mbuilder.setContentIntent(pi);
+        mbuilder.setContentText(s2);
+        mbuilder.setAutoCancel(true);
 
-        Notification note = m_builder.build();
+
+        Notification note = mbuilder.build();
+        //note.putExtra(, s1);
         //note.flags |= Notification.FLAG_NO_CLEAR;
         long[] vibrate = new long[] { 1000, 1000, 1000, 1000, 1000 };
         note.vibrate = vibrate;
         m_notificationManager.notify(1, note);
+
+        /*
+        NotificationCompat.Builder mBuilder =
+                new NotificationCompat.Builder(this)
+                .setSmallIcon(m_serviceInfo.metaData.getInt("android.app.notificon"));
+                .setContentTitle("From: " + s1)
+                .setContentText(s2);
+        // Creates an explicit intent for an Activity in your app
+        Intent resultIntent = new Intent(m_instance, m_class);
+
+        // The stack builder object will contain an artificial back stack for the
+        // started Activity.
+        // This ensures that navigating backward from the Activity leads out of
+        // your application to the Home screen.
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(m_instance);
+        // Adds the back stack for the Intent (but not the Intent itself)
+        stackBuilder.addParentStack(m_class);
+        // Adds the Intent that starts the Activity to the top of the stack
+        stackBuilder.addNextIntent(resultIntent);
+        PendingIntent resultPendingIntent =
+                stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT);
+        mBuilder.setContentIntent(resultPendingIntent);
+        NotificationManager mNotificationManager =
+            (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        // mId allows you to update the notification later on.
+        mNotificationManager.notify(mId, mBuilder.build());
+        */
     }
 
+    public static void notifyIncomming(String s1)
+    {
+        if (m_notificationManager == null) {
+            m_notificationManager = (NotificationManager)m_instance.getSystemService(Context.NOTIFICATION_SERVICE);
+        }
+
+        Notification.Builder mbuilder = new Notification.Builder(m_instance);
+        mbuilder.setSmallIcon(m_serviceInfo.metaData.getInt("android.app.notificon"));
+        mbuilder.setContentTitle("incomming call");
+        mbuilder.setContentIntent(pi);
+        mbuilder.setContentText(s1);
+        mbuilder.setAutoCancel(true);
+
+
+        Notification note = mbuilder.build();
+        long[] vibrate = new long[] { 1000, 1000, 1000, 1000, 1000 };
+        note.vibrate = vibrate;
+        m_notificationManager.notify(2, note);
+    }
+
+/*
+    public static void showNotificationForMessage(String s1, String s2) {
+
+        String from = s1;
+
+        CharSequence tickerText = buildTickerMessage(context, from, s2);
+
+        if (messageNotification == null) {
+                messageNotification = new NotificationCompat.Builder(m_instance);
+                messageNotification.setSmallIcon(m_serviceInfo.metaData.getInt("android.app.notificon")));
+                messageNotification.setTicker(tickerText);
+                messageNotification.setWhen(System.currentTimeMillis());
+                messageNotification.setDefaults(Notification.DEFAULT_ALL);
+                messageNotification.setAutoCancel(true);
+                messageNotification.setOnlyAlertOnce(true);
+        }
+
+        Intent notificationIntent = new Intent(SipManager.ACTION_SIP_MESSAGES);
+        notificationIntent.putExtra(SipMessage.FIELD_FROM, msg.getFrom());
+        notificationIntent.putExtra(SipMessage.FIELD_BODY, msg.getBody());
+        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        PendingIntent contentIntent = PendingIntent.getActivity(context, 0, notificationIntent, PendingIntent.FLAG_CANCEL_CURRENT);
+
+        messageNotification.setContentTitle(from);
+        messageNotification.setContentText(msg.getBody());
+        messageNotification.setContentIntent(contentIntent);
+
+        notificationManager.notify(MESSAGE_NOTIF_ID, messageNotification.build());
+
+    }
+*/
     /* Helper classes */
 
     static String splitCamelCase(String sp) {
@@ -162,4 +246,24 @@ public class QtService extends Service
           " "
        );
     }
+/*
+    protected static CharSequence buildTickerMessage(Context context, String address, String body) {
+        String displayAddress = address;
+
+        StringBuilder buf = new StringBuilder(displayAddress == null ? "" : displayAddress.replace('\n', ' ').replace('\r', ' '));
+        buf.append(':').append(' ');
+
+        int offset = buf.length();
+
+        if (!TextUtils.isEmpty(body)) {
+            body = body.replace('\n', ' ').replace('\r', ' ');
+            buf.append(body);
+        }
+
+        SpannableString spanText = new SpannableString(buf.toString());
+        spanText.setSpan(new StyleSpan(Typeface.BOLD), 0, offset, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        return spanText;
+    }
+    */
 }

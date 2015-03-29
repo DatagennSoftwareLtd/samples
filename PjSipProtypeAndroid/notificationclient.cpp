@@ -45,3 +45,13 @@ void NotificationClient::setIMNotification(const QString &from, const QString &m
                                        javaNotification1.object<jstring>(),
                                        javaNotification2.object<jstring>());
 }
+
+void NotificationClient::setIncommingCallNotification(const QString &from)
+{
+    QAndroidJniObject javaNotification1 = QAndroidJniObject::fromString(from);
+
+    QAndroidJniObject::callStaticMethod<void>("com/whisperr/sample/MySampleService",
+                                       "notifyIncomming",
+                                       "(Ljava/lang/String;)V",
+                                       javaNotification1.object<jstring>());
+}

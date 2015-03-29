@@ -48,6 +48,7 @@ public:
 
 public slots:
     void setIMNotification(const QString &from, const QString &msg);
+    void setIncommingCallNotification(const QString &from);
 
 signals:
     void notificationChanged();
