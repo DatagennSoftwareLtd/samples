@@ -18,7 +18,9 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.widget.CompoundButton;
 import android.widget.Switch;
 
-public class QtServiceActivity extends Activity {
+public class QtServiceActivity //extends org.qtproject.qt5.android.bindings.QtActivity
+extends Activity
+{
 
     private Intent i;
     private Class m_class = QtService.class;

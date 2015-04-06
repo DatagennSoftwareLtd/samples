@@ -1,9 +1,13 @@
 TEMPLATE = app
 
-QT += qml quick
+QT += core qml quick
+
+android {
+    QT += androidextras
+}
 
 SOURCES += main.cpp \
-    android/jni/QtAndroidService.cpp
+    servicecontroller.cpp
 
 RESOURCES += qml.qrc
 
@@ -33,3 +37,6 @@ DISTFILES += \
     android/src/org/qtproject/qt5/android/addons/qtactivityapp/QtServiceActivity.java
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
+
+HEADERS += \
+    servicecontroller.h

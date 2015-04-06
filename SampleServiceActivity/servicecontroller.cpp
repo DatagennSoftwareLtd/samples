@@ -19,7 +19,7 @@ void ServiceController::startService()
     if(isRunning)
         return;
 
-   QAndroidJniObject::callStaticMethod<void>("com/whisperr/samples/ServiceClient",
+   QAndroidJniObject::callStaticMethod<void>("com/whisperr/sample/MySampleActivity",
                                        "startService");
 
    qDebug() << "ServiceController::startService()";
@@ -31,7 +31,7 @@ void ServiceController::stopService()
     if(!isRunning)
         return;
 
-    QAndroidJniObject::callStaticMethod<void>("com/whisperr/samples/ServiceClient",
+    QAndroidJniObject::callStaticMethod<void>("com/whisperr/sample/MySampleActivity",
                                         "stopService");
 
     qDebug() << "ServiceController::stopService()";

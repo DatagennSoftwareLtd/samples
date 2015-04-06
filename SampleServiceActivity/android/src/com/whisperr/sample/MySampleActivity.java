@@ -13,4 +13,14 @@ public class MySampleActivity extends QtServiceActivity
         super.setServiceClass(MySampleService.class);
         super.onCreate(savedInstanceState);
     }
+
+    public static void startService()
+    {
+        //Log.w("startService");
+    }
+
+    public static void stopService()
+    {
+        //Log.w("stopService");
+    }
 }
