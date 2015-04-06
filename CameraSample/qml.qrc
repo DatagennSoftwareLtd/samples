@@ -1,0 +1,18 @@
+<RCC>
+    <qresource prefix="/">
+        <file>main.qml</file>
+        <file>MainForm.ui.qml</file>
+        <file>images/backicon.png</file>
+        <file>images/camera.png</file>
+        <file>images/contacts.png</file>
+        <file>images/emoticon.png</file>
+        <file>images/microphone.png</file>
+        <file>images/newmessage.png</file>
+        <file>images/searchicon.png</file>
+        <file>images/Send.png</file>
+        <file>images/settingsicon.png</file>
+        <file>images/text_box.png</file>
+        <file>images/x.png</file>
+        <file>camera.qml</file>
+    </qresource>
+</RCC>
