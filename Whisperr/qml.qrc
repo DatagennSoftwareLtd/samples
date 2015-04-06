@@ -1,23 +1,7 @@
 <RCC>
     <qresource prefix="/">
         <file>images/contacts.png</file>
-        <file>images/navigation_next_item.png</file>
-        <file>images/navigation_previous_item.png</file>
-        <file>images/newmessage.png</file>
-        <file>images/searchicon.png</file>
-        <file>images/settingsicon.png</file>
-        <file>images/toolbar.png</file>
-        <file>images/footerbar.png</file>
-        <file>images/camera.png</file>
-        <file>images/microphone.png</file>
-        <file>images/emoticon.png</file>
-        <file>images/text_box.png</file>
-        <file>qml/NavigationDrawer.qml</file>
-        <file>qml/SliderMenu.qml</file>
         <file>images/menuIcons/dndicon.png</file>
-        <file>qml/main.qml</file>
-        <file>qml/Camera.qml</file>
-        <file>images/menu.png</file>
         <file>images/menuIcons/arrowdown.png</file>
         <file>images/menuIcons/asosicon.png</file>
         <file>images/menuIcons/backicon.png</file>
@@ -25,12 +9,7 @@
         <file>images/menuIcons/bcca.png</file>
         <file>images/menuIcons/bcd.png</file>
         <file>images/menuIcons/bcicon.png</file>
-        <file>images/menuIcons/button.png</file>
-        <file>images/menuIcons/buttonpressed.png</file>
-        <file>images/menuIcons/camera.png</file>
         <file>images/menuIcons/cicon.png</file>
-        <file>images/menuIcons/contacts.png</file>
-        <file>images/menuIcons/emoticon.png</file>
         <file>images/menuIcons/ife.png</file>
         <file>images/menuIcons/iff.png</file>
         <file>images/menuIcons/ificon.png</file>
@@ -41,7 +20,6 @@
         <file>images/menuIcons/maicon.png</file>
         <file>images/menuIcons/mamn.png</file>
         <file>images/menuIcons/mann.png</file>
-        <file>images/menuIcons/microphone.png</file>
         <file>images/menuIcons/newmessage.png</file>
         <file>images/menuIcons/nicon.png</file>
         <file>images/menuIcons/nv.png</file>
@@ -52,13 +30,32 @@
         <file>images/menuIcons/sdicon.png</file>
         <file>images/menuIcons/searchicon.png</file>
         <file>images/menuIcons/settingsicon.png</file>
-        <file>images/menuIcons/switchbackground.png</file>
-        <file>images/menuIcons/text_box.png</file>
         <file>images/menuIcons/triangle.png</file>
-        <file>images/menuIcons/userDef.png</file>
         <file>images/menuIcons/vibrate.svg</file>
         <file>images/menuIcons/Voicemail.png</file>
         <file>images/Send.png</file>
         <file>images/x.png</file>
+        <file>content/Camera.qml</file>
+        <file>content/main.qml</file>
+        <file>content/NavigationDrawer.qml</file>
+        <file>content/SliderMenu.qml</file>
+        <file>content/WhisperrFooterBar.qml</file>
+        <file>content/WhisperrToolBar.qml</file>
+        <file>content/ssload.qml</file>
+        <file>content/WhisperrSS.qml</file>
+        <file>content/init.qml</file>
+        <file>images/footer/camera.png</file>
+        <file>images/footer/emoticon.png</file>
+        <file>images/footer/footerbar.png</file>
+        <file>images/footer/microphone.png</file>
+        <file>images/footer/text_box.png</file>
+        <file>images/toolbar/menu.png</file>
+        <file>images/toolbar/navigation_next_item.png</file>
+        <file>images/toolbar/navigation_previous_item.png</file>
+        <file>images/toolbar/newmessage.png</file>
+        <file>images/toolbar/searchicon.png</file>
+        <file>images/toolbar/settingsicon.png</file>
+        <file>images/toolbar/toolbar.png</file>
+        <file>images/splashscreen/rr_layer.png</file>
     </qresource>
 </RCC>

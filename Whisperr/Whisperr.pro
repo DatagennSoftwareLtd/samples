@@ -7,9 +7,14 @@ SOURCES += main.cpp
 RESOURCES += qml.qrc
 
 OTHER_FILES += \
-    qml/SliderMenu.qml \
-    qml/NavigationDrawer.qml \
-    qml/main.qml
+    content/main.qml \
+    content/SliderMenu.qml \
+    content/NavigationDrawer.qml \
+    content/WhisperrToolBar.qml \
+    content/WhisperrFooterBar.qml \
+    content/init.qml \
+    content/ssload.qml \
+    content/WhisperrSS.qml \
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =

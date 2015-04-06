@@ -13,7 +13,7 @@ ApplicationWindow {
     // toolbar
     toolBar: BorderImage {
         border.bottom: 8
-        source: "qrc:/images/toolbar.png"
+        source: "qrc:/images/toolbar/toolbar.png"
         width: whisperrMain.width
         height: whisperrMain.height * 0.075
 
@@ -33,7 +33,7 @@ ApplicationWindow {
                 width: parent.height
                 height: parent.height
                 anchors.centerIn: parent
-                source: "qrc:/images/menu.png"
+                source: "qrc:/images/toolbar/menu.png"
             }
             MouseArea {
                 id: backmouse0
@@ -59,7 +59,7 @@ ApplicationWindow {
                 width: parent.height
                 height: parent.height
                 anchors.centerIn: parent
-                source: "qrc:/images/navigation_previous_item.png"
+                source: "qrc:/images/toolbar/navigation_previous_item.png"
             }
             MouseArea {
                 id: backmouse1
@@ -118,7 +118,7 @@ ApplicationWindow {
                width: parent.height*0.8
                height: parent.height*0.8
                anchors.centerIn: parent
-               source: "qrc:/images/searchicon.png"
+               source: "qrc:/images/toolbar/searchicon.png"
            }
            MouseArea {
                id: backmouse2
@@ -155,7 +155,7 @@ ApplicationWindow {
                width: parent.height*0.8
                height: parent.height*0.8
                anchors.centerIn: parent
-               source: "qrc:/images/newmessage.png"
+               source: "qrc:/images/toolbar/newmessage.png"
            }
            MouseArea {
                id: backmouse3
@@ -193,7 +193,7 @@ ApplicationWindow {
                 width: parent.height*0.8
                 height: parent.height*0.8
                 anchors.centerIn: parent
-                source: "qrc:/images/settingsicon.png"
+                source: "qrc:/images/toolbar/settingsicon.png"
             }
             MouseArea {
                 id: backmouse4
@@ -208,7 +208,7 @@ ApplicationWindow {
     // footer
     statusBar: BorderImage {
         border.bottom: 8
-        source: "qrc:/images/footerbar.png"
+        source: "qrc:/images/footer/footerbar.png"
         width: whisperrMain.width
         height: whisperrMain.height * 0.075
 
@@ -228,14 +228,14 @@ ApplicationWindow {
                 width: parent.height*0.8
                 height: parent.height*0.8
                 anchors.centerIn: parent
-                source: "qrc:/images/camera.png"
+                source: "qrc:/images/footer/camera.png"
             }
             MouseArea {
                 id: backmouse5
                 anchors.fill: parent
                 anchors.margins: -10
                 onClicked:{
-                    stackView.push(Qt.resolvedUrl("qrc:/qml/Camera.qml"));
+                    stackView.push(Qt.resolvedUrl("qrc:/content/Camera.qml"));
                 }
             }
         }
@@ -256,7 +256,7 @@ ApplicationWindow {
                 width: parent.height*0.8
                 height: parent.height*0.8
                 anchors.centerIn: parent
-                source: "qrc:/images/emoticon.png"
+                source: "qrc:/images/footer/emoticon.png"
             }
             MouseArea {
                 id: backmouse6
@@ -275,7 +275,7 @@ ApplicationWindow {
            anchors.bottom: statusBar.bottom
            anchors.bottomMargin: statusBar.height * 0.15
            height: statusBar.height * 0.2
-           source: "qrc:/images/text_box.png"
+           source: "qrc:/images/footer/text_box.png"
         }
 
         TextField {
@@ -314,7 +314,7 @@ ApplicationWindow {
                 width: parent.height*0.8
                 height: parent.height*0.8
                 anchors.centerIn: parent
-                source: "qrc:/images/microphone.png"
+                source: "qrc:/images/footer/microphone.png"
             }
             MouseArea {
                 id: backmouse7
@@ -1965,7 +1965,7 @@ ApplicationWindow {
             //height: parent.height
             color: "#e74710"
             Text{
-                text: "Wellcome\nWhisperr"
+                text: "Welcome\nWhisperr"
                 color: "white"
                 font.pixelSize: 50
                 anchors.centerIn: parent
@@ -2054,17 +2054,7 @@ ApplicationWindow {
        border.width: 2
        border.color: "#a7a7a7"
        z: 3
-       /*
-       Rectangle {
-           id: messagepopupheader
-           anchors.top: parent.top
-           anchors.left: parent.left
-           width: parent.width - 4
-           height: parent.height * 0.05
-           radius: 10
-           color: "#e74710"
-           anchors.margins: 2
-       }*/
+
        Rectangle {
            id: messagepopupheadercontinue
            anchors.top: parent.top//messagepopupheader.top
