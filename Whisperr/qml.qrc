@@ -16,5 +16,49 @@
         <file>qml/SliderMenu.qml</file>
         <file>images/menuIcons/dndicon.png</file>
         <file>qml/main.qml</file>
+        <file>qml/Camera.qml</file>
+        <file>images/menu.png</file>
+        <file>images/menuIcons/arrowdown.png</file>
+        <file>images/menuIcons/asosicon.png</file>
+        <file>images/menuIcons/backicon.png</file>
+        <file>images/menuIcons/bcan.png</file>
+        <file>images/menuIcons/bcca.png</file>
+        <file>images/menuIcons/bcd.png</file>
+        <file>images/menuIcons/bcicon.png</file>
+        <file>images/menuIcons/button.png</file>
+        <file>images/menuIcons/buttonpressed.png</file>
+        <file>images/menuIcons/camera.png</file>
+        <file>images/menuIcons/cicon.png</file>
+        <file>images/menuIcons/contacts.png</file>
+        <file>images/menuIcons/emoticon.png</file>
+        <file>images/menuIcons/ife.png</file>
+        <file>images/menuIcons/iff.png</file>
+        <file>images/menuIcons/ificon.png</file>
+        <file>images/menuIcons/ifs.png</file>
+        <file>images/menuIcons/invite.svg</file>
+        <file>images/menuIcons/loicon.png</file>
+        <file>images/menuIcons/mabt.png</file>
+        <file>images/menuIcons/maicon.png</file>
+        <file>images/menuIcons/mamn.png</file>
+        <file>images/menuIcons/mann.png</file>
+        <file>images/menuIcons/microphone.png</file>
+        <file>images/menuIcons/newmessage.png</file>
+        <file>images/menuIcons/nicon.png</file>
+        <file>images/menuIcons/nv.png</file>
+        <file>images/menuIcons/Phone.png</file>
+        <file>images/menuIcons/plicon.png</file>
+        <file>images/menuIcons/plpn.png</file>
+        <file>images/menuIcons/pls.png</file>
+        <file>images/menuIcons/sdicon.png</file>
+        <file>images/menuIcons/searchicon.png</file>
+        <file>images/menuIcons/settingsicon.png</file>
+        <file>images/menuIcons/switchbackground.png</file>
+        <file>images/menuIcons/text_box.png</file>
+        <file>images/menuIcons/triangle.png</file>
+        <file>images/menuIcons/userDef.png</file>
+        <file>images/menuIcons/vibrate.svg</file>
+        <file>images/menuIcons/Voicemail.png</file>
+        <file>images/Send.png</file>
+        <file>images/x.png</file>
     </qresource>
 </RCC>

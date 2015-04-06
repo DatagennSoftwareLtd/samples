@@ -170,7 +170,7 @@ Rectangle {
         parent: _rootItem
 
         propagateComposedEvents: true
-        //preventStealing : true
+        preventStealing: true
 
         y: visualParent.y
         width: open ? _rootItem.width : _openMarginSize
