@@ -63,6 +63,7 @@ Rectangle {
         anchors.top: titleRect.bottom
         model: customModel
         delegate: customDelegate
+        interactive: false
     }
 
     states: [

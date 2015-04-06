@@ -1,7 +1,8 @@
 import QtQuick 2.0
 
 Rectangle {
-    width: 100
-    height: 62
+    color: "yellow"
+    id: remote
+    property int code: 2
 }
 

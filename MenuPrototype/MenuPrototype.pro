@@ -2,7 +2,8 @@ TEMPLATE = app
 
 QT += qml quick
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    mainmenumodel.cpp
 
 DISTFILES += \
     main.qml \
@@ -19,3 +20,6 @@ QML_IMPORT_PATH =
 
 # Default rules for deployment.
 include(deployment.pri)
+
+HEADERS += \
+    mainmenumodel.h

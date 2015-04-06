@@ -4,5 +4,9 @@
         <file>splashscreen.png</file>
         <file>splash.qml</file>
         <file>SplashScreen.qml</file>
+        <file>init.qml</file>
+        <file>SplashScreen2.qml</file>
+        <file>splashscreen2.png</file>
+        <file>CustomProgressBar.qml</file>
     </qresource>
 </RCC>

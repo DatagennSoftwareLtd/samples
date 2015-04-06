@@ -15,6 +15,10 @@ NavigationDrawer {
 
     position: Qt.LeftEdge
 
+    Flickable {
+            anchors.fill: parent
+            contentHeight: parent.height + ( parent.height * 0.005 )
+
     Component
         {
             id: myDelegate
@@ -23,6 +27,9 @@ NavigationDrawer {
                 width: parent.width
                 height:  30
                 gradient:unpressedDelegateItem
+
+                property var status: settingValue;
+
                 MouseArea{
                     anchors.fill:  parent
                     onPressed: {
@@ -36,6 +43,25 @@ NavigationDrawer {
                         border.width = 0
                         statusBar.text= "Item selection triggers a signal too!"
                         myDelegateItem.gradient = unpressedDelegateItem
+                    }
+
+                    onClicked: {
+                        console.log("onClicked");
+                        console.log(model.settingValue);
+                        if (model.settingValue === "On" || model.settingValue === "Off")
+                        {
+                            if (model.settingValue === "On")
+                            {
+                                status = "Off";
+                                console.log(model.settingValue);
+                                console.log(status);
+                            }
+                            else
+                            {
+                                model.settingValue = "On"
+                                console.log(model.settingValue);
+                            }
+                        }
                     }
                 }
                 Text {
@@ -133,6 +159,7 @@ NavigationDrawer {
                 settingValue: "On"
 
             }
+            //setData(int row, const QString & field_name, QVariant new_value)
     }
     CollapsiblePanel {
            id: panelPinLock
@@ -381,6 +408,8 @@ NavigationDrawer {
             GradientStop { position: 0.0; color: "#707070" }//"#1141a7" }
             GradientStop { position: 1.0; color: "#000000" }//"#0f1273"}
         }
+    }
+
     }
 }
 

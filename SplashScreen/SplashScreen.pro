@@ -7,7 +7,9 @@ SOURCES += main.cpp
 DISTFILES += \
     main.qml \
     splash.qml \
-    SplashScreen.qml
+    SplashScreen.qml \
+    init.qml \
+    SplashScreen2.qml
 
 RESOURCES += qml.qrc
 

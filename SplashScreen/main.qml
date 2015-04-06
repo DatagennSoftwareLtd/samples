@@ -8,7 +8,7 @@ ApplicationWindow {
     width: 320
     height: 480
     visible: true
-
+/*
     SplashScreen{
         id:splashScreen
         imageSource: "splashscreen.png"
@@ -18,11 +18,12 @@ ApplicationWindow {
             console.log("Splash Screen Loaded");
         }
     }
-
+*/
     Text{
         text: "Main Form"
         anchors.centerIn: parent
     }
+
 
 /*
     property var splashWindow: Splash {

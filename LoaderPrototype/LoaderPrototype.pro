@@ -11,3 +11,7 @@ QML_IMPORT_PATH =
 
 # Default rules for deployment.
 include(deployment.pri)
+
+DISTFILES += \
+    Background_1.qml \
+    Background_2.qml
