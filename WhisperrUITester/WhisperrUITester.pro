@@ -1,6 +1,6 @@
 TEMPLATE = app
 
-QT += qml quick enginio widgets
+QT += qml quick enginio widgets multimedia
 
 android {
     QT += androidextras

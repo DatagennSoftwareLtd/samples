@@ -1,5 +1,6 @@
 import QtQuick 2.4
 import QtQuick.Controls 1.3
+import QtMultimedia 5.4
 
 Item{
     id: main
@@ -32,7 +33,8 @@ Item{
                 anchors.centerIn: parent
                 verticalAlignment: TextInput.AlignVCenter
                 //focus: true
-                text: "http://rolen.whisperr.com:8061/march/WLIS/.qml"
+                text: "http://rolen.whisperr.com:8061/march//.qml"
+                //text: "http://vlad.whisperr.com:8061/march/CS/main.qml"
             }
         }
 
@@ -64,7 +66,13 @@ Item{
             if (loader.status == Loader.Null) main.message("Inactive")
             else if (loader.status == Loader.Ready) main.message("Ready")
             else if (loader.status == Loader.Loading) main.message("Loading")
-            else if (loader.status == Loader.Error) main.message("Error")
+            else if (loader.status == Loader.Error){
+                // try load again
+                loader.source = "";
+                loader.source = iruItem.text;
+                console.log("reload: " + loader.source);
+                main.message("an error occurred while loading the QML");
+            }
         }
 
         Connections {
