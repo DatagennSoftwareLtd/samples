@@ -2,6 +2,8 @@ import QtQuick 2.4
 import QtQuick.Controls 1.3
 import QtQuick.Controls.Styles 1.3
 
+import "SliderMenu"
+
 ApplicationWindow {
     title: qsTr("Whisperr")
     width: 640
@@ -392,46 +394,14 @@ ApplicationWindow {
                            color: "#fff"
                        }
 
-                       Switch {
-                           style: SwitchStyle {
-                               groove: Rectangle {
-                                   implicitWidth: dnd.height * 3
-                                   implicitHeight: dnd.height
-                                   radius: 8
-                                   color: "#00000000"
-                                   Rectangle {
-                                       implicitWidth: dnd.height * 1.7
-                                       implicitHeight: dnd.height
-                                       radius: 8
-                                       color: "#ff622e"
-                                       border.width: 1
-                                       border.color: "#ebebeb"
-                                       anchors.left: parent.left
-                                   }
-                                   Rectangle {
-                                       implicitWidth: dnd.height * 1.7
-                                       implicitHeight: dnd.height
-                                       radius: 8
-                                       color: "#bbbbbb"
-                                       border.width: 1
-                                       border.color: "#ebebeb"
-                                       anchors.right: parent.right
-                                   }
-                               }
-                               handle: Rectangle {
-                                   implicitWidth: dnd.height * 1.7
-                                   implicitHeight: dnd.height
-                                   radius: 8
-                                   color: "#ebebeb"
-                               }
-                           }
-
+                       CustomSwitch{
                            id: dndswitch
                            checked: true
                            anchors.right: parent.right
                            anchors.rightMargin: parent.width * 0.04
                            anchors.top: dndbody.top
                            anchors.topMargin: dndbody.height * 0.3
+                           parentHeight: dnd.height
                        }
 
                        MouseArea {
@@ -1072,47 +1042,14 @@ ApplicationWindow {
                                    color: "#fff"
                                }
 
-                               Switch {
-
-                                   style: SwitchStyle {
-                                           groove: Rectangle {
-                                                   implicitWidth: vi.height * 3
-                                                   implicitHeight: vi.height
-                                                   radius: 8
-                                                   color: "#00000000"
-                                                       Rectangle {
-                                                           implicitWidth: vi.height * 1.7
-                                                           implicitHeight: vi.height
-                                                           radius: 8
-                                                           color: "#ff622e"
-                                                           border.width: 1
-                                                           border.color: "#ebebeb"
-                                                           anchors.left: parent.left
-                                                       }
-                                                       Rectangle {
-                                                           implicitWidth: vi.height * 1.7
-                                                           implicitHeight: vi.height
-                                                           radius: 8
-                                                           color: "#bbbbbb"
-                                                           border.width: 1
-                                                           border.color: "#ebebeb"
-                                                           anchors.right: parent.right
-                                                       }
-                                           }
-                                           handle: Rectangle {
-                                                   implicitWidth: vi.height * 1.7
-                                                   implicitHeight: vi.height
-                                                   radius: 8
-                                                   color: "#ebebeb"
-                                           }
-                                       }
-
+                               CustomSwitch{
                                    id: viswitch
                                    checked: true
                                    anchors.right: vibody.right
                                    anchors.rightMargin: vibody.width * 0.04
                                    anchors.top: vibody.top
                                    anchors.topMargin: vibody.height * 0.3
+                                   parentHeight: vi.height
                                }
 
                                MouseArea {
@@ -1794,41 +1731,8 @@ ApplicationWindow {
                            color: "#fff"
                        }
 
-                       Switch {
-
-                           style: SwitchStyle {
-                               groove: Rectangle {
-                                       implicitWidth: asos.height * 3
-                                       implicitHeight: asos.height
-                                       radius: 8
-                                       color: "#00000000"
-                                           Rectangle {
-                                               implicitWidth: asos.height * 1.7
-                                               implicitHeight: asos.height
-                                               radius: 8
-                                               color: "#ff622e"
-                                               border.width: 1
-                                               border.color: "#ebebeb"
-                                               anchors.left: parent.left
-                                           }
-                                           Rectangle {
-                                               implicitWidth: asos.height * 1.7
-                                               implicitHeight: asos.height
-                                               radius: 8
-                                               color: "#bbbbbb"
-                                               border.width: 1
-                                               border.color: "#ebebeb"
-                                               anchors.right: parent.right
-                                           }
-                               }
-                                   handle: Rectangle {
-                                           implicitWidth: asos.height * 1.7
-                                           implicitHeight: asos.height
-                                           radius: 8
-                                           color: "#ebebeb"
-                                   }
-                               }
-
+                       CustomSwitch{
+                            parentHeight: asos.height
                            id: asosswitch
                            checked: true
                            anchors.right: parent.right

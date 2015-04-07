@@ -8,10 +8,8 @@ RESOURCES += qml.qrc
 
 OTHER_FILES += \
     content/main.qml \
-    content/SliderMenu.qml \
-    content/NavigationDrawer.qml \
-    content/WhisperrToolBar.qml \
-    content/WhisperrFooterBar.qml \
+    content/DashBoard/WhisperrToolBar.qml \
+    content/DashBoard/WhisperrFooterBar.qml \
     content/init.qml \
     content/ssload.qml \
     content/WhisperrSS.qml \
@@ -19,7 +17,10 @@ OTHER_FILES += \
     content/WelcomeScreen/login.qml \
     content/WelcomeScreen/signup.qml \
     content/WelcomeScreen/SwipeScreen.qml \
-    content/WelcomeScreen/SwipeView.qml
+    content/WelcomeScreen/SwipeView.qml \
+    content/SliderMenu/WhisperrMenu.qml \
+    content/SliderMenu/NavigationDrawer.qml \
+    content/SliderMenu/CustomSwitch.qml
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =

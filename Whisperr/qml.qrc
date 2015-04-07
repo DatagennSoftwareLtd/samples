@@ -37,10 +37,6 @@
         <file>images/x.png</file>
         <file>content/Camera.qml</file>
         <file>content/main.qml</file>
-        <file>content/NavigationDrawer.qml</file>
-        <file>content/SliderMenu.qml</file>
-        <file>content/WhisperrFooterBar.qml</file>
-        <file>content/WhisperrToolBar.qml</file>
         <file>content/ssload.qml</file>
         <file>content/WhisperrSS.qml</file>
         <file>content/init.qml</file>
@@ -74,5 +70,10 @@
         <file>content/WelcomeScreen/signup.qml</file>
         <file>content/WelcomeScreen/SwipeScreen.qml</file>
         <file>content/WelcomeScreen/SwipeView.qml</file>
+        <file>content/SliderMenu/CustomSwitch.qml</file>
+        <file>content/SliderMenu/NavigationDrawer.qml</file>
+        <file>content/SliderMenu/WhisperrMenu.qml</file>
+        <file>content/DashBoard/WhisperrFooterBar.qml</file>
+        <file>content/DashBoard/WhisperrToolBar.qml</file>
     </qresource>
 </RCC>
