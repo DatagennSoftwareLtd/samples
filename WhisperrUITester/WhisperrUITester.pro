@@ -22,7 +22,8 @@ include(deployment.pri)
 HEADERS += \
     ../UIAPIPrototype/facadeui.h \
     ../UIAPIPrototype/httprequestworker.h \
-    ../UIAPIPrototype/restapicontroller.h
+    ../UIAPIPrototype/restapicontroller.h \
+    componentcachemanager.h
 
 DISTFILES += \
     android/gradle/wrapper/gradle-wrapper.jar \

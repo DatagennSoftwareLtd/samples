@@ -33,7 +33,8 @@ Item{
                 anchors.centerIn: parent
                 verticalAlignment: TextInput.AlignVCenter
                 //focus: true
-                text: "http://rolen.whisperr.com:8061/march//.qml"
+                //text: "http://rolen.whisperr.com:8061/march//.qml"
+                text: "http://rolen.whisperr.com:8061/march/CS/main.qml"
                 //text: "http://vlad.whisperr.com:8061/march/CS/main.qml"
             }
         }
@@ -49,8 +50,10 @@ Item{
                 Qt.inputMethod.commit();
                 Qt.inputMethod.hide();
                 // load .qml
-                loader.source = "";
-                loader.source = iruItem.text; //gmlUri.text
+                loader.setSource("");
+                componentCache.clear();
+                //loader.source = iruItem.text; //gmlUri.text
+                loader.setSource(iruItem.text);
                 console.log(iruItem.text);
             }
         }
@@ -69,10 +72,14 @@ Item{
             else if (loader.status == Loader.Error){
                 // try load again
                 loader.source = "";
-                loader.source = iruItem.text;
+                loader.setSource(iruItem.text);
                 console.log("reload: " + loader.source);
                 main.message("an error occurred while loading the QML");
             }
+        }
+        onLoaded:
+        {
+            console.log("loaded: " + loader.source);
         }
 
         Connections {

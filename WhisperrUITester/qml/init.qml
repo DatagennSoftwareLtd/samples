@@ -99,13 +99,13 @@ ApplicationWindow {
                     text: "Ready"
                 }
 
-                /*
+
                 Label {
                     id: progressText
                     anchors.right: rowLayout.right
-                    text: //loader.progress
+                    text: "4.92"
                 }
-                */
+
             }
         }
 }

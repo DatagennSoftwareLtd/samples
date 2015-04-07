@@ -4,6 +4,8 @@
 
 #include "../UIAPIPrototype/facadeui.h"
 
+#include "componentcachemanager.h"
+
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
@@ -13,7 +15,7 @@ int main(int argc, char *argv[])
     QQmlApplicationEngine engine;
     QQmlContext *context = engine.rootContext();
     context->setContextProperty(QStringLiteral("facade"), facade);
-
+    context->setContextProperty(QStringLiteral("componentCache"), new ComponentCacheManager(&engine));
     //engine.load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
     //android:theme="@style/splashScreenTheme"
 
