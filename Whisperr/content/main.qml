@@ -12,6 +12,7 @@ ApplicationWindow {
 
     // toolbar
     toolBar: BorderImage {
+        visible: false
         border.bottom: 8
         source: "qrc:/images/toolbar/toolbar.png"
         width: whisperrMain.width
@@ -49,7 +50,8 @@ ApplicationWindow {
             width: toolBar.height*0.8
             anchors.left: menuButton.right
             anchors.leftMargin: 5
-            opacity: stackView.depth > 1 ? 1 : 0
+            opacity: stackView.depth > 2 ? 1 : 0
+            enabled: stackView.depth > 2 ? 1 : 0
             anchors.verticalCenter: parent.verticalCenter
             antialiasing: true
             radius: 4
@@ -211,6 +213,7 @@ ApplicationWindow {
         source: "qrc:/images/footer/footerbar.png"
         width: whisperrMain.width
         height: whisperrMain.height * 0.075
+        visible: false
 
         Rectangle {
             id: cameraButton
@@ -1945,6 +1948,8 @@ ApplicationWindow {
            }
 
 
+    // dash board
+
     StackView {
         id: stackView
         anchors.fill: parent
@@ -1956,21 +1961,66 @@ ApplicationWindow {
                 event.accepted = true;
             }
         }
+/*
+        initialItem:
 
-        initialItem: Rectangle {
-            id: mainPage
-            anchors.top: toolBar.bottom
-            anchors.bottom: statusBar.top
-            width: parent.width
-            //height: parent.height
-            color: "#e74710"
-            Text{
-                text: "Welcome\nWhisperr"
-                color: "white"
-                font.pixelSize: 50
-                anchors.centerIn: parent
+            Rectangle {
+                id: mainPage
+                anchors.top: toolBar.bottom
+                anchors.bottom: statusBar.top
+                width: parent.width
+                //height: parent.height
+                color: "#e74710"
+                Text{
+                    text: "Welcome\nWhisperr"
+                    color: "white"
+                    font.pixelSize: 50
+                    anchors.centerIn: parent
+                }
+            }
+*/
+
+        Loader{
+            id: welcomescreen
+            source: Qt.resolvedUrl("qrc:/content/WelcomeScreen/login.qml")
+
+            // login - ok
+            Connections {
+                target: welcomescreen.item
+                onLogin: {
+                    console.log("stackView.push(dashBoard)");
+                    stackView.push(mainPage/*dashBoard*/);
+                    //panel.visualParent = dashBoard.mainPage;
+                    //source = "";
+                    //sourceComponent = dashBoard;
+                    whisperrMain.toolBar.visible = true;
+                    whisperrMain.statusBar.visible = true;
+                }
+            }
+            onLoaded:{
+                console.log("stackView.push(welcomescreen.item)");
+                stackView.push(welcomescreen.item);
+
             }
         }
+
+        //Component{
+          //  id: dashBoard
+            Rectangle {
+                id: mainPage
+                anchors.top: toolBar.bottom
+                anchors.bottom: statusBar.top
+                width: parent.width
+                //height: parent.height
+                color: "#e74710"
+                Text{
+                    text: "Welcome\nWhisperr"
+                    color: "white"
+                    font.pixelSize: 50
+                    anchors.centerIn: parent
+                }
+            }
+       // }
 
     }
 

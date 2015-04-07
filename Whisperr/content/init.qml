@@ -48,6 +48,7 @@ Item {
             if (!mainAppLoader.Loading) {
                 //console.debug("Starting to load the main application.");
                 mainAppLoader.source = "qrc:/content/main.qml";
+                //mainAppLoader.source = "qrc:/content/WelcomeScreen/login.qml";
                 secondPhaseTimer.start();
             }
         }

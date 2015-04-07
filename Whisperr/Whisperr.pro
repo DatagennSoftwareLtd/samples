@@ -15,6 +15,11 @@ OTHER_FILES += \
     content/init.qml \
     content/ssload.qml \
     content/WhisperrSS.qml \
+    content/WelcomeScreen/forgotpass.qml \
+    content/WelcomeScreen/login.qml \
+    content/WelcomeScreen/signup.qml \
+    content/WelcomeScreen/SwipeScreen.qml \
+    content/WelcomeScreen/SwipeView.qml
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =

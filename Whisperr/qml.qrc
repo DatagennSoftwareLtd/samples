@@ -57,5 +57,22 @@
         <file>images/toolbar/settingsicon.png</file>
         <file>images/toolbar/toolbar.png</file>
         <file>images/splashscreen/rr_layer.png</file>
+        <file>images/welcomescreen/facebook_background.png</file>
+        <file>images/welcomescreen/facebook_backgroundpressed.png</file>
+        <file>images/welcomescreen/facebook_logo.png</file>
+        <file>images/welcomescreen/log_in_and_password_field.png</file>
+        <file>images/welcomescreen/log_in_and_password_separator.png</file>
+        <file>images/welcomescreen/log_in_button.png</file>
+        <file>images/welcomescreen/log_in_button_pressed - Copy.png</file>
+        <file>images/welcomescreen/log_in_button_pressed.png</file>
+        <file>images/welcomescreen/rr_layer.png</file>
+        <file>images/welcomescreen/sing_up_button.png</file>
+        <file>images/welcomescreen/slbutton.png</file>
+        <file>images/welcomescreen/slbuttonpressed.png</file>
+        <file>content/WelcomeScreen/forgotpass.qml</file>
+        <file>content/WelcomeScreen/login.qml</file>
+        <file>content/WelcomeScreen/signup.qml</file>
+        <file>content/WelcomeScreen/SwipeScreen.qml</file>
+        <file>content/WelcomeScreen/SwipeView.qml</file>
     </qresource>
 </RCC>
