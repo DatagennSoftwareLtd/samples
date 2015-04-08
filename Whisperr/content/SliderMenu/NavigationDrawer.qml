@@ -1,73 +1,82 @@
 /*
-Copyright (c) 2014 Cutehacks A/S
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the
-"Software"), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
-About:
-This is a Qt Quick implementation of the Android Navigation drawer
-Questions, suggestions or requests can be directed to jens@cutehacks.com
-www.cutehacks.com
+    Copyright (c) 2014 Cutehacks A/S
+
+    Permission is hereby granted, free of charge, to any person obtaining
+    a copy of this software and associated documentation files (the
+    "Software"), to deal in the Software without restriction, including
+    without limitation the rights to use, copy, modify, merge, publish,
+    distribute, sublicense, and/or sell copies of the Software, and to
+    permit persons to whom the Software is furnished to do so, subject to
+    the following conditions:
+
+    The above copyright notice and this permission notice shall be
+    included in all copies or substantial portions of the Software.
+
+    THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+    EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+    MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
+    IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
+    CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
+    TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
+    SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+
+    About:
+
+    This is a Qt Quick implementation of the Android Navigation drawer
+    Questions, suggestions or requests can be directed to jens@cutehacks.com
+
+    www.cutehacks.com
 */
- 
- 
-import QtQuick 2.3
- 
+
+
+import QtQuick 2.2
+
 Rectangle {
     id: panel
 
-    property bool open: false // The open or close state of the drawer
-    property int position: Qt.LeftEdge // Which side of the screen the drawer is on, can be Qt.LeftEdge or Qt.RightEdge
-    property Item visualParent: parent // The item the drawer should cover, by default the parent of the Drawer
+    property bool open: false                     // The open or close state of the drawer
+    property int position: Qt.LeftEdge            // Which side of the screen the drawer is on, can be Qt.LeftEdge or Qt.RightEdge
+    property Item visualParent: parent            // The item the drawer should cover, by default the parent of the Drawer
 
     // The fraction showing how open the drawer is
-    readonly property real panelProgress: (panel.x - _minimumX) / (_maximumX - _minimumX)
+    readonly property real panelProgress:  (panel.x - _minimumX) / (_maximumX - _minimumX)
 
     function show() { open = true; }
     function hide() { open = false; }
- 
+
     function toggle() {
         if (open) open = false;
         else open = true;
     }
- 
+
     // Internal
 
     default property alias data: contentItem.data
-    readonly property real expandedFraction: 0.78 // How big fraction of the screen realesatate that is covered by an open menu
+    readonly property real expandedFraction: 0.78  // How big fraction of the screen realesatate that is covered by an open menu
     readonly property real _scaleFactor: _rootItem.width / 320 // Note, this should really be application global
     readonly property int _pullThreshold: panel.width/2
     readonly property int _slideDuration: 260
-    readonly property int _collapsedX: _rightEdge ? _rootItem.width : - panel.width
+    readonly property int _collapsedX: _rightEdge ? _rootItem.width :  - panel.width
     readonly property int _expandedWidth: expandedFraction * _rootItem.width
     readonly property int _expandedX: _rightEdge ? _rootItem.width - width : 0
     readonly property bool _rightEdge: position === Qt.RightEdge
-    readonly property int _minimumX: _rightEdge ? _rootItem.width - panel.width : -panel.width
+    readonly property int _minimumX:  _rightEdge ?  _rootItem.width - panel.width : -panel.width
     readonly property int _maximumX: _rightEdge ? _rootItem.width : 0
     readonly property int _openMarginSize: 20 * _scaleFactor
 
     property real _velocity: 0
     property real _oldMouseX: -1
- 
+
+    property real _topMargin: 0
+
     function _findRootItem() {
         var p = panel;
         while (p.parent != null)
             p = p.parent;
         return p;
     }
- 
+
     property Item _rootItem: _findRootItem()
     height: parent.height
     on_RightEdgeChanged: _setupAnchors()
@@ -75,8 +84,8 @@ Rectangle {
     width: _expandedWidth
     x: _collapsedX
     z: 10
- 
-    function _setupAnchors() { // Note that we can't reliably apply anchors using bindings
+
+    function _setupAnchors() {     // Note that we can't reliably apply anchors using bindings
         _rootItem = _findRootItem();
 
         shadow.anchors.right = undefined;
@@ -94,10 +103,10 @@ Rectangle {
         }
 
         slideAnimation.enabled = false;
-        panel.x =_rightEdge ? _rootItem.width : - panel.width;
+        panel.x =_rightEdge ? _rootItem.width :  - panel.width;
         slideAnimation.enabled = true;
     }
- 
+
     function completeSlideDirection() {
         if (open) {
             panel.x = _expandedX;
@@ -106,19 +115,19 @@ Rectangle {
             Qt.inputMethod.hide();
         }
     }
- 
+
     function handleRelease() {
         var velocityThreshold = 5 * _scaleFactor;
         if ((_rightEdge && _velocity > velocityThreshold) ||
-        (!_rightEdge && _velocity < -velocityThreshold)) {
+                (!_rightEdge && _velocity < -velocityThreshold)) {
             panel.open = false;
             completeSlideDirection()
         } else if ((_rightEdge && _velocity < -velocityThreshold) ||
-            (!_rightEdge && _velocity > velocityThreshold)) {
+                   (!_rightEdge && _velocity > velocityThreshold)) {
             panel.open = true;
             completeSlideDirection()
         } else if ((_rightEdge && panel.x < _expandedX + _pullThreshold) ||
-        (!_rightEdge && panel.x > _expandedX - _pullThreshold) ) {
+                   (!_rightEdge && panel.x > _expandedX - _pullThreshold) ) {
             panel.open = true;
             panel.x = _expandedX;
         } else {
@@ -126,19 +135,19 @@ Rectangle {
             panel.x = _collapsedX;
         }
     }
- 
+
     function handleClick(mouse) {
         if ((_rightEdge && mouse.x < panel.x ) || mouse.x > panel.width) {
             open = false;
         }
     }
- 
+
     onPositionChanged: {
         if (! (position === Qt.RightEdge || position === Qt.LeftEdge ) ) {
             console.warn("SlidePanel: Unsupported position.")
         }
     }
- 
+
     Behavior on x {
         id: slideAnimation
         enabled: !mouse.drag.active
@@ -147,16 +156,16 @@ Rectangle {
             easing.type: Easing.OutCubic
         }
     }
- 
+
     Connections {
         target: _rootItem
         onWidthChanged: {
             slideAnimation.enabled = false
             panel.completeSlideDirection()
-                slideAnimation.enabled = true
+            slideAnimation.enabled = true
         }
     }
- 
+
     NumberAnimation on x {
         id: holdAnimation
         to: _collapsedX + (_openMarginSize * (_rightEdge ? -1 : 1))
@@ -164,44 +173,29 @@ Rectangle {
         easing.type: Easing.OutCubic
         duration: 200
     }
- 
+
     MouseArea {
         id: mouse
         parent: _rootItem
 
-        propagateComposedEvents: true
-        preventStealing: true
-
-        y: visualParent.y
+        y: visualParent.y + _topMargin
         width: open ? _rootItem.width : _openMarginSize
         height: visualParent.height
-        onPressed:{
-            if (!open)
-                holdAnimation.restart();
-            else
-               mouse.accept = false;
-        }
-        onClicked:{
-            handleClick(mouse);
-            mouse.accept = false;
-           //console.log(backgroundDimmer.opacity);
-        }
+        onPressed:  if (!open) holdAnimation.restart();
+        onClicked: handleClick(mouse)
         drag.target: panel
         drag.minimumX: _minimumX
         drag.maximumX: _maximumX
         drag.axis: Qt.Horizontal
         drag.onActiveChanged: if (active) holdAnimation.stop()
-        onReleased:{
-            handleRelease();
-            //mouse.accepted = false;
-        }
+        onReleased: handleRelease()
         z: open ? 1 : 0
         onMouseXChanged: {
-            _velocity = 0;//(mouse.x - _oldMouseX);
+            _velocity = (mouse.x - _oldMouseX);
             _oldMouseX = mouse.x;
         }
     }
- 
+
     Rectangle {
         id: backgroundDimmer
         parent: visualParent
@@ -216,7 +210,7 @@ Rectangle {
         width: panel.width
         height: panel.height
         x: panel.x
-        y: panel.y
+        y: panel.y + _topMargin
         z: open ? 5 : 0
         clip: true
     }
@@ -238,4 +232,4 @@ Rectangle {
             }
         }
     }
-} 
+}

@@ -3,6 +3,9 @@ import QtQuick.Controls 1.3
 import QtQuick.Controls.Styles 1.3
 
 import "SliderMenu"
+import "DashBoard"
+
+import "CustomItems"
 
 ApplicationWindow {
     title: qsTr("Whisperr")
@@ -13,334 +16,94 @@ ApplicationWindow {
     color: "#e74710"
 
     // toolbar
-    toolBar: BorderImage {
-        visible: false
-        border.bottom: 8
-        source: "qrc:/images/toolbar/toolbar.png"
-        width: whisperrMain.width
-        height: whisperrMain.height * 0.075
-
-        Rectangle {
-            id: menuButton
-            height: toolBar.height*0.8
-            width: toolBar.height*0.8
-            anchors.left: parent.left
-            anchors.leftMargin: 5
-            //opacity: stackView.depth > 1 ? 1 : 0
-            anchors.verticalCenter: parent.verticalCenter
-            antialiasing: true
-            radius: 4
-            color: backmouse0.pressed ? "#ff9571" : "transparent"
-            Behavior on opacity { NumberAnimation{} }
-            Image {
-                width: parent.height
-                height: parent.height
-                anchors.centerIn: parent
-                source: "qrc:/images/toolbar/menu.png"
-            }
-            MouseArea {
-                id: backmouse0
-                anchors.fill: parent
-                anchors.margins: -10
-                //onClicked: stackView.pop()
-            }
+    toolBar:
+        WhisperrToolBar
+        {
+            visible: false
+            width: whisperrMain.width
+            height: whisperrMain.height * 0.075
         }
 
-        Rectangle {
-            id: backButton
-            height: toolBar.height*0.8
-            width: toolBar.height*0.8
-            anchors.left: menuButton.right
-            anchors.leftMargin: 5
-            opacity: stackView.depth > 2 ? 1 : 0
-            enabled: stackView.depth > 2 ? 1 : 0
-            anchors.verticalCenter: parent.verticalCenter
-            antialiasing: true
-            radius: 4
-            color: backmouse1.pressed ? "#ff9571" : "transparent"
-            Behavior on opacity { NumberAnimation{} }
-            Image {
-                width: parent.height
-                height: parent.height
-                anchors.centerIn: parent
-                source: "qrc:/images/toolbar/navigation_previous_item.png"
-            }
-            MouseArea {
-                id: backmouse1
-                anchors.fill: parent
-                anchors.margins: -10
-                onClicked: stackView.pop()
-            }
+    Connections {
+        target: toolBar
+        onBackButtonClicked:{
+            console.log("BackButtonClicked");
+            stackView.pop()
         }
+        onSearchButtonClicked:
+        {
+            console.log("toolBar searchButton clicked");
 
-        Image {
-           id: contactsicon
-           anchors.left: backButton.right
-           anchors.leftMargin: toolBar.height * 0.30
-           anchors.top: toolBar.top
-           anchors.topMargin: toolBar.height * 0.10
-           width: toolBar.height * 0.8
-           height: toolBar.height * 0.8
-           source: "qrc:/images/contacts.png"
-       }
-
-       Text {
-           id: person
-           anchors.left: contactsicon.right
-           anchors.leftMargin: toolBar.height * 0.20
-           anchors.top: toolBar.top
-           anchors.topMargin: toolBar.height * 0.15
-           text: "Person 1"
-           font.pixelSize: toolBar.height * 0.40
-           color: "#fff"
-       }
-
-       Text {
-           id: personstatus
-           anchors.left: contactsicon.right
-           anchors.leftMargin: toolBar.height * 0.30
-           anchors.top: person.bottom
-           text: "Online"
-           font.pixelSize: toolBar.height * 0.20
-           color: "#fff"
-       }
-
-       // search Button
-       Rectangle {
-           id: searchButton
-           height: toolBar.height*0.8
-           width: toolBar.height*0.8
-           anchors.right: newmessageButton.left
-           anchors.leftMargin: 5
-           //opacity: stackView.depth > 1 ? 1 : 0
-           anchors.verticalCenter: parent.verticalCenter
-           antialiasing: true
-           radius: 4
-           color: backmouse2.pressed ? "#ff9571" : "transparent"
-           Behavior on opacity { NumberAnimation{} }
-           Image {
-               width: parent.height*0.8
-               height: parent.height*0.8
-               anchors.centerIn: parent
-               source: "qrc:/images/toolbar/searchicon.png"
-           }
-           MouseArea {
-               id: backmouse2
-               anchors.fill: parent
-               anchors.margins: -10
-               //onClicked: stackView.pop()
-               //onPressed: { if (backgrounddim.visible == false) { search.color = "#ff9571" } }
-              onReleased: { if (backgrounddim.visible == false) {
-                              if (searchpopup.visible == false) {
-                                  searchpopup.visible = true
-                              } else {
-                                  searchpopup.visible = false
-                              }
-                              }
-              }
-
-           }
-       }
-
-       // newmessage Button
-       Rectangle {
-           id: newmessageButton
-           height: toolBar.height*0.8
-           width: toolBar.height*0.8
-           anchors.right: settingsButton.left
-           anchors.leftMargin: 5
-           //opacity: stackView.depth > 1 ? 1 : 0
-           anchors.verticalCenter: parent.verticalCenter
-           antialiasing: true
-           radius: 4
-           color: backmouse3.pressed ? "#ff9571" : "transparent"
-           Behavior on opacity { NumberAnimation{} }
-           Image {
-               width: parent.height*0.8
-               height: parent.height*0.8
-               anchors.centerIn: parent
-               source: "qrc:/images/toolbar/newmessage.png"
-           }
-           MouseArea {
-               id: backmouse3
-               anchors.fill: parent
-               anchors.margins: -10
-               //onClicked: stackView.pop()
-               onReleased: { if (backgrounddim.visible == false) {
-                 newmessagepopup.visible = true
-                 scaleAnimation.start()
-                 backgrounddim.visible = true
-                 //newmessage.color = "#00000000" }
-                       if (searchpopup.visible == true) {
-                           searchpopup.visible = false
-                       }
-             }
-
-           }
-           }
-       }
-
-        // Settings Button
-        Rectangle {
-            id: settingsButton
-            height: toolBar.height*0.8
-            width: toolBar.height*0.8
-            anchors.right: parent.right
-            anchors.leftMargin: 5
-            //opacity: stackView.depth > 1 ? 1 : 0
-            anchors.verticalCenter: parent.verticalCenter
-            antialiasing: true
-            radius: 4
-            color: backmouse4.pressed ? "#ff9571" : "transparent"
-            Behavior on opacity { NumberAnimation{} }
-            Image {
-                width: parent.height*0.8
-                height: parent.height*0.8
-                anchors.centerIn: parent
-                source: "qrc:/images/toolbar/settingsicon.png"
-            }
-            MouseArea {
-                id: backmouse4
-                anchors.fill: parent
-                anchors.margins: -10
-                //onClicked: stackView.pop()
-            }
-        }
-
-    }
-
-    // footer
-    statusBar: BorderImage {
-        border.bottom: 8
-        source: "qrc:/images/footer/footerbar.png"
-        width: whisperrMain.width
-        height: whisperrMain.height * 0.075
-        visible: false
-
-        Rectangle {
-            id: cameraButton
-            height: statusBar.height*0.8
-            width: statusBar.height*0.8
-            anchors.left: parent.left
-            anchors.leftMargin: 5
-            //opacity: stackView.depth > 1 ? 1 : 0
-            anchors.verticalCenter: parent.verticalCenter
-            antialiasing: true
-            radius: 4
-            color: backmouse5.pressed ? "#ff9571" : "transparent"
-            Behavior on opacity { NumberAnimation{} }
-            Image {
-                width: parent.height*0.8
-                height: parent.height*0.8
-                anchors.centerIn: parent
-                source: "qrc:/images/footer/camera.png"
-            }
-            MouseArea {
-                id: backmouse5
-                anchors.fill: parent
-                anchors.margins: -10
-                onClicked:{
-                    stackView.push(Qt.resolvedUrl("qrc:/content/Camera.qml"));
+            if (backgrounddim.visible == false) {
+                if (searchpopup.visible == false) {
+                    searchpopup.visible = true
+                } else {
+                    searchpopup.visible = false
                 }
             }
         }
-
-        Rectangle {
-            id: emoticonButton
-            height: statusBar.height*0.8
-            width: statusBar.height*0.8
-            anchors.left: cameraButton.right
-            anchors.leftMargin: 5
-            //opacity: stackView.depth > 1 ? 1 : 0
-            anchors.verticalCenter: parent.verticalCenter
-            antialiasing: true
-            radius: 4
-            color: backmouse6.pressed ? "#ff9571" : "transparent"
-            Behavior on opacity { NumberAnimation{} }
-            Image {
-                width: parent.height*0.8
-                height: parent.height*0.8
-                anchors.centerIn: parent
-                source: "qrc:/images/footer/emoticon.png"
-            }
-            MouseArea {
-                id: backmouse6
-                anchors.fill: parent
-                anchors.margins: -10
-                //onClicked: stackView.pop()
+        onNewmessageButtonClicked:
+        {
+            if (backgrounddim.visible == false) {
+                newmessagepopup.visible = true
+                scaleAnimation.start()
+                backgrounddim.visible = true
+                if (searchpopup.visible == true) {
+                    searchpopup.visible = false
+                }
             }
         }
-
-        Image {
-           id: textbox
-           anchors.left: emoticonButton.right
-           anchors.leftMargin: statusBar.height * 0.2
-           anchors.right: microphoneButton.left
-           anchors.rightMargin:  statusBar.height * 0.2
-           anchors.bottom: statusBar.bottom
-           anchors.bottomMargin: statusBar.height * 0.15
-           height: statusBar.height * 0.2
-           source: "qrc:/images/footer/text_box.png"
-        }
-
-        TextField {
-           style: TextFieldStyle {
-                   textColor: "black"
-                   background: Rectangle {
-                       border.color: "#00000000"
-                       border.width: 0
-                       color: "#00000000"
-                   }
-           }
-           id: textboxchat
-           width: textbox.width
-           placeholderText: "Type here . . . "
-           anchors.top: statusBar.top
-           anchors.horizontalCenter: textbox.horizontalCenter
-           anchors.topMargin: statusBar.height * 0.2
-           font.pixelSize: whisperrMain.height * 0.03
-           height: statusBar.height * 0.65
-        }
-
-
-        Rectangle {
-            id: microphoneButton
-            height: statusBar.height*0.8
-            width: statusBar.height*0.8
-            anchors.right: statusBar.right
-            anchors.leftMargin: 5
-            //opacity: stackView.depth > 1 ? 1 : 0
-            anchors.verticalCenter: parent.verticalCenter
-            antialiasing: true
-            radius: 4
-            color: backmouse7.pressed ? "#ff9571" : "transparent"
-            Behavior on opacity { NumberAnimation{} }
-            Image {
-                width: parent.height*0.8
-                height: parent.height*0.8
-                anchors.centerIn: parent
-                source: "qrc:/images/footer/microphone.png"
-            }
-            MouseArea {
-                id: backmouse7
-                anchors.fill: parent
-                anchors.margins: -10
-                //onClicked: stackView.pop()
-            }
+        onSettingsButtonClicked:{
+            console.log("mainPage.y = " + mainPage.y);
         }
     }
 
+    // footer
+    statusBar:
+        WhisperrFooterBar
+        {
+            width: whisperrMain.width
+            height: whisperrMain.height * 0.075
+            visible: false
+        }
+
+    Connections
+    {
+        target: statusBar
+        onCameraButtonClicked:
+        {
+            stackView.push(Qt.resolvedUrl("qrc:/content/Camera.qml"));
+        }
+    }
+
+
+    // dash board
+
+    StackView {
+        id: stackView
+        anchors.fill: parent
+/*
+        y: toolBar.height
+        height: parent.height - toolBar.height - statusBar.height
+        width: parent.width
+*/
+
+
     NavigationDrawer{
         //anchors.fill: mainPage
-        height: whisperrMain.height - toolBar.height - statusBar.height
+        height: mainPage.height//whisperrMain.height - toolBar.height - statusBar.height
         //width: whisperrMain.width
-        visualParent: mainPage //whisperrMain//
-        y: toolBar.height
+        //visualParent: stackView//mainPage //whisperrMain//
+   // parent: stackView
+        //y: toolBar.height
         //anchors.top: toolBar.bottom
         //anchors.bottom: statusBar.top
+        _topMargin: toolBar.height
         position: Qt.LeftEdge
         color: "#5d5d5d"
         id: panel
+        visible: false
+        enabled: false
 
         Flickable {
 
@@ -359,6 +122,8 @@ ApplicationWindow {
 
                    id: scrollslide
                    anchors.fill: parent
+            visible: false
+            enabled: false
 
                    width: parent.width
                    height: parent.height
@@ -394,7 +159,7 @@ ApplicationWindow {
                            color: "#fff"
                        }
 
-                       CustomSwitch{
+                       WhisperrSwitch{
                            id: dndswitch
                            checked: true
                            anchors.right: parent.right
@@ -1042,7 +807,7 @@ ApplicationWindow {
                                    color: "#fff"
                                }
 
-                               CustomSwitch{
+                               WhisperrSwitch{
                                    id: viswitch
                                    checked: true
                                    anchors.right: vibody.right
@@ -1731,8 +1496,8 @@ ApplicationWindow {
                            color: "#fff"
                        }
 
-                       CustomSwitch{
-                            parentHeight: asos.height
+                       WhisperrSwitch{
+                           parentHeight: asos.height
                            id: asosswitch
                            checked: true
                            anchors.right: parent.right
@@ -1847,16 +1612,12 @@ ApplicationWindow {
                        }
                    }
                    }
-               }
+             }
                //Navigation Menus End
            }
 
 
-    // dash board
 
-    StackView {
-        id: stackView
-        anchors.fill: parent
         // Implements back key navigation
         focus: true
         Keys.onReleased:{
@@ -1894,9 +1655,14 @@ ApplicationWindow {
                 onLogin: {
                     console.log("stackView.push(dashBoard)");
                     stackView.push(mainPage/*dashBoard*/);
+
+                    panel.visible = true
+                    panel.enabled = true
+                scrollslide.visible = true
+                scrollslide.enabled = true
                     //panel.visualParent = dashBoard.mainPage;
                     //source = "";
-                    //sourceComponent = dashBoard;
+                   // sourceComponent = mainPage;//dashBoard;
                     whisperrMain.toolBar.visible = true;
                     whisperrMain.statusBar.visible = true;
                 }
@@ -1912,10 +1678,11 @@ ApplicationWindow {
           //  id: dashBoard
             Rectangle {
                 id: mainPage
-                anchors.top: toolBar.bottom
-                anchors.bottom: statusBar.top
+                //anchors.top: toolBar.bottom
+                //anchors.bottom: statusBar.top
+
                 width: parent.width
-                //height: parent.height
+                height: parent.height
                 color: "#e74710"
                 Text{
                     text: "Welcome\nWhisperr"

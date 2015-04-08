@@ -20,7 +20,9 @@ OTHER_FILES += \
     content/WelcomeScreen/SwipeView.qml \
     content/SliderMenu/WhisperrMenu.qml \
     content/SliderMenu/NavigationDrawer.qml \
-    content/SliderMenu/CustomSwitch.qml
+    content/SliderMenu/CustomSwitch.qml \
+    content/CustomItems/WhisperrToolButton.qml \
+    content/CustomItems/WhisperrSwitch.qml
 
 # Additional import path used to resolve QML modules in Qt Creator's code model
 QML_IMPORT_PATH =

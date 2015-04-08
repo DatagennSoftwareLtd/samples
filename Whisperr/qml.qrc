@@ -70,10 +70,11 @@
         <file>content/WelcomeScreen/signup.qml</file>
         <file>content/WelcomeScreen/SwipeScreen.qml</file>
         <file>content/WelcomeScreen/SwipeView.qml</file>
-        <file>content/SliderMenu/CustomSwitch.qml</file>
         <file>content/SliderMenu/NavigationDrawer.qml</file>
         <file>content/SliderMenu/WhisperrMenu.qml</file>
         <file>content/DashBoard/WhisperrFooterBar.qml</file>
         <file>content/DashBoard/WhisperrToolBar.qml</file>
+        <file>content/CustomItems/WhisperrToolButton.qml</file>
+        <file>content/CustomItems/WhisperrSwitch.qml</file>
     </qresource>
 </RCC>
