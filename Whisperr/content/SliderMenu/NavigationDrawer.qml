@@ -175,6 +175,7 @@ Rectangle {
     }
 
     MouseArea {
+        enabled: panel.enabled
         id: mouse
         parent: _rootItem
 
@@ -213,6 +214,9 @@ Rectangle {
         y: panel.y + _topMargin
         z: open ? 5 : 0
         clip: true
+
+        enabled: panel.enabled
+        visible: panel.visible
     }
 
     Item {
