@@ -8,11 +8,53 @@ Item{
 
     signal message(string msg)
 
+    Menu {
+        id: popupMenu
+
+        MenuItem {
+            text: "debug mode off"
+            onTriggered:{
+                text = (text === "debug mode off")? "debug mode on" : "debug mode off";
+                iruRect.visible = (text === "debug mode off")? true : false;
+                iruRect.visible = (text === "debug mode off")? z = 100 : z = 0;
+                mainAppLoaderItem.statusBar.visible = (text === "debug mode off")? true : false;
+
+                /*
+                if(text === "debug mode off")
+                {
+                    loader.anchors.top =  iruRect.bottom;
+                    loader.anchors.bottom = parent.bottom;
+                }
+                else
+                {
+                    loader.anchors.top =  main.bottom;
+                }
+                */
+            }
+
+        }
+    }
+
+
+    Keys.onReleased:{
+        //if (event.key === Qt.Key_Back) {
+        //    event.accepted = true;
+        //}
+        if (event.key === Qt.Key_Menu)
+        {
+            console.log("popup");
+            popupMenu.popup();
+            event.accepted = true;
+        }
+
+        console.log(event.key);
+    }
+
     Rectangle{
         id: iruRect
         width: parent.width
         height: 50
-
+        z:100
         Item {
             id: iruItem
             property alias text: gmlUri.text
@@ -61,8 +103,9 @@ Item{
 
     Loader {
         id: loader
-        anchors.top: iruRect.bottom
-        anchors.bottom: parent.bottom
+        anchors.fill: parent
+        //anchors.top: iruRect.bottom
+        //anchors.bottom: parent.bottom
         width: parent.width
 
         onStatusChanged: {
@@ -86,5 +129,9 @@ Item{
             target: loader.item
             onMessage: main.message(msg);
         }
+    }
+
+    Component.onCompleted: {
+            main.forceActiveFocus()
     }
 }

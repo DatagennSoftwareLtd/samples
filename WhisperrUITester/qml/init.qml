@@ -13,7 +13,10 @@ ApplicationWindow {
         id: mainAppLoader
         width: mainAppLoaderItem.width
         height: mainAppLoaderItem.height
-        onLoaded: console.debug("Main application loaded.");
+        onLoaded:{
+            mainAppLoader.item.forceActiveFocus();
+            console.debug("Main application loaded.");
+        }
 
         Connections {
             target: mainAppLoader.item
@@ -103,7 +106,7 @@ ApplicationWindow {
                 Label {
                     id: progressText
                     anchors.right: rowLayout.right
-                    text: "4.92"
+                    text: "4.93"
                 }
 
             }
