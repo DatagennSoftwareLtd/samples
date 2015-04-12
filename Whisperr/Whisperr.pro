@@ -2,7 +2,10 @@ TEMPLATE = app
 
 QT += qml quick widgets multimedia
 
-SOURCES += main.cpp
+SOURCES += main.cpp \
+    src/restapi/facadeui.cpp \
+    src/restapi/httprequestworker.cpp \
+    src/restapi/restapicontroller.cpp
 
 RESOURCES += qml.qrc
 
@@ -41,3 +44,8 @@ DISTFILES += \
     android/res/values/style.xml
 
 ANDROID_PACKAGE_SOURCE_DIR = $$PWD/android
+
+HEADERS += \
+    src/restapi/facadeui.h \
+    src/restapi/httprequestworker.h \
+    src/restapi/restapicontroller.h

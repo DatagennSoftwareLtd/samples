@@ -118,7 +118,14 @@ ApplicationWindow {
                 stackView.pop();
                 event.accepted = true;
             }
+            else if (event.key === Qt.Key_Menu)
+            {
+                console.log("popup");
+                popupMenu.popup();
+                event.accepted = true;
+            }
         }
+
 /*
         initialItem:
 
@@ -178,6 +185,7 @@ ApplicationWindow {
                     color: "white"
                     font.pixelSize: 50
                     anchors.centerIn: parent
+                    id:log
                 }
             }
        // }
@@ -396,6 +404,44 @@ ApplicationWindow {
       duration: 1000
       easing.type: Easing.OutSine
   }
+/*
+    Keys.onReleased:{
+
+       if (event.key === Qt.Key_Menu)
+       {
+           console.log("popup");
+           popupMenu.popup();
+           event.accepted = true;
+       }
+
+       console.log(event.key);
+   }
+*/
+    TextArea {
+        id: whisperrLog
+        anchors.fill: parent
+        visible: false
+    }
+    Connections {
+        target: facade
+        onStatusMessageChanged: {
+            var oldText = whisperrLog.text;
+            whisperrLog.text = oldText + "\n" + msg;
+        }
+    }
+
+    Menu {
+        id: popupMenu
+
+        MenuItem {
+            text: "debug mode on"
+            onTriggered:{
+                text = (text === "debug mode off")? "debug mode on" : "debug mode off";
+                whisperrLog.visible = (text === "debug mode off")? true : false;
+            }
+
+        }
+    }
 
 
 
