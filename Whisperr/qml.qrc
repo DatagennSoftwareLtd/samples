@@ -76,5 +76,8 @@
         <file>content/DashBoard/WhisperrToolBar.qml</file>
         <file>content/CustomItems/WhisperrToolButton.qml</file>
         <file>content/CustomItems/WhisperrSwitch.qml</file>
+        <file>content/WelcomeScreen/FpScreen.qml</file>
+        <file>content/WelcomeScreen/LoginScreen.qml</file>
+        <file>content/WelcomeScreen/SignupScreen.qml</file>
     </qresource>
 </RCC>

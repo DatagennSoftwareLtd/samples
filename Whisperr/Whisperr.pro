@@ -21,6 +21,9 @@ OTHER_FILES += \
     content/WelcomeScreen/signup.qml \
     content/WelcomeScreen/SwipeScreen.qml \
     content/WelcomeScreen/SwipeView.qml \
+    content/WelcomeScreen/LoginScreen.qml \
+    content/WelcomeScreen/SignupScreen.qml \
+    content/WelcomeScreen/FpScreen.qml \
     content/SliderMenu/WhisperrMenu.qml \
     content/SliderMenu/NavigationDrawer.qml \
     content/SliderMenu/CustomSwitch.qml \
