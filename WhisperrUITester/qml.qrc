@@ -10,5 +10,6 @@
         <file>images/splashscreen.png</file>
         <file>qml/signaltest.qml</file>
         <file>images/androidwhisperrlogo.png</file>
+        <file>qml/vibrationtest.qml</file>
     </qresource>
 </RCC>

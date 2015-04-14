@@ -6,6 +6,8 @@
 
 #include "componentcachemanager.h"
 
+#include "./src/vibration.h"
+
 int main(int argc, char *argv[])
 {
     QGuiApplication app(argc, argv);
@@ -16,6 +18,8 @@ int main(int argc, char *argv[])
     QQmlContext *context = engine.rootContext();
     context->setContextProperty(QStringLiteral("facade"), facade);
     context->setContextProperty(QStringLiteral("componentCache"), new ComponentCacheManager(&engine));
+    context->setContextProperty(QStringLiteral("vibration"), new Vibration(&engine));
+
     //engine.load(QUrl(QStringLiteral("qrc:/qml/main.qml")));
     //android:theme="@style/splashScreenTheme"
 

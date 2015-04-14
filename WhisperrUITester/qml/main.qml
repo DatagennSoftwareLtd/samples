@@ -14,6 +14,7 @@ Item{
         MenuItem {
             text: "debug mode off"
             onTriggered:{
+                //vibration.setVibration(300);
                 text = (text === "debug mode off")? "debug mode on" : "debug mode off";
                 iruRect.visible = (text === "debug mode off")? true : false;
                 iruRect.visible = (text === "debug mode off")? z = 100 : z = 0;
@@ -77,6 +78,8 @@ Item{
                 //focus: true
                 //text: "http://rolen.whisperr.com:8061/march//.qml"
                 text: "http://rolen.whisperr.com:8061/march/CS/main.qml"
+
+                //text: "http://vlad.whisperr.com:8061/test/vibrationtest.qml"
                 //text: "http://vlad.whisperr.com:8061/march/CS/main.qml"
             }
         }

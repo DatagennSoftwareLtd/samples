@@ -4,12 +4,14 @@ QT += qml quick enginio widgets multimedia
 
 android {
     QT += androidextras
+DEFINES += WHISPERRANDROID
 }
 
 SOURCES += main.cpp \
     ../UIAPIPrototype/facadeui.cpp \
     ../UIAPIPrototype/httprequestworker.cpp \
-    ../UIAPIPrototype/restapicontroller.cpp
+    ../UIAPIPrototype/restapicontroller.cpp \
+    src/vibration.cpp
 
 RESOURCES += qml.qrc
 
@@ -23,7 +25,8 @@ HEADERS += \
     ../UIAPIPrototype/facadeui.h \
     ../UIAPIPrototype/httprequestworker.h \
     ../UIAPIPrototype/restapicontroller.h \
-    componentcachemanager.h
+    componentcachemanager.h \
+    src/vibration.h
 
 DISTFILES += \
     android/gradle/wrapper/gradle-wrapper.jar \
@@ -35,7 +38,8 @@ DISTFILES += \
     android/gradlew.bat \
     android/res/values/style.xml \
     android/res/drawable/splash_screen.png \
-    android/res/drawable/androidwhisperrlogo.png
+    android/res/drawable/androidwhisperrlogo.png \
+    android/src/com/whisperrui/samples/Vibrate.java
 
 DISTFILES += \
     ./qml/init.qml \

@@ -47,6 +47,7 @@ ApplicationWindow {
             if (!mainAppLoader.Loading) {
                 console.debug("Starting to load the main application.");
                 mainAppLoader.source = "qrc:/qml/main.qml";
+                //mainAppLoader.source = "qrc:/qml/vibrationtest.qml";
                 secondPhaseTimer.start();
             }
         }
@@ -106,7 +107,7 @@ ApplicationWindow {
                 Label {
                     id: progressText
                     anchors.right: rowLayout.right
-                    text: "4.93"
+                    text: "4.94"
                 }
 
             }
