@@ -14,5 +14,11 @@
         <file>images/menu_slider.png</file>
         <file>images/right-32.png</file>
         <file>images/splashscreen.png</file>
+        <file>images/call_chat.png</file>
+        <file>images/settings.png</file>
+        <file>images/talk_chat.png</file>
+        <file>qml/SettingsTab.qml</file>
+        <file>qml/CallsTab.qml</file>
+        <file>qml/MessagesTab.qml</file>
     </qresource>
 </RCC>

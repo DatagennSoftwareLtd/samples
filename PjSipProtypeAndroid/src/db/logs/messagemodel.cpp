@@ -1,44 +1,77 @@
-#include "contactsmodel.h"
-#include "contactitem.h"
-#include "dbprovider.h"
+#include "messagemodel.h"
+#include "messageitem.h"
+#include "../provider/dbprovider.h"
 
 #include <QDebug>
+#include <QDateTime>
 
-ContactsModel::ContactsModel(DbProvider* db, QObject *parent)
+MessageModel::MessageModel(DbProvider* db, QObject *parent)
     : QObject(parent)
     , dbProvider(db)
 {
     //dbProvider->fillContactsList(&_list);
 }
 
-ContactsModel::~ContactsModel()
+MessageModel::~MessageModel()
 {
 
 }
 
-void ContactsModel::addContact(QString name, QString uri)
+void MessageModel::addMessage(const QString& name,
+                              const QString& direction,
+                              const QString& message,
+                              const QString& type)
 {
-    _list.append(new ContactItem());
-    _list.last()->setName(name);
-    _list.last()->setUri(uri);
+    MessageItem* item = new MessageItem();
+
+    // fill item
+    item->setMessageId(0); // TODO generate next ID
+    item->setName(name);
+    item->setPicture("NA");
+    QDateTime date = QDateTime::currentDateTime();
+    item->setDate(date.toString("dd.MMM.yyyy"));
+    item->setTime(date.toString("hh.mm.ss"));
+    item->setDirection(direction);
+    item->setMessage(message);
+    item->setType(type);
+
+    // add message 2 db
+
+    // add message 2 list
+    _list.push_back(item);
 
     emit listChanged(_list);
 }
 
-void ContactsModel::updateModel(const QString& account)
+void MessageModel::deleteMessage()
+{
+
+}
+
+void MessageModel::clearAllLogs()
+{
+
+}
+
+void MessageModel::updateModel(const QString& account)
 {
     /*foreach (AccountItem* item, _list)
     {
         delete item;
     }*/
     _list.clear();
-    dbProvider->fillContactsList(account, &_list);
+    //dbProvider->fillContactsList(account, &_list);
     emit listChanged(_list);
 
-    qDebug() << "ContactsModel::updateModel";
+    qDebug() << "MessageModel::updateModel";
 }
 
-void ContactsModel::deleteContact(QString name)
+void MessageModel::readMessagesFromDB()
+{
+
+}
+
+void MessageModel::readMessagesFromDBbyContact()
 {
 
 }

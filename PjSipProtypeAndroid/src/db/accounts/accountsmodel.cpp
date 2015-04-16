@@ -1,6 +1,6 @@
 #include "accountsmodel.h"
 #include "accountitem.h"
-#include "dbprovider.h"
+#include "../provider/dbprovider.h"
 
 #include <QDebug>
 

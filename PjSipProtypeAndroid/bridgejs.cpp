@@ -105,7 +105,7 @@ void BridgeJS::outgoingImSlot(QString to, QString text)
 
 
 //------------- JS API -------------------
-
+/*
 int BridgeJS::login(QString username, QString password)
 {
     return RETURN_OK;
@@ -130,7 +130,7 @@ int BridgeJS::changeLanguage(language lng)
 {
     return RETURN_OK;
 }
-
+*/
 // int configure(sessionToken, feature, value);
 // int getInfo(sessionToken, feature);
 
@@ -140,7 +140,7 @@ int BridgeJS::changeLanguage(language lng)
 // Note: where to find contact profile picture? From PHP API or from Phone contacts list? Both?
 //int function manageContact(sessionToken, action, info[]);
 // action: add {name, picture, status(OK/Ignore/Blocked), numbers[], emails[]} / update {contactId, name, picture, status(OK/Ignore/Blocked), numbers[], emails[]} / remove {contactId}
-
+/*
 int BridgeJS::getContacts(tokenID32 sessionToken)
 {
     return RETURN_OK;
@@ -182,3 +182,4 @@ int BridgeJS::getMessages(tokenID32 sessionToken, long conversationOrGroupId,
 {
     return RETURN_OK;
 }
+*/

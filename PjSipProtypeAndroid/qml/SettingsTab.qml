@@ -2,14 +2,8 @@ import QtQuick 2.4
 import QtQuick.Window 2.2
 import QtQuick.Controls 1.3
 
-ApplicationWindow {
-    visible: true
-    width: 300
-    height: 250
-    minimumWidth: 300
-    minimumHeight: 250
-    color: "#FAFAFA"
-
+Rectangle{
+    id: settingsTab
     Rectangle{
         id: serverRect
         width: parent.width
@@ -307,14 +301,4 @@ ApplicationWindow {
 
         }
     }
-/*
-    statusBar: StatusBar {
-
-                Label {
-                    id: statusText
-                    text: sipua.statusMessage
-                }
-
-        }
-*/
 }

@@ -1,5 +1,5 @@
-#ifndef CALLSLOG_H
-#define CALLSLOG_H
+#ifndef WHISPERRSTRUCTURES
+#define WHISPERRSTRUCTURES
 
 #include <QObject>
 
@@ -9,10 +9,6 @@ typedef quint32 messageID32;
 typedef quint32 tokenID32;
 typedef quint32 contactID32;
 
-enum eDirection {
-    inDirection = 0,
-    outDirection = 1,
-};
 
 // call info for callLog getCallLogs
 // sorted by date&time, newest first
@@ -45,19 +41,33 @@ struct SCallDetails
     QString callDuration;
 };
 
-class CallsLog : public QObject
+// getChatsList
+// sorted by date&time, newest first
+struct SChatInfo
 {
-    Q_OBJECT
-public:
-    explicit CallsLog(QObject *parent = 0);
-    ~CallsLog();
-
-signals:
-
-public slots:
-
-    void addCallInfo(const SCallInfo&);
-    void getCallInfo();
+    chatID32 chatId;
+    QString name ; // their name/group name,
+    QString picture; // their picture/group picture,
+    QString date;
+    QString time;
+    QString direction; //(in/out)
+    QString message;
+    QString type; //(conversation|group)
 };
 
-#endif // CALLSLOG_H
+// getMessages
+// sorted by date&time, newest first
+struct SMessageInfo
+{
+    messageID32 messageId;
+    QString name ; // their name/group name,
+    QString picture; // their picture/group picture,
+    QString date;
+    QString time;
+    QString direction; //(in/out)
+    QString message;
+    QString type; //(conversation|group)
+};
+
+#endif // WHISPERRSTRUCTURES
+

@@ -1,40 +1,49 @@
-#ifndef CONTACTSMODEL_H
-#define CONTACTSMODEL_H
+#ifndef MESSAGEMODEL_H
+#define MESSAGEMODEL_H
 
 #include <QObject>
 #include <QtQuick>
 
-class ContactItem;
+class MessageItem;
 class DbProvider;
 
-class ContactsModel : public QObject
+class MessageModel : public QObject
 {
     Q_OBJECT
 
-    Q_PROPERTY(QQmlListProperty<ContactItem> list READ list  NOTIFY listChanged /*CONSTANT*/)
+    Q_PROPERTY(QQmlListProperty<MessageItem> list READ list  NOTIFY listChanged /*CONSTANT*/)
 
 public:
-    explicit ContactsModel(DbProvider* db, QObject *parent = 0);
-    ~ContactsModel();
+    explicit MessageModel(DbProvider* db, QObject *parent = 0);
+    ~MessageModel();
 
-    QQmlListProperty<ContactItem> list()
+    QQmlListProperty<MessageItem> list()
     {
-        return QQmlListProperty<ContactItem>(this, _list);
+        return QQmlListProperty<MessageItem>(this, _list);
     }
 
-    Q_INVOKABLE void addContact(QString name, QString uri);
-    Q_INVOKABLE void deleteContact(QString name);
+    Q_INVOKABLE void addMessage(
+                        const QString& name,
+                        const QString& direction,
+                        const QString& message,
+                        const QString& type);
+
+    Q_INVOKABLE void deleteMessage();
+    Q_INVOKABLE void clearAllLogs();
+
+    void readMessagesFromDB();
+    void readMessagesFromDBbyContact();
 
     void setDbProvider(DbProvider* db) { dbProvider = db; }
 
 signals:
-    void listChanged(QList<ContactItem*>);
+    void listChanged(QList<MessageItem*>);
 
 public slots:
     Q_INVOKABLE void updateModel(const QString& account);
 
 private:
-    QList<ContactItem*> _list;
+    QList<MessageItem*> _list;
     DbProvider* dbProvider;
 };
 

@@ -12,7 +12,8 @@ QT += qml quick \
     webchannel \
     widgets \
     core \
-    enginio
+    enginio \
+    sql
 
 android {
     QT += androidextras
@@ -29,7 +30,15 @@ SOURCES += main.cpp \
     sipcontroller.cpp \
     utils.cpp \
     bridgejs.cpp \
-    notificationclient.cpp
+    notificationclient.cpp \
+    callslog.cpp \
+    src/db/provider/dbprovider.cpp \
+    src/db/accounts/accountitem.cpp \
+    src/db/accounts/accountsmodel.cpp \
+    src/db/contacts/contactitem.cpp \
+    src/db/contacts/contactsmodel.cpp \
+    src/db/logs/messagemodel.cpp \
+    src/db/logs/messageitem.cpp
 
 RESOURCES += \
     qml.qrc
@@ -89,7 +98,16 @@ HEADERS += \
     sipcontroller.h \
     utils.h \
     bridgejs.h \
-    notificationclient.h
+    notificationclient.h \
+    callslog.h \
+    src/db/provider/dbprovider.h \
+    src/db/accounts/accountitem.h \
+    src/db/accounts/accountsmodel.h \
+    src/db/contacts/contactitem.h \
+    src/db/contacts/contactsmodel.h \
+    src/db/logs/messagemodel.h \
+    src/db/logs/messageitem.h \
+    src/model/whisperrstructures.h
 
 DISTFILES += \
     ./qml/init.qml \
@@ -99,6 +117,9 @@ DISTFILES += \
     ./qml/customprogressbar.qml \
     ./qml/collapsiblepanel.qml \
     ./qml/navigationdrawer.qml \
+    ./qml/settingstab.qml \
+    ./qml/callstab.qml \
+    ./qml/messagestab.qml \
     android/src/com/whisperr/sample/MySampleActivity.java \
     android/src/com/whisperr/sample/MySampleService.java \
     android/src/org/qtproject/qt5/android/addons/qtactivityapp/QtService.java \

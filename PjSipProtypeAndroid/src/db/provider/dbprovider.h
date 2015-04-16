@@ -19,13 +19,13 @@ public:
     Q_INVOKABLE void close();
     Q_INVOKABLE void remove();
 
-    // fill models from tables
-    void fillAccountsList(QList<AccountItem*>* list);
-    void fillContactsList(const QString& account, QList<ContactItem*>* list);
-
 
     Q_INVOKABLE void addUse(const QString& account, const QString& server,
                             const QString& user, const QString& password);
+
+    //-----------------------------------------------------------------
+    // accounts
+    //-----------------------------------------------------------------
 
     // add new account
     Q_INVOKABLE void addAccount(const QString& account, const QString& server,
@@ -41,6 +41,12 @@ public:
     Q_INVOKABLE void deleteAccount(const QString& account, const QString& server,
                        const QString& user, const QString& password);
 
+    void fillAccountsList(QList<AccountItem*>* list);
+
+    //-----------------------------------------------------------------
+    // contacts
+    //-----------------------------------------------------------------
+
     // add new contact
     Q_INVOKABLE void addContact(const QString& account, const QString& buddy, const QString& uri);
 
@@ -52,9 +58,33 @@ public:
     // delete account
     Q_INVOKABLE void deleteContact(const QString& account, const QString& buddy, const QString& uri);
 
+    void fillContactsList(const QString& account, QList<ContactItem*>* list);
+    void clearContactsList();
+
+    //-----------------------------------------------------------------
+    // calls log
+    //-----------------------------------------------------------------
+
+    void addCallInfo();
+    void getCallInfo();
+    void clearCallsList();
+
+    //-----------------------------------------------------------------
+    // message log
+    //-----------------------------------------------------------------
+
+    void addMessageInfo();
+    void getMessageInfo();
+    void clearMessagesList();
+
+    //-----------------------------------------------------------------
+    // init db
+    //-----------------------------------------------------------------
 
     void createAccountTable();
     void createContactListTable();
+    void createCallTable();
+    void createMessageTable();
 
 protected:
 

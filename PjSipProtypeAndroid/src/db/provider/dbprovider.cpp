@@ -5,11 +5,11 @@
 #include <QSqlError>
 #include <QDebug>
 
-#include "accountsmodel.h"
-#include "accountitem.h"
+#include "../accounts/accountsmodel.h"
+#include "../accounts/accountitem.h"
 
-#include "contactsmodel.h"
-#include "contactitem.h"
+#include "../contacts/contactsmodel.h"
+#include "../contacts/contactitem.h"
 
 DbProvider::DbProvider(QObject *parent) : QObject(parent)
 {
@@ -24,7 +24,7 @@ DbProvider::~DbProvider()
 void DbProvider::fillAccountsList(QList<AccountItem*>* list)
 {
     QSqlDatabase DB = QSqlDatabase::addDatabase("QSQLITE", "Con_1");
-    DB.setDatabaseName("DB_One.sqlite");
+    DB.setDatabaseName("DB_Whisperr.sqlite");
     if(!DB.open())
     {
         qDebug("DB_NOT_OPEN");
@@ -61,7 +61,7 @@ void DbProvider::fillAccountsList(QList<AccountItem*>* list)
 void DbProvider::fillContactsList(const QString& account, QList<ContactItem*>* list)
 {
     QSqlDatabase DB = QSqlDatabase::addDatabase("QSQLITE", "Con_1");
-    DB.setDatabaseName("DB_One.sqlite");
+    DB.setDatabaseName("DB_Whisperr.sqlite");
     if(!DB.open())
     {
         qDebug("DB_NOT_OPEN");
@@ -126,7 +126,7 @@ void DbProvider::addAccount(const QString& account, const QString& server,
                    const QString& user, const QString& password)
 {
     QSqlDatabase DB = QSqlDatabase::addDatabase("QSQLITE", "Con_1");
-    DB.setDatabaseName("DB_One.sqlite");
+    DB.setDatabaseName("DB_Whisperr.sqlite");
     if(!DB.open())
     {
         qDebug("DB_NOT_OPEN");
@@ -164,7 +164,7 @@ void DbProvider::changeAccount(const QString& account, const QString& server,
                    const QString& newuser, const QString& newpassword)
 {
     QSqlDatabase DB = QSqlDatabase::addDatabase("QSQLITE", "Con_1");
-    DB.setDatabaseName("DB_One.sqlite");
+    DB.setDatabaseName("DB_Whisperr.sqlite");
     if(!DB.open())
     {
         qDebug("DB_NOT_OPEN");
@@ -211,7 +211,7 @@ void DbProvider::deleteAccount(const QString& account, const QString& server,
                    const QString& user, const QString& password)
 {
     QSqlDatabase DB = QSqlDatabase::addDatabase("QSQLITE", "Con_1");
-    DB.setDatabaseName("DB_One.sqlite");
+    DB.setDatabaseName("DB_Whisperr.sqlite");
     if(!DB.open())
     {
         qDebug("DB_NOT_OPEN");
@@ -251,7 +251,7 @@ void DbProvider::deleteAccount(const QString& account, const QString& server,
 void DbProvider::addContact(const QString& account, const QString& buddy, const QString& uri)
 {
     QSqlDatabase DB = QSqlDatabase::addDatabase("QSQLITE", "Con_1");
-    DB.setDatabaseName("DB_One.sqlite");
+    DB.setDatabaseName("DB_Whisperr.sqlite");
     if(!DB.open())
     {
         qDebug("DB_NOT_OPEN");
@@ -287,7 +287,7 @@ void DbProvider::changeContact(const QString& account,
                             const QString& newbuddy, const QString& newuri)
 {
     QSqlDatabase DB = QSqlDatabase::addDatabase("QSQLITE", "Con_1");
-    DB.setDatabaseName("DB_One.sqlite");
+    DB.setDatabaseName("DB_Whisperr.sqlite");
     if(!DB.open())
     {
         qDebug("DB_NOT_OPEN");
@@ -328,7 +328,7 @@ void DbProvider::changeContact(const QString& account,
 void DbProvider::deleteContact(const QString& account, const QString& buddy, const QString& uri)
 {
     QSqlDatabase DB = QSqlDatabase::addDatabase("QSQLITE", "Con_1");
-    DB.setDatabaseName("DB_One.sqlite");
+    DB.setDatabaseName("DB_Whisperr.sqlite");
     if(!DB.open())
     {
         qDebug("DB_NOT_OPEN");
@@ -366,7 +366,7 @@ void DbProvider::deleteContact(const QString& account, const QString& buddy, con
 void DbProvider::createAccountTable()
 {
     QSqlDatabase DB = QSqlDatabase::addDatabase("QSQLITE", "Con_1");
-    DB.setDatabaseName("DB_One.sqlite");
+    DB.setDatabaseName("DB_Whisperr.sqlite");
     if(!DB.open())
     {
         qDebug("DB_NOT_OPEN");
@@ -399,7 +399,7 @@ void DbProvider::createAccountTable()
 void DbProvider::createContactListTable()
 {
     QSqlDatabase DB = QSqlDatabase::addDatabase("QSQLITE", "Con_1");
-    DB.setDatabaseName("DB_One.sqlite");
+    DB.setDatabaseName("DB_Whisperr.sqlite");
     if(!DB.open())
     {
         qDebug("DB_NOT_OPEN");
@@ -426,4 +426,119 @@ void DbProvider::createContactListTable()
     DB.close();
     DB = QSqlDatabase();
     QSqlDatabase::removeDatabase("Con_1");
+}
+
+void DbProvider::createCallTable()
+{
+    QSqlDatabase DB = QSqlDatabase::addDatabase("QSQLITE", "Con_1");
+    DB.setDatabaseName("DB_Whisperr.sqlite");
+    if(!DB.open())
+    {
+        qDebug("DB_NOT_OPEN");
+    }
+
+    QSqlQuery Query(DB);
+    Query.prepare
+    (
+        " CREATE TABLE IF NOT EXISTS CallListTable "
+        " ( "
+               " CALL_ID INTEGER PRIMARY KEY AUTOINCREMENT, "
+               " Direction VARCHAR(100), "
+               " Name VARCHAR(100), "
+               " Number VARCHAR(100), "
+               " Picture VARCHAR(100), "
+               " MyNumber VARCHAR(100), "
+               " Date VARCHAR(100), "
+               " Time VARCHAR(100), "
+               " CallDuration VARCHAR(100) "
+        "  );  "
+    );
+
+    Query.exec();
+    if(!Query.isActive())
+    {
+        qDebug() << "CallList: " << Query.lastError().text();
+    }
+
+    DB.close();
+    DB = QSqlDatabase();
+    QSqlDatabase::removeDatabase("Con_1");
+}
+
+void DbProvider::createMessageTable()
+{
+    QSqlDatabase DB = QSqlDatabase::addDatabase("QSQLITE", "Con_1");
+    DB.setDatabaseName("DB_Whisperr.sqlite");
+    if(!DB.open())
+    {
+        qDebug("DB_NOT_OPEN");
+    }
+
+    QSqlQuery Query(DB);
+    Query.prepare
+    (
+        " CREATE TABLE IF NOT EXISTS MessageListTable "
+        " ( "
+               " MSG_ID INTEGER PRIMARY KEY AUTOINCREMENT, "
+               " Direction VARCHAR(100), "
+               " Name VARCHAR(100), "
+               " Number VARCHAR(100), "
+               " Picture VARCHAR(100), "
+               " MyNumber VARCHAR(100), "
+               " Date VARCHAR(100), "
+               " Time VARCHAR(100), "
+               " Message VARCHAR(1024), "
+               " Type VARCHAR(100), "
+        "  );  "
+    );
+
+    Query.exec();
+    if(!Query.isActive())
+    {
+        qDebug() << "MessageList: " << Query.lastError().text();
+    }
+
+    DB.close();
+    DB = QSqlDatabase();
+    QSqlDatabase::removeDatabase("Con_1");
+
+}
+
+
+//-----------------------------------------------------------------
+// calls log
+//-----------------------------------------------------------------
+
+void DbProvider::addCallInfo()
+{
+
+}
+
+void DbProvider::getCallInfo()
+{
+
+}
+
+void DbProvider::clearCallsList()
+{
+
+}
+
+//-----------------------------------------------------------------
+// message log
+//-----------------------------------------------------------------
+
+void DbProvider::addMessageInfo()
+{
+
+}
+
+void DbProvider::getMessageInfo()
+{
+
+}
+
+void DbProvider::clearMessagesList()
+{
+
 }

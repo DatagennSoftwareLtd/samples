@@ -1,6 +1,6 @@
 #include "contactsmodel.h"
 #include "contactitem.h"
-#include "dbprovider.h"
+#include "../provider/dbprovider.h"
 
 #include <QDebug>
 
