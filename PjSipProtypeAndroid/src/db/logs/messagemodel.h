@@ -22,14 +22,9 @@ public:
         return QQmlListProperty<MessageItem>(this, _list);
     }
 
-    Q_INVOKABLE void addMessage(
-                        const QString& name,
-                        const QString& direction,
-                        const QString& message,
-                        const QString& type);
-
     Q_INVOKABLE void deleteMessage();
     Q_INVOKABLE void clearAllLogs();
+    Q_INVOKABLE void loadLogs();
 
     void readMessagesFromDB();
     void readMessagesFromDBbyContact();
@@ -40,6 +35,12 @@ signals:
     void listChanged(QList<MessageItem*>);
 
 public slots:
+    Q_INVOKABLE void addMessage(
+                        const QString& name,
+                        const QString& direction,
+                        const QString& message,
+                        const QString& type);
+
     Q_INVOKABLE void updateModel(const QString& account);
 
 private:

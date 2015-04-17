@@ -87,11 +87,10 @@ Rectangle {
 
    Rectangle{
        id: sendButton
-       anchors.top: imRect.bottom
        width: parent.width
        height: 40
-       color: mouse.pressed ? "steelblue" : "lightsteelblue"
-       scale: mouse.pressed ? 0.98 : 1.0
+       color: mouse.pressed ? "blue" : "grey"
+       scale: mouse.pressed ? 0.9 : 1.0
        Text{
            text: "Send IM"
            anchors.centerIn: parent
@@ -99,83 +98,8 @@ Rectangle {
 
        MouseArea{
            id: mouse
-           anchors.fill: parent
-           onClicked: {
-               console.log("sendButton");
-               Qt.inputMethod.commit();
-               Qt.inputMethod.hide();
-               sipua.new_outgoing_im(buddyInput.text, imInput.text);
-           }
 
        }
    }
-   Rectangle{
-       id: receiveButton
-       anchors.top: sendButton.bottom
-       width: parent.width
-       height: 40
-       color: mouse2.pressed ? "steelblue" : "lightsteelblue"
-       scale: mouse2.pressed ? 0.98 : 1.0
-       Text{
-           text: "Receive IM(test)"
-           anchors.centerIn: parent
-       }
-
-       MouseArea{
-           id: mouse2
-           anchors.fill: parent
-           onClicked: {
-               console.log("receiveButton");
-           }
-
-       }
-   }
-
-    // delegate
-   Component {
-      id: messageDelegate
-      Item {
-          width: parent.width; height: 120
-          property var view: ListView.view
-          property var isCurrent: ListView.isCurrentItem
-          property variant account: model
-
-          Rectangle {
-              anchors.margins: 5
-              anchors.fill: parent
-              Column {
-                  Text { text: '<b>name:</b> ' + model.name }
-                  Text { text: '<b>direction:</b> ' + model.direction }
-                  Text { text: '<b>time:</b> ' + model.time +
-                               '<b> date:</b> ' + model.date }
-                  Text { text: '<b>message:</b> ' + model.message }
-              }
-              MouseArea {
-                  anchors.fill: parent
-                  onClicked: {
-                      view.currentIndex = model.index;
-                      //contactsModel.updateModel(model.name);
-                  }
-              }
-          }
-      }
-   }
-
-    ListView {
-      id: chatView
-      width: parent.width;
-      anchors.top: receiveButton.bottom
-      anchors.bottom: parent.bottom
-      highlight: Rectangle { color: "lightsteelblue"; radius: 5 }
-      highlightFollowsCurrentItem: true
-      focus: true
-      clip: true
-
-      model: messagesModel.list
-      delegate: messageDelegate
-
-    }
-
-
 }
 

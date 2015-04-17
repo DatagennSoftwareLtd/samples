@@ -629,6 +629,9 @@ void SipController::on_pager_wrapper(pjsua_call_id call_id, const pj_str_t *from
     qDebug() << "im: " << text->ptr;
 
 
+    emit newMessage(QString::fromUtf8(from->ptr, from->slen), "in",
+                    QString::fromUtf8(text->ptr, text->slen), "conversation");
+
     setStatusMessage(msg);
     //notify->setNotification(msg);
     notify->setIMNotification(QString::fromUtf8(from->ptr, from->slen),
@@ -672,4 +675,6 @@ void SipController::new_outgoing_im(QString to, QString text)
         setStatusMessage("Ok sending IM");
 
     qDebug() << to << " : " << status;
+
+    emit newMessage(to, "out", text, "conversation");
 }

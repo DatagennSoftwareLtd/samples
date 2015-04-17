@@ -13,6 +13,10 @@
 
 #include "utils.h"
 
+#include "./src/db/provider/dbprovider.h"
+#include "./src/db/logs/messageitem.h"
+#include "./src/db/logs/messagemodel.h"
+
 /* global callback/logger object */
 //extern void *globalSipUa;
 
@@ -92,8 +96,22 @@ int main(int argc, char *argv[])
         QStringLiteral( "http://vlad.whisperr.com:8061/index3.html");
 
     QQmlApplicationEngine engine;
-
     QQmlContext *context = engine.rootContext();
+
+    DbProvider* dbProvider = new DbProvider();
+    dbProvider->createWhisperrDB();
+
+    MessageModel* messages = new MessageModel(dbProvider);
+    messages->loadLogs();
+    qmlRegisterType<MessageItem>("MessageItem", 1, 0, "MessageItem");
+    context->setContextProperty(QStringLiteral("messagesModel"), messages);
+
+    QObject::connect(sipua,
+        SIGNAL(newMessage(const QString&, const QString&, const QString&, const QString&)),
+                     messages,
+        SLOT(addMessage(const QString&, const QString&, const QString&, const QString&)));
+
+
     //context->setContextProperty(QStringLiteral("channel"), &channel);
     context->setContextProperty(QStringLiteral("sipua"), sipua);
     context->setContextProperty(QStringLiteral("utils"), new Utils(&engine));

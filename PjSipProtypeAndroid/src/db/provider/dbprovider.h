@@ -7,6 +7,8 @@
 class ContactItem;
 class AccountItem;
 
+class MessageItem;
+
 class DbProvider : public QObject
 {
     Q_OBJECT
@@ -73,14 +75,16 @@ public:
     // message log
     //-----------------------------------------------------------------
 
-    void addMessageInfo();
+    void addMessageInfo(MessageItem* msg);
     void getMessageInfo();
     void clearMessagesList();
+    void fillMessagesList(QList<MessageItem*>* list);
 
     //-----------------------------------------------------------------
     // init db
     //-----------------------------------------------------------------
 
+    void createWhisperrDB();
     void createAccountTable();
     void createContactListTable();
     void createCallTable();
@@ -92,6 +96,7 @@ protected:
 signals:
     void accountsTableChanged();
     void contactsTableChanged(const QString& account);
+    void messagesTableChanged();
 
 public slots:
 };

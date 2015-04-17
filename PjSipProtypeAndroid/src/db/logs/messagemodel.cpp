@@ -9,7 +9,6 @@ MessageModel::MessageModel(DbProvider* db, QObject *parent)
     : QObject(parent)
     , dbProvider(db)
 {
-    //dbProvider->fillContactsList(&_list);
 }
 
 MessageModel::~MessageModel()
@@ -28,6 +27,7 @@ void MessageModel::addMessage(const QString& name,
     item->setMessageId(0); // TODO generate next ID
     item->setName(name);
     item->setPicture("NA");
+    item->setMynumber("NA");
     QDateTime date = QDateTime::currentDateTime();
     item->setDate(date.toString("dd.MMM.yyyy"));
     item->setTime(date.toString("hh.mm.ss"));
@@ -36,9 +36,11 @@ void MessageModel::addMessage(const QString& name,
     item->setType(type);
 
     // add message 2 db
+    dbProvider->addMessageInfo(item);
 
     // add message 2 list
     _list.push_back(item);
+    qDebug() << "MessageModel::addMessage : " << item->name();
 
     emit listChanged(_list);
 }
@@ -51,6 +53,12 @@ void MessageModel::deleteMessage()
 void MessageModel::clearAllLogs()
 {
 
+}
+
+void MessageModel::loadLogs()
+{
+    dbProvider->fillMessagesList(&_list);
+    emit listChanged(_list);
 }
 
 void MessageModel::updateModel(const QString& account)

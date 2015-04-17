@@ -11,6 +11,9 @@
 #include "../contacts/contactsmodel.h"
 #include "../contacts/contactitem.h"
 
+#include "../logs/messageitem.h"
+#include "../logs/messagemodel.h"
+
 DbProvider::DbProvider(QObject *parent) : QObject(parent)
 {
 
@@ -362,6 +365,17 @@ void DbProvider::deleteContact(const QString& account, const QString& buddy, con
     emit contactsTableChanged(account);
 }
 
+//----------------------------------------------------------------
+//
+//----------------------------------------------------------------
+
+void DbProvider::createWhisperrDB()
+{
+    createAccountTable();
+    createContactListTable();
+    createCallTable();
+    createMessageTable();
+}
 
 void DbProvider::createAccountTable()
 {
@@ -488,7 +502,7 @@ void DbProvider::createMessageTable()
                " Date VARCHAR(100), "
                " Time VARCHAR(100), "
                " Message VARCHAR(1024), "
-               " Type VARCHAR(100), "
+               " Type VARCHAR(100) "
         "  );  "
     );
 
@@ -528,9 +542,47 @@ void DbProvider::clearCallsList()
 // message log
 //-----------------------------------------------------------------
 
-void DbProvider::addMessageInfo()
+void DbProvider::addMessageInfo(MessageItem* msg)
 {
+    QSqlDatabase DB = QSqlDatabase::addDatabase("QSQLITE", "Con_1");
+    DB.setDatabaseName("DB_Whisperr.sqlite");
+    if(!DB.open())
+    {
+        qDebug("DB_NOT_OPEN");
+    }
 
+    QSqlQuery Query(DB);
+    bool res = Query.prepare
+    (
+        "INSERT INTO MessageListTable (Direction, Name, Number, Picture, MyNumber, "
+        "Date, Time, Message, Type) "
+        "VALUES (:direction, :name, :number, :picture, :mynumber, :date, :time, :message, :type)"
+    );
+    Query.bindValue(":direction", msg->direction());
+    Query.bindValue(":name", msg->name());
+    Query.bindValue(":number", msg->number());
+    Query.bindValue(":picture", msg->picture());
+    Query.bindValue(":mynumber", msg->mynumber());
+    Query.bindValue(":date", msg->date());
+    Query.bindValue(":time", msg->time());
+    Query.bindValue(":message", msg->message());
+    Query.bindValue(":type", msg->type());
+
+
+
+    qDebug() << "addMessage prepare: " << res;
+
+    Query.exec();
+    if(!Query.isActive())
+    {
+        qDebug() << "addMessage: " << Query.lastError().text();
+    }
+
+    DB.close();
+    DB = QSqlDatabase();
+    QSqlDatabase::removeDatabase("Con_1");
+
+    emit messagesTableChanged();
 }
 
 void DbProvider::getMessageInfo()
@@ -541,4 +593,49 @@ void DbProvider::getMessageInfo()
 void DbProvider::clearMessagesList()
 {
 
+}
+
+void DbProvider::fillMessagesList(QList<MessageItem*>* list)
+{
+    QSqlDatabase DB = QSqlDatabase::addDatabase("QSQLITE", "Con_1");
+    DB.setDatabaseName("DB_Whisperr.sqlite");
+    if(!DB.open())
+    {
+        qDebug("DB_NOT_OPEN");
+        return;
+    }
+
+    QSqlQuery Query(DB);
+    bool res = Query.prepare
+    (
+        "SELECT Direction, Name, Number, Picture, MyNumber, "
+        "Date, Time, Message, Type FROM MessageListTable"
+    );
+
+    qDebug() << "fillMessagesList prepare: " << res;
+
+    Query.exec();
+    if(!Query.isActive())
+    {
+        qDebug() << "fillMessagesList: " << Query.lastError().text();
+        return;
+    }
+
+    while (Query.next())
+    {
+        list->append(new MessageItem());
+        list->last()->setDirection(Query.value(0).toString());
+        list->last()->setName(Query.value(1).toString());
+        list->last()->setNumber(Query.value(2).toString());
+        list->last()->setPicture(Query.value(3).toString());
+        list->last()->setMynumber(Query.value(4).toString());
+        list->last()->setDate(Query.value(5).toString());
+        list->last()->setTime(Query.value(6).toString());
+        list->last()->setMessage(Query.value(7).toString());
+        list->last()->setType(Query.value(8).toString());
+    }
+
+    DB.close();
+    DB = QSqlDatabase();
+    QSqlDatabase::removeDatabase("Con_1");
 }

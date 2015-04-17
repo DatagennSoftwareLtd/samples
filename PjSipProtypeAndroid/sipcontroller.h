@@ -58,6 +58,14 @@ signals:
     /* this signal forwards the instant message a-synchronous to the GUI thread */
     void nat_detect(QString text, QString description);
 
+    // signals 2 model
+    void incomingMessage();
+    void outgoingMessage();
+    void newMessage(const QString& name,
+                    const QString& direction,
+                    const QString& message,
+                    const QString& type);
+
 public slots:
 
     Q_INVOKABLE int create();

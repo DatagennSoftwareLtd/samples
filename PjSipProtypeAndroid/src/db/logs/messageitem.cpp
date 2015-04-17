@@ -5,6 +5,7 @@ MessageItem::MessageItem(QObject *parent)
   , _messageId(0)
   , _name("")
   , _picture("")
+  , _mynumber("")
   , _date("")
   , _time("")
   , _direction("")
@@ -35,12 +36,28 @@ void MessageItem::setName(const QString &str)
     emit nameChanged(str);
 }
 
+void MessageItem::setNumber(const QString &str)
+{
+    if(_number == str)
+        return;
+    _number = str;
+    emit numberChanged(str);
+}
+
 void MessageItem::setPicture(const QString &str)
 {
     if(_picture == str)
         return;
     _picture = str;
     emit pictureChanged(str);
+}
+
+void MessageItem::setMynumber(const QString &str)
+{
+    if(_mynumber == str)
+        return;
+    _mynumber = str;
+    emit mynumberChanged(str);
 }
 
 void MessageItem::setDate(const QString &str)

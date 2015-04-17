@@ -11,7 +11,9 @@ class MessageItem : public QObject
 
     Q_PROPERTY(messageID32 messageId READ messageId WRITE setMessageId NOTIFY messageIdChanged)
     Q_PROPERTY(QString name READ name WRITE setName NOTIFY nameChanged)
+    Q_PROPERTY(QString number READ number WRITE setNumber NOTIFY numberChanged)
     Q_PROPERTY(QString picture READ picture WRITE setPicture NOTIFY pictureChanged)
+    Q_PROPERTY(QString mynumber READ mynumber WRITE setMynumber NOTIFY mynumberChanged)
     Q_PROPERTY(QString date READ date WRITE setDate NOTIFY dateChanged)
     Q_PROPERTY(QString time READ time WRITE setTime NOTIFY timeChanged)
     Q_PROPERTY(QString direction READ direction WRITE setDirection NOTIFY directionChanged)
@@ -27,10 +29,16 @@ public:
     void setMessageId(const messageID32& id);
 
     QString name() const { return _name; }
-    void setName(const QString &n);
+    void setName(const QString &str);
+
+    QString number() const { return _number; }
+    void setNumber(const QString &str);
 
     QString picture() const { return _picture; }
     void setPicture(const QString &str);
+
+    QString mynumber() const { return _mynumber; }
+    void setMynumber(const QString &str);
 
     QString date() const { return _date; }
     void setDate(const QString &str);
@@ -50,7 +58,9 @@ public:
 signals:
     void messageIdChanged(const messageID32&);
     void nameChanged(const QString &str);
+    void numberChanged(const QString &str);
     void pictureChanged(const QString &str);
+    void mynumberChanged(const QString &str);
     void dateChanged(const QString &str);
     void timeChanged(const QString &str);
     void directionChanged(const QString &str);
@@ -60,7 +70,9 @@ signals:
 private:
     messageID32 _messageId;
     QString _name ; // their name/group name,
+    QString _number;
     QString _picture; // their picture/group picture,
+    QString _mynumber;
     QString _date;
     QString _time;
     QString _direction; //(in/out)

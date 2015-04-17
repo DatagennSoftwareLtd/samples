@@ -18,18 +18,18 @@ ApplicationWindow {
         Tab {
             title: "Settings|qrc:/images/settings.png"
             sourceComponent: SettingsTab {
-
+                anchors.fill: parent
             }
         }
 
         Tab { title: "Calls|qrc:/images/call_chat.png"
             sourceComponent: CallsTab {
-
+                anchors.fill: parent
             }
         }
         Tab { title: "IM|qrc:/images/talk_chat.png"
             sourceComponent: MessagesTab {
-
+                anchors.fill: parent
             }
         }
 
