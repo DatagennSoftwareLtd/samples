@@ -32,13 +32,22 @@ ApplicationWindow {
             id: frame
             anchors.fill: parent
             anchors.margins: 4
+            tabPosition: Qt.BottomEdge
             Tab {
                 title: "Settings|qrc:/images/settings.png"
                 //iconSource: "Settings|qrc:/images/settings.png"
+                sourceComponent: SettingsTab {
+                }
             }
 
-            Tab { title: "Calls|qrc:/images/call_chat.png" }
-            Tab { title: "IM|qrc:/images/talk_chat.png" }
+            Tab { title: "Calls|qrc:/images/call_chat.png"
+                sourceComponent: CallsTab {
+                }
+            }
+            Tab { title: "IM|qrc:/images/talk_chat.png"
+                sourceComponent: MessagesTab {
+                }
+            }
 
             style: TabViewStyle {
                 frameOverlap: 1

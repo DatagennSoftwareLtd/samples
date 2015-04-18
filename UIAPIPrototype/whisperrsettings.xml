@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<settings>
+    <username>
+        <value>sean1@datagenn.com</value>
+    </username>
+    <language>
+        <value>en</value>
+    </language>
+    <autostart>
+        <value>off</value>
+    </autostart>
+    <notifications>
+        <vibrate>
+            <value>off</value>
+        </vibrate>
+        <missedcalls>
+            <value>off</value>
+        </missedcalls>
+        <voicemail>
+            <value>off</value>
+        </voicemail>
+    </notifications>
+    <linesettings>
+        <DND>
+            <value>off</value>
+        <DND>
+    </linesettings>
+</settings>

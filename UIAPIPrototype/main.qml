@@ -80,14 +80,14 @@ ApplicationWindow {
     Rectangle{
         id: buttonsRect
         width: parent.width
-        height: 350
+        height: 130
         anchors.top: pwdRect.bottom
 
         Button {
             id: loginButton
             text: "Login"
             height: 60
-            width: buttonsRect.width
+            width: buttonsRect.width/3
             anchors.top: buttonsRect.top
             anchors.margins: 5
             onClicked: {
@@ -96,10 +96,11 @@ ApplicationWindow {
         }
         Button {
             id: resetPasswordButton
-            text: "Reset Password"
+            text: "Reset psw"
             height: 60
-            width: buttonsRect.width
-            anchors.top: loginButton.bottom
+            width: buttonsRect.width/3
+            anchors.top: buttonsRect.top
+            anchors.left: loginButton.right
             anchors.margins: 5
             onClicked: {
                 facade.resetPassword(uidInput.text, "en");
@@ -109,8 +110,9 @@ ApplicationWindow {
             id: signupButton
             text: "Signup"
             height: 60
-            width: buttonsRect.width
-            anchors.top: resetPasswordButton.bottom
+            width: buttonsRect.width/3
+            anchors.top: buttonsRect.top
+            anchors.left: resetPasswordButton.right
             anchors.margins: 5
             onClicked: {
                 facade.signup(uidInput.text, pwdInput.text, "en");
@@ -120,7 +122,7 @@ ApplicationWindow {
             id: backupButton
             text: "Backup"
             height: 60
-            width: buttonsRect.width
+            width: buttonsRect.width/2
             anchors.top: signupButton.bottom
             anchors.margins: 5
             onClicked: {
@@ -131,8 +133,9 @@ ApplicationWindow {
             id: restoreButton
             text: "Restore"
             height: 60
-            width: buttonsRect.width
-            anchors.top: backupButton.bottom
+            width: buttonsRect.width/2
+            anchors.top: signupButton.bottom
+            anchors.left: backupButton.right
             anchors.margins: 5
             onClicked: {
                 //facade.restore() todo
@@ -146,6 +149,7 @@ ApplicationWindow {
         anchors.top: buttonsRect.bottom
         anchors.bottom: parent.bottom
         font.pixelSize: 14
+        text: "LOG"
         Connections {
             target: facade
             onStatusMessageChanged: {

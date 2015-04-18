@@ -1,6 +1,8 @@
 import QtQuick 2.4
 import QtQuick.Controls 1.3
 import QtQuick.Controls.Styles 1.3
+//import QtMobility.feedback 1.1
+import QtSensors 5.0
 
 import "SliderMenu"
 import "DashBoard"

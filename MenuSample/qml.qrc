@@ -9,7 +9,11 @@
         <file>IconTab.qml</file>
         <file>images/call_chat.png</file>
         <file>images/settings.png</file>
-        <file>images/settings.svg</file>
         <file>images/talk_chat.png</file>
+        <file>CallsTab.qml</file>
+        <file>MessagesTab.qml</file>
+        <file>SettingsTab.qml</file>
+        <file>images/lineedit.png</file>
+        <file>images/lineedit.sci</file>
     </qresource>
 </RCC>

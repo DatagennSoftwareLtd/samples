@@ -15,13 +15,13 @@ int main(int argc, char *argv[])
     sipua._contr = &sipua;
 
     /*
-    //* Create pjsua first!
+    // Create pjsua first!
     sipua.create();
 
-    //* Init pjsua
+    // Init pjsua
     sipua.init();
 
-    //* Add UDP transport.
+    // Add UDP transport.
     sipua.addTransport();
 
     // Initialization is done, now start pjsua
@@ -30,7 +30,7 @@ int main(int argc, char *argv[])
     // Register to SIP server by creating SIP account.
     sipua.createSIPAccount();
 
-    //* If URL is specified, make call to the URL.
+    // If URL is specified, make call to the URL.
     sipua.makeCall();
 */
 
@@ -38,7 +38,7 @@ int main(int argc, char *argv[])
     //   pjsua_call_hangup_all();
     //}
 
-    //* Destroy pjsua
+    // Destroy pjsua
     // sipua.destroy();
 
     QGuiApplication app(argc, argv);

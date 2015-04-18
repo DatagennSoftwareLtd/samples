@@ -39,7 +39,10 @@ int main(int argc, char *argv[])
     const QString initialUrl = parser.positionalArguments().isEmpty() ?
        //QStringLiteral("qt.io") : parser.positionalArguments().first();
        //QStringLiteral( "host.local/index.html") : parser.positionalArguments().first();
-         QStringLiteral( "10.0.2.2/index2.html") : parser.positionalArguments().first();
+
+    //QStringLiteral( "http://sip.whisperr.com:8061/Welcome%20Screen/WelcomeScreen.html") : parser.positionalArguments().first();
+    //QStringLiteral( "http://sip.whisperr.com:8061/index2.html") : parser.positionalArguments().first();
+    QStringLiteral( "10.0.2.2/index2.html") : parser.positionalArguments().first();
 
     QWebSocketServer server(QStringLiteral("QWebChannel Standalone Example Server"),
                                 QWebSocketServer::NonSecureMode);

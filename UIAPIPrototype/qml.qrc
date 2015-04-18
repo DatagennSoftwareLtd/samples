@@ -3,5 +3,6 @@
         <file>main.qml</file>
         <file>images/lineedit.png</file>
         <file>images/lineedit.sci</file>
+        <file>whisperrsettings.xml</file>
     </qresource>
 </RCC>

@@ -1,4 +1,8 @@
 DEFINES -= UNICODE
+#DEFINES PJ_AUTOCONF=1
+#DEFINES += PJ_IS_BIG_ENDIAN=0
+#DEFINES += PJ_IS_LITTLE_ENDIAN=1
+
 TEMPLATE = app
 
 QT += qml quick
@@ -25,7 +29,17 @@ LIBS += \
     -L$$PWD/pjproject-2.3/pjsip/lib \
     -L$$PWD/pjproject-2.3/third_party/lib
 
+#android{
+#    LIBS += \
+#    -llibpj-arm-unknown-linux-androideabi \
+#    -llibpjlib-util-arm-unknown-linux-androideabi \
+#    /NODEFAULTLIB:msvcrt \
+#    /NODEFAULTLIB:libcmtd
+#}
+#else
+#{
 #win32-g++:
+
 release{
 LIBS += \
     -lpjlib-i386-win32-vc8-release \
@@ -53,12 +67,11 @@ LIBS += \
     -lole32 \
     -lws2_32 \
     -lwsock32 \
-    -lmsvcrt
-    #/NODEFAULTLIB:msvcrt \
-    #/NODEFAULTLIB:libcmt
+    -lmsvcrt \
+    /NODEFAULTLIB:msvcrt \
+    /NODEFAULTLIB:libcmt
 }
-
-debug{
+#debug{
 LIBS += \
     -lpjlib-i386-win32-vc8-debug \
     -lpjlib-util-i386-win32-vc8-debug \
@@ -85,10 +98,11 @@ LIBS += \
     -lole32 \
     -lws2_32 \
     -lwsock32\
-    /NODEFAULTLIB:msvcrt \
+    /NODEFAULTLIB:msvcrtd \
     /NODEFAULTLIB:libcmtd
-}
+#}
 
+#}
 
 #QMAKE_CXXFLAGS += /MD
 #QMAKE_CXXFLAGS += /MT

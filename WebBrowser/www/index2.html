@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en" ng-app="app">
+<head>
+  <meta charset="utf-8">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="mobile-web-app-capable" content="yes">
+  <title>Test</title>
+</head>
+
+<script src="http://code.jquery.com/jquery-1.9.1.js"></script>
+<script type="text/javascript" src="http://www.jeasyui.com/easyui/jquery.easyui.min.js"></script> 
+<script type="text/javascript" src="qwebchannel.js"></script>
+
+<script>
+        window.loggedin = false;
+
+        window.onload = function() {
+
+//	    var baseUrl = (/[?&]webChannelBaseUrl=([A-Za-z0-9\-:/\.]+)./exec(location.search)[1]);
+            var baseUrl = "ws://localHost:12345";
+            
+	    var socket = new WebSocket(baseUrl); 
+           
+            socket.onclose = function()
+            {
+                console.error("web channel closed");
+            };
+            socket.onerror = function(error)
+            {
+                console.error("web channel error: " + error);
+            };
+            socket.onopen = function()
+            {
+		console.error("socket.onopen")
+                window.channel = new QWebChannel(socket, function(channel) {
+		    // To make the object known globally, assign it to the window object, i.e.:
+		    window.myBridge = channel.objects.myBridge;
+    	            channel.objects.myBridge.someProperty = 9;
+                });
+            }
+        }
+    </script> 
+
+<script>
+    function calculate(val1, val2) {                                    
+      result = eval(parseFloat(document.calc.val1.value)+parseFloat(document.calc.val2.value));
+      myBridge.someProperty = result;
+      //	channel.objects.myBridge.someProperty = result;
+
+    }
+</script>
+
+
+</head>
+
+
+  <body>
+  <center>
+    <FORM name="calc">
+      <input name="val1" type="text" value="3" size="4">+
+      <input name="val2" type="text" value="4" size="4">
+      <input type="button" value="  +  " onclick="calculate(val1, val2)">
+    </FORM>
+
+    <object type="text/qtexample" data="100,28" width="300" height="300"></object>
+  </center>
+
+    HELLO
+</body>
+</html>
